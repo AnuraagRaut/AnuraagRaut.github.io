@@ -1,13 +1,15 @@
 
 import { motion } from 'motion/react'
+import './App.css'
+import { useState } from 'react'
 import {
   ArrowDown,
   ArrowRight,
   ArrowUpRight,
   Mail,
   Menu,
+  X,
 } from 'lucide-react'
-import './App.css'
 
 const navigation = [
   { label: 'About', href: '#about' },
@@ -226,10 +228,15 @@ const technicalExpertise = [
 
 
 function App() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
     <main>
-      <header className="navbar container">
-        <a className="brand" href="#home">
+        <header className="navbar container">
+        <a
+          className="brand"
+          href="#home"
+          onClick={() => setIsMenuOpen(false)}
+        >
           ANURAG<span>.</span>
         </a>
 
@@ -241,13 +248,40 @@ function App() {
           ))}
         </nav>
 
-        <a className="nav-contact" href="mailto:anuragraut.developer@gmail.com">
+        <a
+          className="nav-contact"
+          href="mailto:anuragraut.developer@gmail.com"
+        >
           Let's talk <ArrowUpRight size={15} />
         </a>
 
-        <button className="mobile-menu" aria-label="Menu">
-          <Menu size={22} />
+        <button
+          className="mobile-menu"
+          type="button"
+          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setIsMenuOpen((open) => !open)}
+        >
+          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
+
+        <nav
+          id="mobile-navigation"
+          className={`mobile-nav ${isMenuOpen ? 'is-open' : ''}`}
+          aria-label="Mobile navigation"
+        >
+          {navigation.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {item.label}
+              <ArrowUpRight size={16} />
+            </a>
+          ))}
+        </nav>
       </header>
 
       <section className="hero container" id="home">
@@ -365,7 +399,7 @@ function App() {
           <div className="about-content">
             <div className="about-description">
               <p className="about-lead">
-                I'm a React Native developer with 4.7 years of experience
+                I'm a React Native developer with 5+ years of experience
                 building mobile applications that solve practical problems.
               </p>
 

@@ -1,5 +1,6 @@
 
 .navbar {
+  position: relative;
   height: 88px;
   display: flex;
   align-items: center;
@@ -839,6 +840,81 @@
   }
 }
 
+
+/* Mobile navigation */
+
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--color-primary);
+    cursor: pointer;
+  }
+
+  .mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 16px;
+    right: 16px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 22px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+  
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      visibility 0.2s ease;
+  }
+  
+  .mobile-nav.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .mobile-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-primary);
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .mobile-nav a:last-child {
+    border-bottom: none;
+  }
+
+  .desktop-nav,
+  .nav-contact {
+    display: none;
+  }
+}
+
 /* Technical expertise responsive layout */
 
 @media (max-width: 680px) {
@@ -939,9 +1015,10 @@
   .nav-contact {
     display: none;
   }
-
   .mobile-menu {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .hero {
