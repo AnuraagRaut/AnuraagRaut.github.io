@@ -645,6 +645,119 @@
 }
 /* Experience responsive layout */
 
+
+/* Technical expertise section */
+
+.expertise-section {
+  background: #ffffff;
+}
+
+.expertise-heading {
+  max-width: 720px;
+  margin-bottom: 75px;
+}
+
+.expertise-heading h2 {
+  margin: 25px 0 18px;
+  font-family: var(--font-heading);
+  font-size: clamp(38px, 5.5vw, 68px);
+  font-weight: 700;
+  letter-spacing: -0.075em;
+  line-height: 1.12;
+}
+
+.expertise-heading h2 span {
+  color: #a3a3a3;
+}
+
+.expertise-heading > p {
+  max-width: 490px;
+  color: var(--color-secondary);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.expertise-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+}
+
+.expertise-card {
+  padding: 38px;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.expertise-card-top {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: var(--color-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.expertise-card-line {
+  width: 35px;
+  height: 1px;
+  background: var(--color-border);
+}
+
+.expertise-card h3 {
+  margin: 35px 0 12px;
+  font-family: var(--font-heading);
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.05em;
+}
+
+.expertise-card > p {
+  max-width: 330px;
+  margin: 0;
+  color: var(--color-secondary);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.expertise-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 28px;
+}
+
+.expertise-skills span {
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 30px;
+  color: var(--color-secondary);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* Technical expertise responsive layout */
+
+@media (max-width: 680px) {
+  .expertise-heading {
+    margin-bottom: 45px;
+  }
+
+  .expertise-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .expertise-card {
+    padding: 28px 22px;
+  }
+
+  .expertise-card h3 {
+    margin-top: 26px;
+  }
+}
+
 @media (max-width: 900px) {
   .experience-item {
     grid-template-columns: 145px 1fr 25px;

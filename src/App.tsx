@@ -163,6 +163,65 @@ const projects = [
   },
 ]
 
+const technicalExpertise = [
+  {
+    number: '01',
+    title: 'Mobile Engineering',
+    description:
+      'Building reliable, cross-platform mobile applications.',
+    skills: [
+      'React Native',
+      'TypeScript',
+      'JavaScript',
+      'Android',
+      'iOS',
+      'React.js',
+    ],
+  },
+  {
+    number: '02',
+    title: 'Architecture & State',
+    description:
+      'Designing maintainable application structures and data flows.',
+    skills: [
+      'Redux',
+      'Context API',
+      'Modular Architecture',
+      'Feature-based Design',
+      'Offline-first',
+      'Realm',
+    ],
+  },
+  {
+    number: '03',
+    title: 'APIs & Integrations',
+    description:
+      'Connecting mobile experiences with secure and real-time services.',
+    skills: [
+      'REST APIs',
+      'Axios',
+      'JWT',
+      'Socket.IO',
+      'Firebase',
+      'API Interceptors',
+    ],
+  },
+  {
+    number: '04',
+    title: 'Engineering & AI',
+    description:
+      'Improving delivery through performance engineering and AI-assisted workflows.',
+    skills: [
+      'Performance Optimization',
+      'Debugging',
+      'Git',
+      'CI/CD',
+      'Claude',
+      'GitHub Copilot',
+    ],
+  },
+]
+
 function App() {
   return (
     <main>
@@ -492,7 +551,62 @@ function App() {
           </div>
         </div>
       </section>
+
+      <section
+        className="expertise-section section-padding"
+        id="expertise"
+      >
+        <div className="container">
+          <motion.div
+            className="expertise-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="eyebrow">04 / TECHNICAL EXPERTISE</span>
+            <h2>
+              Strong foundations.
+              <br />
+              <span>Thoughtful engineering.</span>
+            </h2>
+            <p>
+              The technologies, tools and engineering practices I use
+              to build dependable mobile products.
+            </p>
+          </motion.div>
+
+          <div className="expertise-grid">
+            {technicalExpertise.map((group) => (
+              <motion.article
+                className="expertise-card"
+                key={group.number}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="expertise-card-top">
+                  <span>{group.number}</span>
+                  <span className="expertise-card-line" />
+                </div>
+
+                <h3>{group.title}</h3>
+                <p>{group.description}</p>
+
+                <div className="expertise-skills">
+                  {group.skills.map((skill) => (
+                    <span key={skill}>{skill}</span>
+                  ))}
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
       </section>
+      </section>
+
+     
     </main>
   )
 }
