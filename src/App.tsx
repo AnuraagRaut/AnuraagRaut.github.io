@@ -37,6 +37,87 @@ const expertise = [
   },
 ]
 
+const experience = [
+  {
+    type: 'INDEPENDENT WORK',
+    role: 'Freelance React Native Developer',
+    company: 'Independent · No Bias Media',
+    period: 'May 2026 – Present',
+    location: 'Remote',
+    description:
+      'Independently developing a React Native news application with end-to-end ownership of mobile engineering.',
+    highlights: [
+      'Planning and implementing mobile features, application architecture and API integrations.',
+      'Building modular architecture with reusable components and centralized state management.',
+      'Integrating REST APIs using Axios, interceptors and structured error handling.',
+      'Exploring Socket.IO for real-time content updates and AI-powered article experiences.',
+      'Using AI-assisted workflows for implementation planning, debugging, refactoring and test creation.',
+    ],
+  },
+  {
+    type: 'PROFESSIONAL EXPERIENCE',
+    role: 'Senior React Native Developer',
+    company: 'iBridge Tech Soft Pvt. Ltd. · Client: TCS',
+    product: 'Gulf International Bank — Branchless Digital Banking',
+    period: 'Nov 2025 – May 2026',
+    location: 'Chennai',
+    highlights: [
+      'Designed and delivered end-to-end digital banking features.',
+      'Implemented biometric authentication, IVR customer flows, JWT token management and encrypted local storage.',
+      'Improved performance by 30–35% through targeted optimization.',
+      'Reduced production crash rates by 20–25%.',
+      'Coordinated with development and testing teams across TCS and Infosys.',
+    ],
+  },
+  {
+    type: 'PROFESSIONAL EXPERIENCE',
+    role: 'Senior React Native Developer | Mobile App Lead',
+    company: 'Haqdarshak Empowerment Solutions (HESPL)',
+    product: 'Government Scheme Discovery & Application',
+    period: 'Oct 2023 – Jun 2025',
+    location: 'Pune',
+    highlights: [
+      'Took end-to-end ownership of the product after transition from a 20+ engineer external vendor team.',
+      'Led architecture decisions, feature development and production releases.',
+      'Led migration of a legacy Vue.js application into the main React Native platform.',
+      'Reduced app startup time by 40% and APK size from 67 MB to 45 MB.',
+      'Sustained 98%+ crash-free sessions.',
+      'Improved API response times by 60–80% for agents working in low-network environments.',
+      'Mentored developers and introduced modular architecture and code-review standards.',
+      'Used Firebase Analytics and field feedback to drive UX improvements.',
+    ],
+  },
+  {
+    type: 'PROFESSIONAL EXPERIENCE',
+    role: 'React Native Developer',
+    company: 'No Borders Technologies Private Limited',
+    product: 'Blockchain & FinTech · NFT Marketplace',
+    period: 'Jan 2023 – May 2023',
+    location: 'Indore',
+    highlights: [
+      'Developed React Native features for a platform serving users across five countries.',
+      'Built reusable UI components and modular architecture.',
+      'Implemented multilingual support using i18n.',
+      'Integrated Firebase Crashlytics, Analytics and push notifications.',
+      'Optimized rendering, API integration and application stability.',
+    ],
+  },
+  {
+    type: 'PROFESSIONAL EXPERIENCE',
+    role: 'React Native Developer',
+    company: 'Skiarotech Cybernetics Private Limited',
+    product: 'Mobile Commerce & Consumer Applications',
+    period: 'Nov 2020 – Nov 2022',
+    location: 'Nagpur',
+    highlights: [
+      'Delivered end-to-end features across React Native mobile apps and React.js web applications.',
+      'Integrated PCI-compliant payment gateway functionality across Android, iOS and web.',
+      'Built reusable components and optimized rendering, navigation and API interactions.',
+      'Improved application responsiveness and code consistency across client projects.',
+    ],
+  },
+]
+
 function App() {
   return (
     <main>
@@ -216,6 +297,88 @@ function App() {
             </div>
           </div>
         </div>
+
+        <section
+        className="experience-section section-padding"
+        id="experience"
+      >
+        <div className="container">
+          <motion.div
+            className="experience-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="eyebrow">02 / EXPERIENCE</span>
+            <h2>
+              Building products,
+              <br />
+              <span>solving real problems.</span>
+            </h2>
+            <p>
+              A journey across mobile engineering, digital banking,
+              FinTech and GovTech — from product teams to independent
+              development.
+            </p>
+          </motion.div>
+
+          <div className="experience-list">
+            {experience.map((item, index) => (
+              <motion.article
+                className="experience-item"
+                key={`${item.company}-${item.period}`}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.6, delay: 0.08 }}
+              >
+                <div className="experience-meta">
+                  <span className="experience-type">{item.type}</span>
+                  <span className="experience-period">{item.period}</span>
+                </div>
+
+                <div className="experience-details">
+                  <div className="experience-title-row">
+                    <div>
+                      <h3>{item.role}</h3>
+                      <p className="experience-company">
+                        {item.company}
+                      </p>
+                    </div>
+
+                    <span className="experience-location">
+                      {item.location}
+                    </span>
+                  </div>
+
+                  {item.product && (
+                    <p className="experience-product">
+                      {item.product}
+                    </p>
+                  )}
+
+                  {item.description && (
+                    <p className="experience-description">
+                      {item.description}
+                    </p>
+                  )}
+
+                  <ul className="experience-highlights">
+                    {item.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <span className="experience-index">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
       </section>
     </main>
   )
