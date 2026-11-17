@@ -222,6 +222,9 @@ const technicalExpertise = [
   },
 ]
 
+
+
+
 function App() {
   return (
     <main>
@@ -402,7 +405,133 @@ function App() {
           </div>
         </div>
 
-        <section
+     
+      <section
+        className="projects-section section-padding"
+        id="projects"
+      >
+        <div className="container">
+          <motion.div
+            className="projects-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="eyebrow">03 / SELECTED PROJECTS</span>
+            <h2>
+              Ideas turned into
+              <br />
+              <span>real products.</span>
+            </h2>
+            <p>
+              Independent products where I explore product thinking,
+              mobile architecture and emerging technologies.
+            </p>
+          </motion.div>
+
+          <div className="projects-list">
+            {projects.map((project) => (
+              <motion.article
+                className="project-item"
+                key={project.number}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="project-topline">
+                  <span>{project.category}</span>
+                  <span>{project.number}</span>
+                </div>
+
+                <div className="project-content">
+                  <div className="project-title-row">
+                    <h3>{project.name}</h3>
+                    <span className="project-status">
+                      {project.status}
+                    </span>
+                  </div>
+
+                  <p className="project-description">
+                    {project.description}
+                  </p>
+
+                  <ul className="project-highlights">
+                    {project.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+
+                  <div className="project-technologies">
+                    {project.technologies.map((technology) => (
+                      <span key={technology}>{technology}</span>
+                    ))}
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+   
+      </section>
+
+      <section
+        className="expertise-section section-padding"
+        id="expertise"
+      >
+        <div className="container">
+          <motion.div
+            className="expertise-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="eyebrow">04 / TECHNICAL EXPERTISE</span>
+            <h2>
+              Strong foundations.
+              <br />
+              <span>Thoughtful engineering.</span>
+            </h2>
+            <p>
+              The technologies, tools and engineering practices I use
+              to build dependable mobile products.
+            </p>
+          </motion.div>
+
+          <div className="expertise-grid">
+            {technicalExpertise.map((group) => (
+              <motion.article
+                className="expertise-card"
+                key={group.number}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="expertise-card-top">
+                  <span>{group.number}</span>
+                  <span className="expertise-card-line" />
+                </div>
+
+                <h3>{group.title}</h3>
+                <p>{group.description}</p>
+
+                <div className="expertise-skills">
+                  {group.skills.map((skill) => (
+                    <span key={skill}>{skill}</span>
+                  ))}
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section
         className="experience-section section-padding"
         id="experience"
       >
@@ -483,129 +612,63 @@ function App() {
           </div>
         </div>
       </section>
+
       <section
-        className="projects-section section-padding"
-        id="projects"
+        className="contact-section section-padding"
+        id="contact"
       >
         <div className="container">
           <motion.div
-            className="projects-heading"
-            initial={{ opacity: 0, y: 20 }}
+            className="contact-content"
+            initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">03 / SELECTED PROJECTS</span>
+            <span className="eyebrow">05 / GET IN TOUCH</span>
+
             <h2>
-              Ideas turned into
+              Have a product
               <br />
-              <span>real products.</span>
+              <span>worth building?</span>
             </h2>
+
             <p>
-              Independent products where I explore product thinking,
-              mobile architecture and emerging technologies.
+              I'm open to opportunities where I can contribute to
+              meaningful mobile products, solve challenging engineering
+              problems and grow with ambitious teams.
             </p>
-          </motion.div>
 
-          <div className="projects-list">
-            {projects.map((project) => (
-              <motion.article
-                className="project-item"
-                key={project.number}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.6 }}
+            <div className="contact-actions">
+              <a
+                href="mailto:anuragraut.developer@gmail.com"
+                className="contact-email-link"
               >
-                <div className="project-topline">
-                  <span>{project.category}</span>
-                  <span>{project.number}</span>
-                </div>
+                Let's talk
+                <ArrowUpRight size={18} />
+              </a>
 
-                <div className="project-content">
-                  <div className="project-title-row">
-                    <h3>{project.name}</h3>
-                    <span className="project-status">
-                      {project.status}
-                    </span>
-                  </div>
+              <div className="contact-socials">
+                <a
+                  href="https://www.linkedin.com/in/anuragraut-developer/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn <ArrowUpRight size={14} />
+                </a>
 
-                  <p className="project-description">
-                    {project.description}
-                  </p>
-
-                  <ul className="project-highlights">
-                    {project.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
-
-                  <div className="project-technologies">
-                    {project.technologies.map((technology) => (
-                      <span key={technology}>{technology}</span>
-                    ))}
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+                <a
+                  href="https://github.com/AnuraagRaut"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  GitHub <ArrowUpRight size={14} />
+                </a>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
-
-      <section
-        className="expertise-section section-padding"
-        id="expertise"
-      >
-        <div className="container">
-          <motion.div
-            className="expertise-heading"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="eyebrow">04 / TECHNICAL EXPERTISE</span>
-            <h2>
-              Strong foundations.
-              <br />
-              <span>Thoughtful engineering.</span>
-            </h2>
-            <p>
-              The technologies, tools and engineering practices I use
-              to build dependable mobile products.
-            </p>
-          </motion.div>
-
-          <div className="expertise-grid">
-            {technicalExpertise.map((group) => (
-              <motion.article
-                className="expertise-card"
-                key={group.number}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5 }}
-              >
-                <div className="expertise-card-top">
-                  <span>{group.number}</span>
-                  <span className="expertise-card-line" />
-                </div>
-
-                <h3>{group.title}</h3>
-                <p>{group.description}</p>
-
-                <div className="expertise-skills">
-                  {group.skills.map((skill) => (
-                    <span key={skill}>{skill}</span>
-                  ))}
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
-      </section>
-
      
     </main>
   )
