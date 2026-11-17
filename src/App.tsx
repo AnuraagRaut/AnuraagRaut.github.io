@@ -10,6 +10,7 @@ import {
   Menu,
   X,
 } from 'lucide-react'
+import heroAbstract from './assets/images/hero-abstract.png'
 
 const navigation = [
   { label: 'About', href: '#about' },
@@ -354,10 +355,11 @@ function App() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
-          <div className="portrait-placeholder">
-            <span>YOUR</span>
-            <span>PHOTO</span>
-          </div>
+  <img
+  className="hero-abstract-image"
+  src={heroAbstract}
+  alt="Abstract illustration representing mobile engineering and technology"
+/>
 
           <div className="visual-caption">
             <span>BASED IN INDIA</span>
@@ -704,6 +706,29 @@ function App() {
         </div>
       </section>
      
+      <footer className="site-footer">
+        <div className="container footer-content">
+          <a className="brand footer-brand" href="#home">
+            ANURAG<span>.</span>
+          </a>
+
+          <p>
+            Building thoughtful mobile experiences.
+          </p>
+
+          <div className="footer-links">
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+          </div>
+
+          <span className="footer-copyright">
+            © {new Date().getFullYear()} Anurag Raut. All rights reserved.
+          </span>
+        </div>
+      </footer>
+
     </main>
   )
 }
