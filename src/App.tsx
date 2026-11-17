@@ -118,6 +118,51 @@ const experience = [
   },
 ]
 
+const projects = [
+  {
+    number: '01',
+    name: 'AhaVera',
+    category: 'INDEPENDENT PRODUCT',
+    description:
+      'An adaptive personal growth application designed to help people clear their minds, build better habits and move forward.',
+    technologies: [
+      'React Native',
+      'TypeScript',
+      'React Native CLI',
+      'Redux',
+      'Mappls',
+    ],
+    highlights: [
+      'Building an Android-first, iOS-compatible mobile application.',
+      'Developing modular experiences for meditation, assessments and creative expression.',
+      'Designing Pathik, an integrated travel companion experience.',
+      'Building reusable architecture with a focus on performance and scalability.',
+    ],
+    status: 'In development',
+  },
+  {
+    number: '02',
+    name: 'No Bias Media',
+    category: 'INDEPENDENT PROJECT',
+    description:
+      'A React Native news application focused on delivering timely content through a modular, API-driven mobile experience.',
+    technologies: [
+      'React Native',
+      'TypeScript',
+      'Axios',
+      'Socket.IO',
+      'Claude AI',
+    ],
+    highlights: [
+      'Taking ownership of mobile feature planning, architecture and implementation.',
+      'Integrating REST APIs with centralized request handling and error management.',
+      'Exploring real-time content updates using Socket.IO.',
+      'Exploring AI-powered article summaries and conversational article assistance.',
+    ],
+    status: 'In development',
+  },
+]
+
 function App() {
   return (
     <main>
@@ -374,6 +419,74 @@ function App() {
                 <span className="experience-index">
                   {String(index + 1).padStart(2, '0')}
                 </span>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section
+        className="projects-section section-padding"
+        id="projects"
+      >
+        <div className="container">
+          <motion.div
+            className="projects-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="eyebrow">03 / SELECTED PROJECTS</span>
+            <h2>
+              Ideas turned into
+              <br />
+              <span>real products.</span>
+            </h2>
+            <p>
+              Independent products where I explore product thinking,
+              mobile architecture and emerging technologies.
+            </p>
+          </motion.div>
+
+          <div className="projects-list">
+            {projects.map((project) => (
+              <motion.article
+                className="project-item"
+                key={project.number}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="project-topline">
+                  <span>{project.category}</span>
+                  <span>{project.number}</span>
+                </div>
+
+                <div className="project-content">
+                  <div className="project-title-row">
+                    <h3>{project.name}</h3>
+                    <span className="project-status">
+                      {project.status}
+                    </span>
+                  </div>
+
+                  <p className="project-description">
+                    {project.description}
+                  </p>
+
+                  <ul className="project-highlights">
+                    {project.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+
+                  <div className="project-technologies">
+                    {project.technologies.map((technology) => (
+                      <span key={technology}>{technology}</span>
+                    ))}
+                  </div>
+                </div>
               </motion.article>
             ))}
           </div>
