@@ -12,12 +12,15 @@ import {
 } from 'lucide-react'
 import heroAbstract from './assets/images/hero-abstract.png'
 
+
 const navigation = [
   { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
+  { label: 'Services', href: '#services' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Experience', href: '#experience' },
   { label: 'Contact', href: '#contact' },
 ]
+
 
 const expertise = [
   {
@@ -121,13 +124,14 @@ const experience = [
   },
 ]
 
+
 const projects = [
   {
     number: '01',
     name: 'AhaVera',
     category: 'INDEPENDENT PRODUCT',
     description:
-      'An adaptive personal growth application designed to help people clear their minds, build better habits and move forward.',
+      'An adaptive personal growth application designed to help people clear their minds, build better habits and move forward. Built with a modular, Android-first architecture and iOS compatibility.',
     technologies: [
       'React Native',
       'TypeScript',
@@ -136,19 +140,19 @@ const projects = [
       'Mappls',
     ],
     highlights: [
-      'Building an Android-first, iOS-compatible mobile application.',
-      'Developing modular experiences for meditation, assessments and creative expression.',
-      'Designing Pathik, an integrated travel companion experience.',
-      'Building reusable architecture with a focus on performance and scalability.',
+      'Building reusable, modular architecture for a multi-feature mobile product.',
+      'Developing meditation, assessments and creative expression experiences.',
+      'Designing Pathik, an integrated travel companion with map-based journey planning.',
+      'Prioritizing performance, maintainability and a consistent cross-platform experience.',
     ],
     status: 'In development',
   },
   {
     number: '02',
     name: 'No Bias Media',
-    category: 'INDEPENDENT PROJECT',
+    category: 'INDEPENDENT PRODUCT',
     description:
-      'A React Native news application focused on delivering timely content through a modular, API-driven mobile experience.',
+      'A React Native news application focused on timely content, real-time updates and AI-assisted content exploration through a modular, API-driven architecture.',
     technologies: [
       'React Native',
       'TypeScript',
@@ -157,21 +161,68 @@ const projects = [
       'Claude AI',
     ],
     highlights: [
-      'Taking ownership of mobile feature planning, architecture and implementation.',
+      'Owning mobile feature planning, architecture and end-to-end implementation.',
       'Integrating REST APIs with centralized request handling and error management.',
       'Exploring real-time content updates using Socket.IO.',
       'Exploring AI-powered article summaries and conversational article assistance.',
     ],
     status: 'In development',
   },
+  {
+    number: '03',
+    name: 'Enterprise Digital Banking',
+    category: 'PROFESSIONAL CASE STUDY',
+    description:
+      'Contributed to a large-scale digital banking application, delivering secure mobile banking capabilities across Android and iOS in an enterprise environment.',
+    technologies: [
+      'React Native',
+      'TypeScript',
+      'Redux',
+      'JWT',
+      'Secure Storage',
+      'REST APIs',
+    ],
+    highlights: [
+      'Implemented Face ID and Touch ID authentication flows.',
+      'Worked on secure API integrations, JWT authentication and encrypted local data.',
+      'Delivered banking features involving IVR and backend service integrations.',
+      'Contributed to 30–35% performance improvement and a 20–25% reduction in production crash rates.',
+    ],
+    status: 'Production experience',
+  },
+  {
+    number: '04',
+    name: 'Haqdarshak Benefits Platform',
+    category: 'PROFESSIONAL CASE STUDY',
+    description:
+      'Helped evolve a government benefits discovery and application platform used by field agents, with a focus on offline reliability, performance and long-term mobile application ownership.',
+    technologies: [
+      'React Native',
+      'TypeScript',
+      'Realm',
+      'Redux',
+      'Firebase',
+      'REST APIs',
+    ],
+    highlights: [
+      'Took ownership of the mobile application following its transition from an external development vendor.',
+      'Reduced APK size from 67 MB to 45 MB.',
+      'Improved application startup time by approximately 40%.',
+      'Maintained 98%+ crash-free performance and improved API response times by 60–80%.',
+      'Mentored junior developers and improved application maintainability.',
+    ],
+    status: 'Production experience',
+  },
 ]
+
+
 
 const technicalExpertise = [
   {
     number: '01',
     title: 'Mobile Engineering',
     description:
-      'Building reliable, cross-platform mobile applications.',
+      'Building production-ready cross-platform applications with a focus on user experience, reliability and performance.',
     skills: [
       'React Native',
       'TypeScript',
@@ -179,13 +230,14 @@ const technicalExpertise = [
       'Android',
       'iOS',
       'React.js',
+      'React Native CLI',
     ],
   },
   {
     number: '02',
     title: 'Architecture & State',
     description:
-      'Designing maintainable application structures and data flows.',
+      'Structuring maintainable applications with predictable state, modular boundaries and offline-first capabilities.',
     skills: [
       'Redux',
       'Context API',
@@ -199,7 +251,7 @@ const technicalExpertise = [
     number: '03',
     title: 'APIs & Integrations',
     description:
-      'Connecting mobile experiences with secure and real-time services.',
+      'Building dependable mobile integrations with secure authentication, centralized networking and real-time services.',
     skills: [
       'REST APIs',
       'Axios',
@@ -207,23 +259,27 @@ const technicalExpertise = [
       'Socket.IO',
       'Firebase',
       'API Interceptors',
+      'Secure Storage',
     ],
   },
   {
     number: '04',
-    title: 'Engineering & AI',
+    title: 'Quality & Engineering',
     description:
-      'Improving delivery through performance engineering and AI-assisted workflows.',
+      'Improving production reliability, optimizing application performance and streamlining engineering delivery.',
     skills: [
       'Performance Optimization',
       'Debugging',
+      'Crashlytics',
       'Git',
       'CI/CD',
-      'Claude',
+      'Code Reviews',
       'GitHub Copilot',
+      'Claude',
     ],
   },
 ]
+
 
 
 
@@ -286,7 +342,8 @@ function App() {
       </header>
 
       <section className="hero container" id="home">
-        <motion.div
+      
+      <motion.div
           className="hero-content"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -294,20 +351,21 @@ function App() {
         >
           <div className="availability">
             <span className="availability-dot" />
-            SENIOR REACT NATIVE DEVELOPER
+            OPEN TO ENGINEERING OPPORTUNITIES & PROJECTS
           </div>
 
           <h1>
-            Building mobile
+            I build mobile
             <br />
-            experiences that
+            products that
             <br />
-            <span>move people forward.</span>
+            <span>make an impact.</span>
           </h1>
 
           <p className="hero-description">
-            I'm Anurag Raut, a mobile engineer focused on building reliable,
-            scalable and high-performance applications for Android and iOS.
+            I'm Anurag Raut, a Senior React Native Engineer with 5+ years
+            of experience building reliable, scalable Android and iOS
+            applications across FinTech, digital banking and GovTech.
           </p>
 
           <div className="hero-actions">
@@ -315,8 +373,8 @@ function App() {
               Explore my work <ArrowUpRight size={17} />
             </a>
 
-            <a className="text-button" href="#contact">
-              Let's connect <ArrowRight size={17} />
+            <a className="text-button" href="#services">
+              What I can build <ArrowRight size={17} />
             </a>
           </div>
 
@@ -349,6 +407,7 @@ function App() {
           </div>
         </motion.div>
 
+
         <motion.div
           className="hero-visual"
           initial={{ opacity: 0, scale: 0.96 }}
@@ -372,14 +431,66 @@ function App() {
         </motion.div>
       </section>
 
-      <section className="intro-strip">
-        <div className="container intro-inner">
-          <p>
-            Turning complex requirements into thoughtful mobile experiences.
-          </p>
-          <span>SCROLL TO EXPLORE ↓</span>
+    
+      <section className="impact-strip" id="impact">
+        <div className="container">
+          <div className="impact-heading">
+            <span className="eyebrow">ENGINEERING IMPACT</span>
+            <p>Measurable improvements. Real-world engineering.</p>
+          </div>
+
+          <div className="impact-grid">
+            <motion.div
+              className="impact-item"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <strong>40%</strong>
+              <span>Faster app startup</span>
+              {/* <small>Haqdarshak</small> */}
+            </motion.div>
+
+            <motion.div
+              className="impact-item"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <strong>67 → 45 MB</strong>
+              <span>APK size reduction</span>
+              {/* <small>Haqdarshak</small> */}
+            </motion.div>
+
+            <motion.div
+              className="impact-item"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <strong>98%+</strong>
+              <span>Crash-free performance</span>
+              {/* <small>Haqdarshak</small> */}
+            </motion.div>
+
+            <motion.div
+              className="impact-item"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <strong>30–35%</strong>
+              <span>Performance improvement</span>
+              {/* <small>Digital Banking</small> */}
+            </motion.div>
+          </div>
         </div>
       </section>
+
 
       <section className="about-section section-padding" id="about">
         <div className="container">
@@ -400,23 +511,30 @@ function App() {
 
           <div className="about-content">
             <div className="about-description">
-              <p className="about-lead">
-                I'm a React Native developer with 5+ years of experience
-                building mobile applications that solve practical problems.
-              </p>
+         
+<p className="about-lead">
+  I'm a Senior React Native Engineer with 5+ years of experience
+  building and evolving mobile applications across Android and iOS.
+</p>
 
-              <p>
-                My work spans digital banking, FinTech and GovTech products.
-                I've worked on everything from secure financial workflows to
-                offline-first applications designed for challenging network
-                conditions.
-              </p>
+<p>
+  My experience spans digital banking, FinTech and GovTech, from
+  secure financial workflows to offline-first applications built
+  for challenging network conditions.
+</p>
 
-              <p>
-                I enjoy taking ownership of engineering challenges, improving
-                application quality and collaborating with teams to turn
-                product requirements into dependable mobile experiences.
-              </p>
+<p>
+  I bring an ownership mindset to mobile engineering — taking
+  features from requirements through architecture, implementation,
+  performance optimization and production delivery.
+</p>
+
+<p>
+  Beyond feature development, I care about scalable architecture,
+  application reliability, maintainable code and building products
+  that solve real user problems.
+</p>
+
             </div>
 
             <div className="about-expertise">
@@ -567,6 +685,114 @@ function App() {
         </div>
       </section>
 
+
+      <section className="services-section section-padding" id="services">
+        <div className="container">
+          <motion.div
+            className="services-heading"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="eyebrow">HOW I CAN HELP</span>
+            <h2>
+              From an idea to a
+              <span> production-ready product.</span>
+            </h2>
+            <p>
+              I help founders, businesses and teams turn ideas into reliable
+              mobile experiences — from the first build to scaling an existing
+              application.
+            </p>
+          </motion.div>
+
+          <div className="services-grid">
+            {[
+              {
+                number: '01',
+                icon: '📱',
+                title: 'Mobile App Development',
+                description:
+                  'Custom Android and iOS applications built with React Native, TypeScript and scalable architecture.',
+              },
+              {
+                number: '02',
+                icon: '🚀',
+                title: 'MVP & Product Development',
+                description:
+                  'Turn your product idea into a working mobile experience, with practical architecture and room to grow.',
+              },
+              {
+                number: '03',
+                icon: '⚡',
+                title: 'Performance & Optimization',
+                description:
+                  'Improve app speed, stability, startup time, responsiveness and overall user experience.',
+              },
+              {
+                number: '04',
+                icon: '🔌',
+                title: 'API & Backend Integration',
+                description:
+                  'Connect mobile apps with REST APIs, authentication, payments, real-time services and third-party platforms.',
+              },
+              {
+                number: '05',
+                icon: '🤖',
+                title: 'AI-powered Mobile Experiences',
+                description:
+                  'Integrate AI capabilities such as intelligent assistants, content summarization and conversational features.',
+              },
+              {
+                number: '06',
+                icon: '🛠️',
+                title: 'Maintenance & Engineering Support',
+                description:
+                  'Modernize existing React Native apps, resolve technical issues and improve long-term maintainability.',
+              },
+            ].map((service, index) => (
+              <motion.article
+                className="service-card"
+                key={service.number}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: index * 0.08 }}
+              >
+                <div className="service-card-top">
+                  <span className="service-icon">{service.icon}</span>
+                  <span className="service-number">{service.number}</span>
+                </div>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+                <span className="service-arrow">↗</span>
+              </motion.article>
+            ))}
+          </div>
+
+          <motion.div
+            className="services-cta"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <div>
+              <span className="eyebrow">HAVE A PROJECT IN MIND?</span>
+              <h3>Let's build something meaningful.</h3>
+              <p>
+                Tell me what you're working on. Let's explore how I can help.
+              </p>
+            </div>
+            <a href="#contact" className="services-cta-button">
+              Work With Me <span>↗</span>
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+
       <section
         className="experience-section section-padding"
         id="experience"
@@ -649,6 +875,7 @@ function App() {
         </div>
       </section>
 
+   
       <section
         className="contact-section section-padding"
         id="contact"
@@ -661,26 +888,50 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">05 / GET IN TOUCH</span>
+            <span className="eyebrow">LET'S CONNECT</span>
 
             <h2>
-              Have a product
+              Have an idea?
               <br />
-              <span>worth building?</span>
+              <span>Let's make it happen.</span>
             </h2>
 
             <p>
-              I'm open to opportunities where I can contribute to
-              meaningful mobile products, solve challenging engineering
-              problems and grow with ambitious teams.
+              Whether you're building a product, looking for an experienced
+              mobile engineer, or exploring a new opportunity, I'd love to
+              hear what you're working on.
             </p>
 
-            <div className="contact-actions">
+            <div className="contact-options">
+              <a
+                href="mailto:anuragraut.developer@gmail.com?subject=Mobile%20App%20Project%20Enquiry"
+                className="contact-option"
+              >
+                <span className="contact-option-label">FOR CLIENTS & FOUNDERS</span>
+                <strong>Let's build your product</strong>
+                <span className="contact-option-action">
+                  Discuss a project <ArrowUpRight size={17} />
+                </span>
+              </a>
+
+              <a
+                href="mailto:anuragraut.developer@gmail.com?subject=Career%20Opportunity"
+                className="contact-option"
+              >
+                <span className="contact-option-label">FOR RECRUITERS & TEAMS</span>
+                <strong>Let's work together</strong>
+                <span className="contact-option-action">
+                  Explore opportunities <ArrowUpRight size={17} />
+                </span>
+              </a>
+            </div>
+
+            <div className="contact-bottom">
               <a
                 href="mailto:anuragraut.developer@gmail.com"
                 className="contact-email-link"
               >
-                Let's talk
+                anuragraut.developer@gmail.com
                 <ArrowUpRight size={18} />
               </a>
 
@@ -705,6 +956,7 @@ function App() {
           </motion.div>
         </div>
       </section>
+
      
       <footer className="site-footer">
         <div className="container footer-content">
@@ -716,12 +968,15 @@ function App() {
             Building thoughtful mobile experiences.
           </p>
 
+     
           <div className="footer-links">
             <a href="#about">About</a>
-            <a href="#experience">Experience</a>
+            <a href="#services">Services</a>
             <a href="#projects">Projects</a>
+            <a href="#experience">Experience</a>
             <a href="#contact">Contact</a>
           </div>
+
 
           <span className="footer-copyright">
             © {new Date().getFullYear()} Anurag Raut. All rights reserved.
