@@ -1,16 +1,14 @@
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import './App.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   ArrowUpRight,
-  BrainCircuit,
   CheckCircle2,
   Download,
   Gauge,
   Mail,
   MapPin,
   Menu,
-  PlugZap,
   Rocket,
   ShieldCheck,
   Smartphone,
@@ -24,9 +22,10 @@ const resumeUrl = '/Anurag-Raut-Resume.pdf'
 const navigation = [
   { label: 'Experience', href: '#experience' },
   { label: 'Work', href: '#work' },
+  { label: 'Approach', href: '#engineering' },
   { label: 'Skills', href: '#skills' },
   { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
+  { label: 'Help', href: '#services' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -55,6 +54,13 @@ const impactMetrics = [
     label: 'Smaller APK',
     detail: 'Mobile footprint reduction',
   },
+]
+
+const heroFeatures = [
+  { number: '01', title: 'Architecture', detail: 'Modular · Scalable' },
+  { number: '02', title: 'Performance', detail: 'Fast · Reliable' },
+  { number: '03', title: 'Security', detail: 'Secure · Resilient' },
+  { number: '04', title: 'Delivery', detail: 'Owned · Shipped' },
 ]
 
 const expertise = [
@@ -90,10 +96,8 @@ const experience = [
       'Own mobile feature planning, architecture, implementation and integration for an independent news product.',
     highlights: [
       'Designing modular, feature-based architecture with reusable components and centralized state management.',
-      'Building news feeds, category browsing, article discovery and content navigation workflows.',
-      'Integrating REST APIs with Axios interceptors and centralized error handling.',
+      'Building news feeds, category browsing, article discovery and navigation workflows with centralized API handling.',
       'Using Claude-assisted workflows for planning, debugging, refactoring and test creation.',
-      'Working with Socket.IO for timely updates and exploring AI article summarization.',
     ],
   },
   {
@@ -106,11 +110,9 @@ const experience = [
     description:
       'Designed and delivered end-to-end digital banking features for Gulf International Bank (GIB).',
     highlights: [
-      'Implemented Face ID and Touch ID biometrics, IVR workflows, JWT management, encrypted local storage and secure APIs.',
-      'Improved application performance by 30–35% through bottleneck resolution and targeted optimization.',
-      'Reduced production crash rates by 20–25% through systematic debugging and production fixes.',
-      'Delivered hotfixes within release timelines with 0 regressions across release cycles.',
-      'Led a team of developers, coordinating with TCS and Infosys teams in Dubai, Pune and Chennai.',
+      'Implemented Face ID and Touch ID biometrics, IVR workflows, JWT, encrypted storage and secure APIs.',
+      'Improved performance by 30–35% and reduced crashes by 20–25% through targeted optimization and debugging.',
+      'Delivered hotfixes with 0 regressions while leading developers across TCS and Infosys.',
     ],
   },
   {
@@ -124,11 +126,9 @@ const experience = [
       'Led mobile architecture and delivery for a field-use GovTech platform after vendor handover.',
     highlights: [
       'Took end-to-end ownership after handover from a 20+ engineer external vendor team.',
-      'Led architecture, feature delivery and releases while reducing production incidents by 60–70%.',
-      'Led migration of a separate legacy Vue.js application into the main React Native platform.',
-      'Reduced startup time by 40% and APK size from 67 MB to 45 MB for low-storage devices.',
-      'Sustained 98%+ crash-free sessions and accelerated API response times by 60–80% on low networks.',
-      'Used Firebase Analytics to drive 6+ UX improvements, conducted field visits and mentored developers.',
+      'Reduced production incidents by 60–70% and led the legacy Vue.js migration into the main React Native platform.',
+      'Cut startup 40%, APK 67→45 MB, sustained 98%+ crash-free sessions and improved API response 60–80%.',
+      'Used Firebase Analytics and field visits to drive 6+ UX improvements; mentored developers.',
     ],
   },
   {
@@ -171,6 +171,8 @@ const projects = [
     client: 'iBridge Tech Soft · Tata Consultancy Services',
     description:
       'Secure branchless digital banking platform for GCC markets, with biometric authentication and assisted banking workflows.',
+    challenge:
+      'Branchless banking had to feel trustworthy and responsive on devices and networks outside the team’s control.',
     technologies: [
       'React Native',
       'TypeScript',
@@ -181,22 +183,14 @@ const projects = [
       'REST APIs',
     ],
     highlights: [
-      'Delivered end-to-end digital banking features for GIB across Android and iOS.',
-      'Implemented Face ID, Touch ID, IVR flows, JWT, encrypted storage and secure APIs.',
-      'Improved performance by 30–35% and cut production crashes by 20–25%.',
-      'Delivered hotfixes with 0 regressions and led developers across TCS and Infosys.',
+      'Delivered end-to-end digital banking features across Android and iOS.',
+      'Implemented biometrics, IVR flows, JWT, encrypted storage and secure APIs.',
+      'Optimized performance and crashes through bottleneck analysis and production debugging.',
+      'Led developers across TCS and Infosys through release cycles with 0 regressions.',
     ],
+    outcome:
+      '30–35% performance improvement, 20–25% fewer production crashes and more reliable assisted banking workflows.',
     status: 'Shipped',
-    links: [
-      {
-        label: 'Google Play',
-        url: 'https://play.google.com/store/apps/details?id=com.gib.meemksa&hl=en_IN',
-      },
-      {
-        label: 'App Store',
-        url: 'https://apps.apple.com/in/app/meem-early-access/id6764323360',
-      },
-    ],
   },
   {
     number: '02',
@@ -205,6 +199,8 @@ const projects = [
     client: 'Haqdarshak Empowerment Solutions',
     description:
       'Field-use mobile platform helping agents discover, explain and apply for government schemes for citizens and MSMEs.',
+    challenge:
+      'Field agents depended on the app daily, often on low-storage devices and low-network routes.',
     technologies: [
       'React Native',
       'Vue Migration',
@@ -216,17 +212,12 @@ const projects = [
     highlights: [
       'Took ownership after handover from a 20+ engineer external vendor team.',
       'Reduced production incidents by 60–70% and led the legacy Vue.js migration.',
-      'Cut startup time 40% and APK size from 67 MB to 45 MB for low-storage devices.',
-      'Sustained 98%+ crash-free sessions and 60–80% faster API responses.',
+      'Optimized startup, APK size, rendering and API behaviour for real field conditions.',
       'Drove 6+ UX improvements from Firebase Analytics and field visits.',
     ],
+    outcome:
+      '40% faster startup, 67→45 MB APK, 98%+ crash-free sessions and 60–80% faster API responses.',
     status: 'Shipped',
-    links: [
-      {
-        label: 'Google Play',
-        url: 'https://play.google.com/store/apps/details?id=com.haqdarshak.hd&hl=en_IN',
-      },
-    ],
   },
   {
     number: '03',
@@ -235,6 +226,8 @@ const projects = [
     client: 'No Borders Technologies',
     description:
       'Cross-platform NFT marketplace experience supporting users across five countries.',
+    challenge:
+      'A marketplace expanding across five countries needed one consistent mobile experience across languages and devices.',
     technologies: [
       'React Native',
       'i18n',
@@ -248,6 +241,8 @@ const projects = [
       'Added multilingual support with i18n.',
       'Integrated Crashlytics, Analytics and push notifications.',
     ],
+    outcome:
+      'Delivered a reusable React Native foundation with multilingual support and Firebase-backed visibility.',
     status: 'Shipped',
   },
   {
@@ -257,6 +252,8 @@ const projects = [
     client: 'No Bias Media',
     description:
       'Cross-platform news product exploring real-time updates and AI-assisted reading.',
+    challenge:
+      'An independent news product needed a clean base for real-time content and AI-assisted reading experiments.',
     technologies: [
       'React Native',
       'TypeScript',
@@ -269,8 +266,9 @@ const projects = [
       'Designed modular, feature-based architecture with centralized state management.',
       'Built news feeds, category browsing and article discovery workflows.',
       'Created a centralized REST API layer with interceptors and error handling.',
-      'Exploring Socket.IO updates and AI article summarization.',
     ],
+    outcome:
+      'Modular architecture and centralized API layer are in place; real-time updates and summarization are being explored.',
     status: 'In development',
   },
 ]
@@ -350,29 +348,113 @@ const technicalExpertise = [
   },
 ]
 
-const credentials = [
+const engineeringPrinciples = [
   {
-    label: 'EDUCATION',
-    title: 'B.E. Electronics & Telecommunication',
-    detail: 'RTMNU · 2016',
-    extra: 'Diploma, Electronics & Telecommunication · MSBTE · 2011',
+    number: '01',
+    title: 'Performance is a product feature',
+    description:
+      'A slow app feels broken. I care about startup time, rendering, memory, network behaviour and low-end devices.',
   },
   {
-    label: 'CERTIFICATIONS',
-    title: 'CS50 Mobile App Development (React Native)',
-    detail: 'CS50 Introduction to Computer Science',
-    extra: 'Generative AI for Software Development',
+    number: '02',
+    title: 'Architecture should reduce future cost',
+    description:
+      'Good structure is not about complexity. It is about making the next feature easier and safer to ship.',
   },
   {
-    label: 'CONTINUOUS LEARNING',
-    title: 'Generative AI · LLMs · RAG',
-    detail: 'Agentic AI and AI-powered mobile applications',
-    extra: 'AI-assisted software engineering',
+    number: '03',
+    title: 'Reliability is engineered',
+    description:
+      'Crash-free sessions, secure APIs, monitoring and release discipline matter as much as the feature itself.',
+  },
+  {
+    number: '04',
+    title: 'AI assists; judgment decides',
+    description:
+      'AI-assisted workflows help me move faster, but architecture, trade-offs and production decisions stay human.',
+  },
+]
+
+const helpOptions = [
+  {
+    number: '01',
+    icon: Smartphone,
+    audience: 'FOR RECRUITERS & TEAMS',
+    title: 'Join a product team',
+    description:
+      'Senior React Native engineering for teams that need architecture, feature delivery, performance and release ownership.',
+  },
+  {
+    number: '02',
+    icon: Rocket,
+    audience: 'FOR FOUNDERS & LOCAL BUSINESSES',
+    title: 'Build a mobile product',
+    description:
+      'Turn an idea into an Android or iOS app with practical architecture, clean integrations and production-ready foundations.',
+  },
+  {
+    number: '03',
+    icon: Wrench,
+    audience: 'FOR TEAMS WITH A LIVE APP',
+    title: 'Fix and scale an existing app',
+    description:
+      'Stabilize crashes, improve startup and responsiveness, untangle structure and make the app easier to maintain as it grows.',
   },
 ]
 
 function App() {
+  const reduceMotion = useReducedMotion()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
+  const [activeFeature, setActiveFeature] = useState(0)
+  const [isFeaturePaused, setIsFeaturePaused] = useState(false)
+  const [expandedProjects, setExpandedProjects] = useState<string[]>([])
+
+  useEffect(() => {
+    const updateActiveSection = () => {
+      const marker = window.scrollY + window.innerHeight * 0.32
+      let current = ''
+
+      navigation.forEach((item) => {
+        const section = document.getElementById(item.href.slice(1))
+        if (!section) return
+
+        const top = section.getBoundingClientRect().top + window.scrollY
+        if (top <= marker) {
+          current = section.id
+        }
+      })
+
+      setActiveSection(current)
+    }
+
+    updateActiveSection()
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
+    window.addEventListener('resize', updateActiveSection)
+
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection)
+      window.removeEventListener('resize', updateActiveSection)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isFeaturePaused || reduceMotion) return
+
+    const timer = window.setInterval(() => {
+      setActiveFeature((current) => (current + 1) % heroFeatures.length)
+    }, 3600)
+
+    return () => window.clearInterval(timer)
+  }, [isFeaturePaused, reduceMotion])
+
+  const toggleProject = (number: string) => {
+    setExpandedProjects((current) =>
+      current.includes(number)
+        ? current.filter((item) => item !== number)
+        : [...current, number],
+    )
+  }
 
   return (
     <main>
@@ -387,7 +469,11 @@ function App() {
 
         <nav className="desktop-nav" aria-label="Main navigation">
           {navigation.map((item) => (
-            <a key={item.label} href={item.href}>
+            <a
+              key={item.label}
+              className={activeSection === item.href.slice(1) ? 'active' : ''}
+              href={item.href}
+            >
               {item.label}
             </a>
           ))}
@@ -411,16 +497,30 @@ function App() {
           </a>
         </div>
 
-        <button
-          className="mobile-menu"
-          type="button"
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-navigation"
-          onClick={() => setIsMenuOpen((open) => !open)}
-        >
-          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+        <div className="mobile-actions">
+          <a
+            className="mobile-resume"
+            href={resumeUrl}
+            download="Anurag-Raut-Resume.pdf"
+            aria-label="Download résumé"
+            title="Download résumé"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <Download size={16} />
+            <span>Résumé</span>
+          </a>
+
+          <button
+            className="mobile-menu"
+            type="button"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
 
         <nav
           id="mobile-navigation"
@@ -430,6 +530,7 @@ function App() {
           {navigation.map((item) => (
             <a
               key={item.label}
+              className={activeSection === item.href.slice(1) ? 'active' : ''}
               href={item.href}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -439,6 +540,7 @@ function App() {
           ))}
 
           <a
+            className="mobile-resume-link"
             href={resumeUrl}
             download="Anurag-Raut-Resume.pdf"
             onClick={() => setIsMenuOpen(false)}
@@ -469,26 +571,25 @@ function App() {
           <div className="hero-identity">
             <span>SENIOR REACT NATIVE DEVELOPER</span>
             <span>5+ YEARS PRODUCTION EXPERIENCE</span>
-            <span>END-TO-END PRODUCT OWNERSHIP</span>
-            <span>ANDROID · iOS · REACT NATIVE</span>
+            <span>ARCHITECTURE · PERFORMANCE · DELIVERY</span>
           </div>
 
           <h1>
-            Senior React Native engineer
+            Senior React Native
             <br />
-            <span>for products that scale.</span>
+            <span>engineer for reliable mobile products.</span>
           </h1>
 
           <p className="hero-description">
-            5+ years shipping secure, high-performance Android and iOS apps
-            across BFSI, FinTech, GovTech, blockchain and e-commerce. I own
-            architecture, performance and delivery — from first commit to
-            production release.
+            I build and improve Android and iOS apps with React Native — from
+            architecture and performance to production release. Across banking,
+            FinTech and GovTech, I’ve owned delivery of secure mobile products
+            that stay fast and reliable as they grow.
           </p>
 
           <div className="hero-actions">
-            <a className="primary-button" href="#experience">
-              View experience <ArrowUpRight size={17} />
+            <a className="primary-button" href="#work">
+              See selected work <ArrowUpRight size={17} />
             </a>
 
             <a
@@ -536,18 +637,26 @@ function App() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2 }}
         >
-          <div className="hero-showcase">
+          <div
+            className="hero-showcase"
+            onMouseEnter={() => setIsFeaturePaused(true)}
+            onMouseLeave={() => setIsFeaturePaused(false)}
+            onFocusCapture={() => setIsFeaturePaused(true)}
+            onBlurCapture={() => setIsFeaturePaused(false)}
+          >
             <div className="showcase-glow" />
 
             <div className="showcase-heading">
               <span className="showcase-dot" />
               SENIOR MOBILE ENGINEER
-              <span className="showcase-version">01 / 05</span>
+              <span className="showcase-version">
+                0{activeFeature + 1} / 0{heroFeatures.length}
+              </span>
             </div>
 
             <motion.div
               className="showcase-phone"
-              animate={{ y: [0, -9, 0] }}
+              animate={reduceMotion ? { y: 0 } : { y: [0, -9, 0] }}
               transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
             >
               <div className="phone-frame">
@@ -555,7 +664,9 @@ function App() {
 
                 <div className="phone-screen">
                   <div className="phone-topline">
-                    <span>MOBILE / ARCHITECTURE</span>
+                    <span>
+                      MOBILE / {heroFeatures[activeFeature].title.toUpperCase()}
+                    </span>
                     <span className="phone-status-dot" />
                   </div>
 
@@ -569,32 +680,33 @@ function App() {
                     <p>Architecture. Performance. Delivery.</p>
                   </div>
 
-                  <div className="phone-feature">
-                    <div className="feature-icon">01</div>
-                    <div>
-                      <strong>Architecture</strong>
-                      <span>Modular · Scalable</span>
-                    </div>
-                    <ArrowUpRight size={17} />
-                  </div>
+                  {heroFeatures.map((feature, index) => (
+                    <button
+                      className={`phone-feature ${activeFeature === index ? 'is-active' : ''}`}
+                      key={feature.number}
+                      type="button"
+                      aria-pressed={activeFeature === index}
+                      aria-label={`Show ${feature.title}`}
+                      onClick={() => setActiveFeature(index)}
+                    >
+                      <span className="feature-icon">{feature.number}</span>
+                      <span className="feature-copy">
+                        <strong>{feature.title}</strong>
+                        <span>{feature.detail}</span>
+                      </span>
+                      <ArrowUpRight size={17} />
+                    </button>
+                  ))}
 
-                  <div className="phone-feature">
-                    <div className="feature-icon">02</div>
-                    <div>
-                      <strong>Performance</strong>
-                      <span>Fast · Reliable</span>
-                    </div>
-                    <ArrowUpRight size={17} />
-                  </div>
-
-                  <div className="phone-feature">
-                    <div className="feature-icon">03</div>
-                    <div>
-                      <strong>Delivery</strong>
-                      <span>Owned · Shipped</span>
-                    </div>
-                    <ArrowUpRight size={17} />
-                  </div>
+                  <a
+                    className="phone-resume"
+                    href={resumeUrl}
+                    download="Anurag-Raut-Resume.pdf"
+                  >
+                    <Download size={14} />
+                    Download résumé
+                    <ArrowUpRight size={14} />
+                  </a>
 
                   <div className="phone-bottom">
                     <span>ANDROID</span>
@@ -609,7 +721,7 @@ function App() {
 
             <motion.div
               className="showcase-float showcase-float-top"
-              animate={{ y: [0, -6, 0] }}
+              animate={reduceMotion ? { y: 0 } : { y: [0, -6, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             >
               <span className="float-label">STARTUP IMPROVEMENT</span>
@@ -619,7 +731,7 @@ function App() {
 
             <motion.div
               className="showcase-float showcase-float-bottom"
-              animate={{ y: [0, 7, 0] }}
+              animate={reduceMotion ? { y: 0 } : { y: [0, 7, 0] }}
               transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
             >
               <span className="float-indicator" />
@@ -761,8 +873,8 @@ function App() {
               <span>just screens.</span>
             </h2>
             <p>
-              A closer look at shipped products and one independent build —
-              with the engineering decisions and measurable results behind them.
+              A closer look at the problems, ownership and measured outcomes
+              behind the work.
             </p>
           </motion.div>
 
@@ -793,47 +905,104 @@ function App() {
                     <p className="project-description">{project.description}</p>
                   </div>
 
-                  {project.links && project.links.length > 0 && (
-                    <div className="project-links">
-                      <span className="project-details-label">VERIFY THE RELEASE</span>
-                      <div className="project-link-list">
-                        {project.links.map((link) => (
-                          <a
-                            key={link.url}
-                            href={link.url}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            {link.label} <ArrowUpRight size={14} />
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="project-details">
-                    <span className="project-details-label">
-                      ENGINEERING CONTRIBUTIONS
-                    </span>
-
-                    <ul className="project-highlights">
-                      {project.highlights.map((highlight) => (
-                        <li key={highlight}>{highlight}</li>
-                      ))}
-                    </ul>
+                  <div className="project-case">
+                    <span className="project-details-label">THE PROBLEM</span>
+                    <p>{project.challenge}</p>
                   </div>
 
-                  <div className="project-technologies">
-                    <span className="project-details-label">
-                      TECHNOLOGY & CAPABILITIES
+                  <div className="project-result">
+                    <span className="project-details-label">RESULT</span>
+                    <p>{project.outcome}</p>
+                  </div>
+
+                  <button
+                    className={`project-detail-toggle ${expandedProjects.includes(project.number) ? 'is-open' : ''}`}
+                    type="button"
+                    aria-expanded={expandedProjects.includes(project.number)}
+                    onClick={() => toggleProject(project.number)}
+                  >
+                    <span>
+                      {expandedProjects.includes(project.number)
+                        ? 'Hide engineering detail'
+                        : 'View engineering detail'}
                     </span>
-                    <div className="project-tech-list">
-                      {project.technologies.map((technology) => (
-                        <span key={technology}>{technology}</span>
-                      ))}
+                    <span className="detail-toggle-icon">
+                      {expandedProjects.includes(project.number) ? '−' : '+'}
+                    </span>
+                  </button>
+
+                  <div
+                    className={`project-extra ${expandedProjects.includes(project.number) ? 'is-open' : ''}`}
+                    aria-hidden={!expandedProjects.includes(project.number)}
+                  >
+                    <div className="project-extra-inner">
+                      <div className="project-details">
+                        <span className="project-details-label">WHAT I OWNED</span>
+
+                        <ul className="project-highlights">
+                          {project.highlights.map((highlight) => (
+                            <li key={highlight}>{highlight}</li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="project-technologies">
+                        <span className="project-details-label">
+                          TECHNOLOGY & CAPABILITIES
+                        </span>
+                        <div className="project-tech-list">
+                          {project.technologies.map((technology) => (
+                            <span key={technology}>{technology}</span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="expertise-section engineering-section section-padding" id="engineering">
+        <div className="container">
+          <motion.div
+            className="expertise-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="eyebrow">03 / HOW I ENGINEER</span>
+            <h2>
+              Built with intent.
+              <br />
+              <span>Not just shipped.</span>
+            </h2>
+            <p>
+              The principles behind the work — the decisions that keep mobile
+              products fast, stable and easier to change.
+            </p>
+          </motion.div>
+
+          <div className="expertise-grid">
+            {engineeringPrinciples.map((principle) => (
+              <motion.article
+                className="expertise-card"
+                key={principle.number}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="expertise-card-top">
+                  <span>{principle.number}</span>
+                  <span className="expertise-card-line" />
+                </div>
+
+                <h3>{principle.title}</h3>
+                <p>{principle.description}</p>
               </motion.article>
             ))}
           </div>
@@ -849,7 +1018,7 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">03 / TECHNICAL EXPERTISE</span>
+            <span className="eyebrow">04 / TECHNICAL EXPERTISE</span>
             <h2>
               Deep in mobile.
               <br />
@@ -900,7 +1069,7 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">04 / ABOUT ME</span>
+            <span className="eyebrow">05 / ABOUT ME</span>
             <h2>
               Engineer who
               <br />
@@ -911,15 +1080,14 @@ function App() {
           <div className="about-content">
             <div className="about-description">
               <p className="about-lead">
-                I'm a Senior Mobile Engineer with 5+ years building and
-                evolving production Android and iOS applications with React
-                Native.
+                I'm a Senior React Native Engineer with 5+ years building and
+                evolving production Android and iOS applications.
               </p>
 
               <p>
-                My experience spans digital banking, FinTech and GovTech —
-                secure transactions, offline-first apps, complex integrations
-                and performance-critical mobile workflows.
+                My experience spans banking, FinTech, GovTech, blockchain and
+                e-commerce — secure transactions, offline-first apps, complex
+                integrations and performance-critical mobile workflows.
               </p>
 
               <p>
@@ -928,18 +1096,19 @@ function App() {
                 improving reliability and shipping through production.
               </p>
 
-              <div className="credentials-list">
-                {credentials.map((item) => (
-                  <div className="credential-item" key={item.label}>
-                    <span className="credential-label">{item.label}</span>
-                    <div>
-                      <strong>{item.title}</strong>
-                      <span>{item.detail}</span>
-                      <span>{item.extra}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <p className="about-direction">
+                I'm especially interested in products where scale, reliability
+                and performance are non-negotiable — mobile systems that need
+                to stay fast and stable as teams and user bases grow.
+              </p>
+
+              {/* <div className="about-credentials">
+                <span>CREDENTIALS</span>
+                <p>
+                  B.E. Electronics &amp; Telecommunication · CS50 Mobile App
+                  Development · Generative AI for Software Development
+                </p>
+              </div> */}
             </div>
 
             <div className="about-expertise">
@@ -974,63 +1143,19 @@ function App() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="eyebrow">05 / SERVICES</span>
+            <span className="eyebrow">06 / HOW I CAN HELP</span>
             <h2>
-              Also available for
-              <span> focused product engagements.</span>
+              Clear ways
+              <span> I can add value.</span>
             </h2>
             <p>
-              Alongside full-time roles, I help founders and teams turn ideas
-              into reliable mobile products — from first build to scaling an
-              existing app.
+              Whether you’re hiring for a product team or building something
+              locally, here is where I fit best.
             </p>
           </motion.div>
 
           <div className="services-grid">
-            {[
-              {
-                number: '01',
-                icon: Smartphone,
-                title: 'Mobile App Development',
-                description:
-                  'Custom Android and iOS apps with React Native, TypeScript and scalable architecture.',
-              },
-              {
-                number: '02',
-                icon: Rocket,
-                title: 'MVP & Product Development',
-                description:
-                  'Turn an idea into a working mobile product with practical architecture and room to grow.',
-              },
-              {
-                number: '03',
-                icon: Gauge,
-                title: 'Performance & Optimization',
-                description:
-                  'Improve startup time, stability, responsiveness and overall user experience.',
-              },
-              {
-                number: '04',
-                icon: PlugZap,
-                title: 'API & Backend Integration',
-                description:
-                  'Connect apps with REST APIs, authentication, payments, real-time services and third-party platforms.',
-              },
-              {
-                number: '05',
-                icon: BrainCircuit,
-                title: 'AI-powered Mobile Features',
-                description:
-                  'Add intelligent assistants, summarization and conversational capabilities to mobile products.',
-              },
-              {
-                number: '06',
-                icon: Wrench,
-                title: 'Maintenance & Support',
-                description:
-                  'Modernize existing React Native apps, resolve technical issues and improve maintainability.',
-              },
-            ].map((service, index) => (
+            {helpOptions.map((service, index) => (
               <motion.article
                 className="service-card"
                 key={service.number}
@@ -1045,6 +1170,7 @@ function App() {
                   </span>
                   <span className="service-number">{service.number}</span>
                 </div>
+                <span className="service-audience">{service.audience}</span>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
                 <span className="service-arrow">↗</span>
@@ -1063,7 +1189,7 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">06 / LET'S TALK</span>
+            <span className="eyebrow">07 / LET'S TALK</span>
 
             <h2>
               Looking for a senior
