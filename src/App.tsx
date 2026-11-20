@@ -3,14 +3,18 @@ import { motion } from 'motion/react'
 import './App.css'
 import { useState } from 'react'
 import {
-  ArrowDown,
   ArrowRight,
   ArrowUpRight,
   Mail,
   Menu,
   X,
+  BrainCircuit,
+Gauge,
+PlugZap,
+Rocket,
+Smartphone,
+Wrench,
 } from 'lucide-react'
-import heroAbstract from './assets/images/hero-abstract.png'
 
 
 const navigation = [
@@ -129,75 +133,53 @@ const experience = [
 ]
 
 
+
 const projects = [
- 
   {
     number: '01',
     name: 'Confidential Product',
     category: 'PRIVATE BUILD',
     description:
-      'A new mobile product is taking shape. Exploring ideas, engineering possibilities and a fresh experience. More to come.',
-    technologies: [],
-    highlights: [],
+      'An independent product initiative focused on shaping a purposeful mobile experience, exploring product direction, engineering architecture and implementation.',
+    technologies: [
+      'React Native',
+      'TypeScript',
+      'Mobile Architecture',
+      'Product Engineering',
+    ],
+    highlights: [
+      'Exploring product requirements and translating ideas into technical direction.',
+      'Structuring the application for maintainability and future feature growth.',
+      'Developing the product experience with a focus on usability and engineering quality.',
+    ],
     status: 'In development',
   },
   {
     number: '02',
     name: 'News Application',
-    category: 'FREELANCE ENGAGEMENT',
+    category: 'INDEPENDENT MOBILE PRODUCT',
     description:
-      'Currently working independently on the development of a cross-platform mobile news application.',
-    technologies: [],
-    highlights: [],
+      'An independently developed cross-platform news application, covering mobile product planning, feature architecture, implementation and backend integration.',
+    technologies: [
+      'React Native',
+      'TypeScript',
+      'REST APIs',
+      'Axios',
+      'Socket.IO',
+      'AI Integration Exploration',
+    ],
+    highlights: [
+      'Designing a modular, feature-based architecture with reusable components and centralized state management.',
+      'Building news feeds, category-based discovery, article browsing and content navigation workflows.',
+      'Integrating REST APIs through centralized Axios configuration, interceptors and error handling.',
+      'Working with Socket.IO for real-time content update capabilities.',
+      'Exploring AI-powered article summarization and conversational article assistance.',
+      'Using AI-assisted development workflows for planning, debugging, refactoring and test creation.',
+    ],
     status: 'In development',
   },
-
-  // {
-  //   number: '03',
-  //   name: 'Enterprise Digital Banking',
-  //   category: 'PROFESSIONAL CASE STUDY',
-  //   description:
-  //     'Contributed to a large-scale digital banking application, delivering secure mobile banking capabilities across Android and iOS in an enterprise environment.',
-  //   technologies: [
-  //     'React Native',
-  //     'TypeScript',
-  //     'Redux',
-  //     'JWT',
-  //     'Secure Storage',
-  //     'REST APIs',
-  //   ],
-  //   highlights: [
-  //     'Implemented Face ID and Touch ID authentication flows.',
-  //     'Worked on secure API integrations, JWT authentication and encrypted local data.',
-  //     'Delivered banking features involving IVR and backend service integrations.',
-  //     'Contributed to 30–35% performance improvement and a 20–25% reduction in production crash rates.',
-  //   ],
-  //   status: 'Production experience',
-  // },
-  // {
-  //   number: '04',
-  //   name: 'Haqdarshak Benefits Platform',
-  //   category: 'PROFESSIONAL CASE STUDY',
-  //   description:
-  //     'Helped evolve a government benefits discovery and application platform used by field agents, with a focus on offline reliability, performance and long-term mobile application ownership.',
-  //   technologies: [
-  //     'React Native',
-  //     'TypeScript',
-  //     'Realm',
-  //     'Redux',
-  //     'Firebase',
-  //     'REST APIs',
-  //   ],
-  //   highlights: [
-  //     'Took ownership of the mobile application following its transition from an external development vendor.',
-  //     'Reduced APK size from 67 MB to 45 MB.',
-  //     'Improved application startup time by approximately 40%.',
-  //     'Maintained 98%+ crash-free performance and improved API response times by 60–80%.',
-  //     'Mentored junior developers and improved application maintainability.',
-  //   ],
-  //   status: 'Production experience',
-  // },
 ]
+
 
 
 
@@ -278,7 +260,7 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
     <main>
-        <header className="navbar container">
+       <header className="navbar">
         <a
           className="brand"
           href="#home"
@@ -403,89 +385,231 @@ function App() {
           </div>
         </motion.div>
 
-
         <motion.div
-          className="hero-visual"
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-  <img
-  className="hero-abstract-image"
-  src={heroAbstract}
-  alt="Abstract illustration representing mobile engineering and technology"
-/>
+  className="hero-visual"
+  initial={{ opacity: 0, scale: 0.94, y: 18 }}
+  animate={{ opacity: 1, scale: 1, y: 0 }}
+  transition={{ duration: 0.9, delay: 0.2 }}
+>
+  <div className="hero-showcase">
+    <div className="showcase-glow" />
 
-          <div className="visual-caption">
-            <span>BASED IN INDIA</span>
-            <span>MOBILE ENGINEERING · PRODUCT THINKING</span>
+    <div className="showcase-heading">
+      <span className="showcase-dot" />
+      MOBILE ENGINEERING
+      <span className="showcase-version">01 / 04</span>
+    </div>
+
+    <motion.div
+      className="showcase-phone"
+      animate={{ y: [0, -9, 0] }}
+      transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      <div className="phone-frame">
+        <div className="phone-island" />
+
+        <div className="phone-screen">
+          <div className="phone-topline">
+            <span>ENGINEERING / SYSTEMS</span>
+            <span className="phone-status-dot" />
           </div>
 
-          <div className="floating-mark">
-            <ArrowDown size={20} />
+          <div className="phone-intro">
+            <small>BUILDING FOR SCALE</small>
+            <h3>
+              Mobile
+              <br />
+              experiences<span>.</span>
+            </h3>
+            <p>Reliable by design. Built to perform.</p>
           </div>
-        </motion.div>
+
+          <div className="phone-feature">
+            <div className="feature-icon">01</div>
+            <div>
+              <strong>Architecture</strong>
+              <span>Modular · Scalable</span>
+            </div>
+            <ArrowUpRight size={17} />
+          </div>
+
+          <div className="phone-feature">
+            <div className="feature-icon">02</div>
+            <div>
+              <strong>Performance</strong>
+              <span>Optimized · Reliable</span>
+            </div>
+            <ArrowUpRight size={17} />
+          </div>
+
+          <div className="phone-feature">
+            <div className="feature-icon">03</div>
+            <div>
+              <strong>AI experiences</strong>
+              <span>Intelligent · Emerging</span>
+            </div>
+            <ArrowUpRight size={17} />
+          </div>
+
+          <div className="phone-bottom">
+            <span>ANDROID</span>
+            <span>•</span>
+            <span>iOS</span>
+            <span>•</span>
+            <span>REACT NATIVE</span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+
+    <motion.div
+      className="showcase-float showcase-float-top"
+      animate={{ y: [0, -6, 0] }}
+      transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      <span className="float-label">ENGINEERING IMPACT</span>
+      <strong>40%</strong>
+      <span className="float-description">Faster app startup</span>
+    </motion.div>
+
+    <motion.div
+      className="showcase-float showcase-float-bottom"
+      animate={{ y: [0, 7, 0] }}
+      transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      <span className="float-indicator" />
+      <div>
+        <strong>98%+</strong>
+        <span>Crash-free sessions</span>
+      </div>
+    </motion.div>
+
+    <div className="showcase-footer">
+      <span>BUILDING</span>
+      <span>SHIPPING</span>
+      <span>IMPROVING</span>
+    </div>
+  </div>
+</motion.div>
       </section>
 
     
-      <section className="impact-strip" id="impact">
-        <div className="container">
-          <div className="impact-heading">
-            <span className="eyebrow">ENGINEERING IMPACT</span>
-            <p>Measurable improvements. Real-world engineering.</p>
+   
+
+      <section className="impact-section section-padding" id="impact">
+  <div className="container">
+    <div className="impact-heading-row">
+      <div className="impact-intro">
+        <span className="eyebrow">ENGINEERING CAPABILITIES / 01—08</span>
+        <h2>
+          More than mobile screens.
+          <br />
+          <span>End-to-end product engineering.</span>
+        </h2>
+        <p>
+          I think beyond individual features — building mobile products
+          that are scalable, reliable, secure and ready for real users.
+        </p>
+      </div>
+
+      <span className="impact-scroll-hint">
+        EXPLORE CAPABILITIES <ArrowRight size={15} />
+      </span>
+    </div>
+
+    <div className="impact-track">
+      {[
+        {
+          number: '01',
+          icon: '◈',
+          title: 'Scalable Architecture',
+          description:
+            'Modular, maintainable application architecture designed to grow with product complexity.',
+          tags: 'System Design · Reusability',
+        },
+        {
+          number: '02',
+          icon: '↗',
+          title: 'Performance Engineering',
+          description:
+            'Fast startup, smooth interactions, optimized rendering and efficient resource usage.',
+          tags: 'Optimization · Responsiveness',
+        },
+        {
+          number: '03',
+          icon: '◎',
+          title: 'Engaging User Experiences',
+          description:
+            'Intuitive interfaces, thoughtful interactions and seamless user journeys that keep products easy to use.',
+          tags: 'UX · Interaction · Accessibility',
+        },
+        {
+          number: '04',
+          icon: '⬡',
+          title: 'Secure Mobile Systems',
+          description:
+            'Authentication, protected local data, secure API communication and dependable application workflows.',
+          tags: 'JWT · Biometrics · Security',
+        },
+        {
+          number: '05',
+          icon: '⌁',
+          title: 'Offline-first Reliability',
+          description:
+            'Mobile experiences that handle unstable networks, local persistence and dependable data synchronization.',
+          tags: 'Realm · Caching · Sync',
+        },
+        {
+          number: '06',
+          icon: '⌘',
+          title: 'Backend & Real-time Integration',
+          description:
+            'Connecting mobile applications with REST APIs, real-time services and intelligent backend workflows.',
+          tags: 'Axios · Socket.IO · APIs',
+        },
+        {
+          number: '07',
+          icon: '↑',
+          title: 'Production & Deployment',
+          description:
+            'Taking features through testing, release preparation, deployment and continuous improvement.',
+          tags: 'CI/CD · Android · iOS',
+        },
+        {
+          number: '08',
+          icon: '✳',
+          title: 'AI-powered Experiences',
+          description:
+            'Exploring LLM integration, intelligent assistants and AI-driven capabilities for modern products.',
+          tags: 'LLMs · AI Workflows · Agents',
+        },
+      ].map((item) => (
+        <article className="impact-capability-card" key={item.number}>
+          <div className="capability-card-top">
+            <span>{item.number} / 08</span>
+            <span className="capability-icon">{item.icon}</span>
           </div>
 
-          <div className="impact-grid">
-            <motion.div
-              className="impact-item"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <strong>40%</strong>
-              <span>Faster app startup</span>
-              {/* <small>Haqdarshak</small> */}
-            </motion.div>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
 
-            <motion.div
-              className="impact-item"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <strong>67 → 45 MB</strong>
-              <span>APK size reduction</span>
-              {/* <small>Haqdarshak</small> */}
-            </motion.div>
+          <div className="capability-tags">{item.tags}</div>
 
-            <motion.div
-              className="impact-item"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <strong>98%+</strong>
-              <span>Crash-free performance</span>
-              {/* <small>Haqdarshak</small> */}
-            </motion.div>
+          <span className="capability-card-arrow">
+            <ArrowUpRight size={19} />
+          </span>
+        </article>
+      ))}
+    </div>
 
-            <motion.div
-              className="impact-item"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <strong>30–35%</strong>
-              <span>Performance improvement</span>
-              {/* <small>Digital Banking</small> */}
-            </motion.div>
-          </div>
-        </div>
-      </section>
+    <div className="impact-track-footer">
+      <span>ENGINEERED FOR REAL-WORLD PRODUCTS</span>
+      <span>ANDROID <i /> iOS <i /> REACT NATIVE <i /> AI</span>
+    </div>
+  </div>
+</section>
+
+
 
 
       <section className="about-section section-padding" id="about">
@@ -583,7 +707,8 @@ function App() {
           </motion.div>
 
      
-<div className="projects-list">
+
+          <div className="projects-list">
   {projects.map((project) => (
     <motion.article
       className={`project-item ${project.number === '01' ? 'project-item--private' : ''}`}
@@ -595,7 +720,7 @@ function App() {
     >
       <div className="project-topline">
         <span>{project.category}</span>
-        <span>{project.number}</span>
+        <span>/{project.number}</span>
       </div>
 
       {project.number === '01' && (
@@ -626,32 +751,48 @@ function App() {
       )}
 
       <div className="project-content">
-        <div className="project-title-row">
-          <h3>{project.name}</h3>
-          <span className="project-status">{project.status}</span>
+        <div className="project-main">
+          <div className="project-title-row">
+            <h3>{project.name}</h3>
+            <span className="project-status">{project.status}</span>
+          </div>
+
+          <p className="project-description">
+            {project.description}
+          </p>
         </div>
 
-        <p className="project-description">{project.description}</p>
-
         {project.highlights.length > 0 && (
-          <ul className="project-highlights">
-            {project.highlights.map((highlight) => (
-              <li key={highlight}>{highlight}</li>
-            ))}
-          </ul>
+          <div className="project-details">
+            <span className="project-details-label">
+              ENGINEERING CONTRIBUTIONS
+            </span>
+
+            <ul className="project-highlights">
+              {project.highlights.map((highlight) => (
+                <li key={highlight}>{highlight}</li>
+              ))}
+            </ul>
+          </div>
         )}
 
         {project.technologies.length > 0 && (
           <div className="project-technologies">
-            {project.technologies.map((technology) => (
-              <span key={technology}>{technology}</span>
-            ))}
+            <span className="project-details-label">
+              TECHNOLOGY & CAPABILITIES
+            </span>
+            <div className="project-tech-list">
+              {project.technologies.map((technology) => (
+                <span key={technology}>{technology}</span>
+              ))}
+            </div>
           </div>
         )}
       </div>
     </motion.article>
   ))}
 </div>
+
 
         </div>
       </section>
@@ -815,42 +956,42 @@ function App() {
             {[
               {
                 number: '01',
-                icon: '📱',
+                icon: Smartphone,
                 title: 'Mobile App Development',
                 description:
                   'Custom Android and iOS applications built with React Native, TypeScript and scalable architecture.',
               },
               {
                 number: '02',
-                icon: '🚀',
+                icon: Rocket,
                 title: 'MVP & Product Development',
                 description:
                   'Turn your product idea into a working mobile experience, with practical architecture and room to grow.',
               },
               {
                 number: '03',
-                icon: '⚡',
+                icon: Gauge,
                 title: 'Performance & Optimization',
                 description:
                   'Improve app speed, stability, startup time, responsiveness and overall user experience.',
               },
               {
                 number: '04',
-                icon: '🔌',
+                icon: PlugZap,
                 title: 'API & Backend Integration',
                 description:
                   'Connect mobile apps with REST APIs, authentication, payments, real-time services and third-party platforms.',
               },
               {
                 number: '05',
-                icon: '🤖',
+                icon: BrainCircuit,
                 title: 'AI-powered Mobile Experiences',
                 description:
                   'Integrate AI capabilities such as intelligent assistants, content summarization and conversational features.',
               },
               {
                 number: '06',
-                icon: '🛠️',
+                icon: Wrench,
                 title: 'Maintenance & Engineering Support',
                 description:
                   'Modernize existing React Native apps, resolve technical issues and improve long-term maintainability.',
@@ -865,7 +1006,9 @@ function App() {
                 transition={{ duration: 0.45, delay: index * 0.08 }}
               >
                 <div className="service-card-top">
-                  <span className="service-icon">{service.icon}</span>
+                <span className="service-icon">
+  <service.icon size={23} strokeWidth={1.8} />
+</span>
                   <span className="service-number">{service.number}</span>
                 </div>
                 <h3>{service.title}</h3>
@@ -875,7 +1018,7 @@ function App() {
             ))}
           </div>
 
-          <motion.div
+          {/* <motion.div
             className="services-cta"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -892,7 +1035,7 @@ function App() {
             <a href="#contact" className="services-cta-button">
               Work With Me <span>↗</span>
             </a>
-          </motion.div>
+          </motion.div> */}
         </div>
       </section>
 
@@ -1064,31 +1207,51 @@ function App() {
       </section>
 
      
-      <footer className="site-footer">
-        <div className="container footer-content">
-          <a className="brand footer-brand" href="#home">
-            ANURAG<span>.</span>
-          </a>
+   
+<footer className="site-footer">
+  <div className="container footer-content">
+    <div className="footer-main">
+      <div className="footer-identity">
+        <a className="brand footer-brand" href="#home">
+          ANURAG<span>.</span>
+        </a>
+        <p>Senior Mobile Engineer</p>
+        <span>Engineering thoughtful products for Android, iOS & beyond.</span>
+      </div>
 
-          <p>
-            Building thoughtful mobile experiences.
-          </p>
-
-     
-          <div className="footer-links">
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#projects">Projects</a>
-            <a href="#experience">Experience</a>
-            <a href="#contact">Contact</a>
-          </div>
-
-
-          <span className="footer-copyright">
-            © {new Date().getFullYear()} Anurag Raut. All rights reserved.
-          </span>
+      <div className="footer-navigation">
+        <span className="footer-label">EXPLORE</span>
+        <div className="footer-links">
+          <a href="#about">About</a>
+          <a href="#expertise">Engineering</a>
+          <a href="#services">Services</a>
+          <a href="#projects">Projects</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
         </div>
-      </footer>
+      </div>
+
+      <div className="footer-connect">
+        <span className="footer-label">LET'S CONNECT</span>
+        <a href="mailto:anuragraut.developer@gmail.com">
+          Email me <ArrowUpRight size={15} />
+        </a>
+        <a href="https://www.linkedin.com/in/anuragraut-developer/" target="_blank" rel="noreferrer">
+          LinkedIn <ArrowUpRight size={15} />
+        </a>
+        <a href="https://github.com/AnuraagRaut" target="_blank" rel="noreferrer">
+          GitHub <ArrowUpRight size={15} />
+        </a>
+      </div>
+    </div>
+
+    <div className="footer-bottom">
+      <span>© {new Date().getFullYear()} Anurag Raut. All rights reserved.</span>
+      <a href="#home">Back to top ↑</a>
+    </div>
+  </div>
+</footer>
+
 
     </main>
   )
