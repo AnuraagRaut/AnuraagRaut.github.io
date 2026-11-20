@@ -15,6 +15,7 @@ import heroAbstract from './assets/images/hero-abstract.png'
 
 const navigation = [
   { label: 'About', href: '#about' },
+  { label: 'Engineering', href: '#future-engineering' },
   { label: 'Services', href: '#services' },
   { label: 'Projects', href: '#projects' },
   { label: 'Experience', href: '#experience' },
@@ -22,42 +23,44 @@ const navigation = [
 ]
 
 
+
 const expertise = [
   {
     number: '01',
-    title: 'Mobile Engineering',
+    title: 'Mobile Product Engineering',
     description:
-      'Building cross-platform applications for Android and iOS using React Native and TypeScript.',
+      'Building production-ready Android and iOS applications with React Native, TypeScript and a focus on dependable user experiences.',
   },
   {
     number: '02',
-    title: 'Performance & Architecture',
+    title: 'Architecture & Engineering Ownership',
     description:
-      'Creating maintainable application structures, improving app performance and handling complex workflows.',
+      'Taking features from technical planning to production through modular architecture, API integration, performance optimization and reliability improvements.',
   },
   {
     number: '03',
-    title: 'Real-world Products',
+    title: 'AI & Emerging Technologies',
     description:
-      'Experience across digital banking, FinTech and GovTech products, including offline-first mobile experiences.',
+      'Exploring LLM-powered mobile experiences, AI-assisted development, agentic workflows and intelligent product capabilities.',
   },
 ]
 
 const experience = [
   {
-    type: 'INDEPENDENT WORK',
-    role: 'Freelance React Native Developer',
-    company: 'Independent · No Bias Media',
+    type: 'FREELANCE ENGAGEMENT',
+    role: 'Senior Mobile Engineer',
+    company: 'Independent Client Engagement',
     period: 'May 2026 – Present',
     location: 'Remote',
     description:
-      'Independently developing a React Native news application with end-to-end ownership of mobile engineering.',
+      'Independently developing a cross-platform React Native news application, taking ownership of mobile feature planning, architecture, implementation and integration.',
     highlights: [
-      'Planning and implementing mobile features, application architecture and API integrations.',
-      'Building modular architecture with reusable components and centralized state management.',
-      'Integrating REST APIs using Axios, interceptors and structured error handling.',
-      'Exploring Socket.IO for real-time content updates and AI-powered article experiences.',
-      'Using AI-assisted workflows for implementation planning, debugging, refactoring and test creation.',
+      'Designing modular, feature-based architecture with reusable components and centralized state management.',
+      'Developing mobile workflows for news feeds, category-based browsing, article discovery and content navigation.',
+      'Integrating REST APIs using Axios, with centralized request handling, interceptors and error management.',
+      'Using Claude-assisted workflows for implementation planning, debugging, code explanation, refactoring and test creation.',
+      'Working with Socket.IO to support timely content updates.',
+      'Exploring AI-powered experiences, including article summarization and conversational article assistance.',
     ],
   },
   {
@@ -68,11 +71,12 @@ const experience = [
     period: 'Nov 2025 – May 2026',
     location: 'Chennai',
     highlights: [
-      'Designed and delivered end-to-end digital banking features.',
-      'Implemented biometric authentication, IVR customer flows, JWT token management and encrypted local storage.',
-      'Improved performance by 30–35% through targeted optimization.',
-      'Reduced production crash rates by 20–25%.',
-      'Coordinated with development and testing teams across TCS and Infosys.',
+      'Owned the development and delivery of end-to-end features for a branchless digital banking application.',
+      'Implemented biometric authentication using Face ID and Touch ID, alongside IVR customer workflows.',
+      'Strengthened mobile security through JWT token management, encrypted local storage and secure API integrations.',
+      'Improved application performance by 30–35% through targeted engineering optimizations.',
+      'Reduced production crash rates by 20–25%, contributing to a more reliable banking experience.',
+      'Collaborated with cross-functional engineering and QA teams across TCS and Infosys in Dubai, Pune and Chennai.',
     ],
   },
   {
@@ -83,14 +87,14 @@ const experience = [
     period: 'Oct 2023 – Jun 2025',
     location: 'Pune',
     highlights: [
-      'Took end-to-end ownership of the product after transition from a 20+ engineer external vendor team.',
-      'Led architecture decisions, feature development and production releases.',
-      'Led migration of a legacy Vue.js application into the main React Native platform.',
-      'Reduced app startup time by 40% and APK size from 67 MB to 45 MB.',
-      'Sustained 98%+ crash-free sessions.',
-      'Improved API response times by 60–80% for agents working in low-network environments.',
-      'Mentored developers and introduced modular architecture and code-review standards.',
-      'Used Firebase Analytics and field feedback to drive UX improvements.',
+      'Assumed end-to-end ownership of the mobile product following its transition from an external vendor team of 20+ engineers.',
+      'Drove mobile architecture decisions, feature delivery, technical improvements and production releases.',
+      'Led the migration of a legacy Vue.js application into the primary React Native platform.',
+      'Reduced application startup time by 40% and APK size from 67 MB to 45 MB.',
+      'Maintained 98%+ crash-free sessions, improving application stability for field users.',
+      'Improved API response times by 60–80%, supporting agents operating in low-network environments.',
+      'Mentored developers and established modular architecture and code-review practices.',
+      'Used Firebase Analytics and field feedback to identify usability issues and drive UX improvements.',
     ],
   },
   {
@@ -126,93 +130,73 @@ const experience = [
 
 
 const projects = [
+ 
   {
     number: '01',
-    name: 'AhaVera',
-    category: 'INDEPENDENT PRODUCT',
+    name: 'Confidential Product',
+    category: 'PRIVATE BUILD',
     description:
-      'An adaptive personal growth application designed to help people clear their minds, build better habits and move forward. Built with a modular, Android-first architecture and iOS compatibility.',
-    technologies: [
-      'React Native',
-      'TypeScript',
-      'React Native CLI',
-      'Redux',
-      'Mappls',
-    ],
-    highlights: [
-      'Building reusable, modular architecture for a multi-feature mobile product.',
-      'Developing meditation, assessments and creative expression experiences.',
-      'Designing Pathik, an integrated travel companion with map-based journey planning.',
-      'Prioritizing performance, maintainability and a consistent cross-platform experience.',
-    ],
+      'A new mobile product is taking shape. Exploring ideas, engineering possibilities and a fresh experience. More to come.',
+    technologies: [],
+    highlights: [],
     status: 'In development',
   },
   {
     number: '02',
-    name: 'No Bias Media',
-    category: 'INDEPENDENT PRODUCT',
+    name: 'News Application',
+    category: 'FREELANCE ENGAGEMENT',
     description:
-      'A React Native news application focused on timely content, real-time updates and AI-assisted content exploration through a modular, API-driven architecture.',
-    technologies: [
-      'React Native',
-      'TypeScript',
-      'Axios',
-      'Socket.IO',
-      'Claude AI',
-    ],
-    highlights: [
-      'Owning mobile feature planning, architecture and end-to-end implementation.',
-      'Integrating REST APIs with centralized request handling and error management.',
-      'Exploring real-time content updates using Socket.IO.',
-      'Exploring AI-powered article summaries and conversational article assistance.',
-    ],
+      'Currently working independently on the development of a cross-platform mobile news application.',
+    technologies: [],
+    highlights: [],
     status: 'In development',
   },
-  {
-    number: '03',
-    name: 'Enterprise Digital Banking',
-    category: 'PROFESSIONAL CASE STUDY',
-    description:
-      'Contributed to a large-scale digital banking application, delivering secure mobile banking capabilities across Android and iOS in an enterprise environment.',
-    technologies: [
-      'React Native',
-      'TypeScript',
-      'Redux',
-      'JWT',
-      'Secure Storage',
-      'REST APIs',
-    ],
-    highlights: [
-      'Implemented Face ID and Touch ID authentication flows.',
-      'Worked on secure API integrations, JWT authentication and encrypted local data.',
-      'Delivered banking features involving IVR and backend service integrations.',
-      'Contributed to 30–35% performance improvement and a 20–25% reduction in production crash rates.',
-    ],
-    status: 'Production experience',
-  },
-  {
-    number: '04',
-    name: 'Haqdarshak Benefits Platform',
-    category: 'PROFESSIONAL CASE STUDY',
-    description:
-      'Helped evolve a government benefits discovery and application platform used by field agents, with a focus on offline reliability, performance and long-term mobile application ownership.',
-    technologies: [
-      'React Native',
-      'TypeScript',
-      'Realm',
-      'Redux',
-      'Firebase',
-      'REST APIs',
-    ],
-    highlights: [
-      'Took ownership of the mobile application following its transition from an external development vendor.',
-      'Reduced APK size from 67 MB to 45 MB.',
-      'Improved application startup time by approximately 40%.',
-      'Maintained 98%+ crash-free performance and improved API response times by 60–80%.',
-      'Mentored junior developers and improved application maintainability.',
-    ],
-    status: 'Production experience',
-  },
+
+  // {
+  //   number: '03',
+  //   name: 'Enterprise Digital Banking',
+  //   category: 'PROFESSIONAL CASE STUDY',
+  //   description:
+  //     'Contributed to a large-scale digital banking application, delivering secure mobile banking capabilities across Android and iOS in an enterprise environment.',
+  //   technologies: [
+  //     'React Native',
+  //     'TypeScript',
+  //     'Redux',
+  //     'JWT',
+  //     'Secure Storage',
+  //     'REST APIs',
+  //   ],
+  //   highlights: [
+  //     'Implemented Face ID and Touch ID authentication flows.',
+  //     'Worked on secure API integrations, JWT authentication and encrypted local data.',
+  //     'Delivered banking features involving IVR and backend service integrations.',
+  //     'Contributed to 30–35% performance improvement and a 20–25% reduction in production crash rates.',
+  //   ],
+  //   status: 'Production experience',
+  // },
+  // {
+  //   number: '04',
+  //   name: 'Haqdarshak Benefits Platform',
+  //   category: 'PROFESSIONAL CASE STUDY',
+  //   description:
+  //     'Helped evolve a government benefits discovery and application platform used by field agents, with a focus on offline reliability, performance and long-term mobile application ownership.',
+  //   technologies: [
+  //     'React Native',
+  //     'TypeScript',
+  //     'Realm',
+  //     'Redux',
+  //     'Firebase',
+  //     'REST APIs',
+  //   ],
+  //   highlights: [
+  //     'Took ownership of the mobile application following its transition from an external development vendor.',
+  //     'Reduced APK size from 67 MB to 45 MB.',
+  //     'Improved application startup time by approximately 40%.',
+  //     'Maintained 98%+ crash-free performance and improved API response times by 60–80%.',
+  //     'Mentored junior developers and improved application maintainability.',
+  //   ],
+  //   status: 'Production experience',
+  // },
 ]
 
 
@@ -220,38 +204,57 @@ const projects = [
 const technicalExpertise = [
   {
     number: '01',
-    title: 'Mobile Engineering',
+    title: 'Mobile Architecture & System Design',
     description:
-      'Building production-ready cross-platform applications with a focus on user experience, reliability and performance.',
+      'Designing modular mobile applications with maintainable architecture, reliable data flows and a growing focus on system design principles.',
     skills: [
-      'React Native',
-      'TypeScript',
-      'JavaScript',
-      'Android',
-      'iOS',
-      'React.js',
-      'React Native CLI',
+      'React Native Architecture',
+      'Modular Architecture',
+      'Feature-based Design',
+      'State Management',
+      'Offline-first Systems',
+      'Realm',
+      'Application Scalability',
+      'System Design',
     ],
   },
   {
     number: '02',
-    title: 'Architecture & State',
+    title: 'AI Engineering & Exploration',
     description:
-      'Structuring maintainable applications with predictable state, modular boundaries and offline-first capabilities.',
+      'Applying AI-assisted development workflows and exploring LLM-powered capabilities, intelligent mobile experiences and agentic concepts.',
     skills: [
-      'Redux',
-      'Context API',
-      'Modular Architecture',
-      'Feature-based Design',
-      'Offline-first',
-      'Realm',
+      'AI-assisted Development',
+      'Claude',
+      'GitHub Copilot',
+      'LLM Concepts',
+      'AI Workflows',
+      'Prompt Engineering',
+      'Agentic AI Concepts',
+      'AI-powered UX',
     ],
   },
   {
     number: '03',
-    title: 'APIs & Integrations',
+    title: 'Modern Mobile Engineering',
     description:
-      'Building dependable mobile integrations with secure authentication, centralized networking and real-time services.',
+      'Building production-ready Android and iOS applications with React Native, TypeScript and a focus on performance, security and maintainability.',
+    skills: [
+      'React Native',
+      'TypeScript',
+      'JavaScript',
+      'Android & iOS',
+      'Native Integrations',
+      'Performance Engineering',
+      'Mobile Security',
+      'CI/CD',
+    ],
+  },
+  {
+    number: '04',
+    title: 'Backend Integration & Reliability',
+    description:
+      'Integrating mobile applications with backend services while maintaining secure communication, robust error handling and production reliability.',
     skills: [
       'REST APIs',
       'Axios',
@@ -259,26 +262,13 @@ const technicalExpertise = [
       'Socket.IO',
       'Firebase',
       'API Interceptors',
-      'Secure Storage',
-    ],
-  },
-  {
-    number: '04',
-    title: 'Quality & Engineering',
-    description:
-      'Improving production reliability, optimizing application performance and streamlining engineering delivery.',
-    skills: [
-      'Performance Optimization',
-      'Debugging',
       'Crashlytics',
-      'Git',
-      'CI/CD',
-      'Code Reviews',
-      'GitHub Copilot',
-      'Claude',
+      'Debugging',
+      'Production Reliability',
     ],
   },
 ]
+
 
 
 
@@ -354,29 +344,35 @@ function App() {
             OPEN TO ENGINEERING OPPORTUNITIES & PROJECTS
           </div>
 
-          <h1>
-            I build mobile
-            <br />
-            products that
-            <br />
-            <span>make an impact.</span>
-          </h1>
+          <div className="hero-identity">
+  <span>SENIOR MOBILE ENGINEER</span>
+  <span>5+ YEARS EXPERIENCE</span>
+  <span>ANDROID · iOS · AI ENGINEERING</span>
+</div>
+   
+<h1>
+  Engineering mobile products
+  <br />
+  <span>for what’s next.</span>
+</h1>
 
-          <p className="hero-description">
-            I'm Anurag Raut, a Senior React Native Engineer with 5+ years
-            of experience building reliable, scalable Android and iOS
-            applications across FinTech, digital banking and GovTech.
-          </p>
+<p className="hero-description">
+  Senior Mobile Engineer with 5+ years of experience building
+  scalable Android and iOS applications. Focused on mobile
+  architecture, system design, performance engineering and
+  AI-powered development workflows.
+</p>
 
-          <div className="hero-actions">
-            <a className="primary-button" href="#projects">
-              Explore my work <ArrowUpRight size={17} />
-            </a>
+<div className="hero-actions">
+  <a className="primary-button" href="#projects">
+    Explore my work <ArrowUpRight size={17} />
+  </a>
 
-            <a className="text-button" href="#services">
-              What I can build <ArrowRight size={17} />
-            </a>
-          </div>
+  <a className="text-button" href="#future-engineering">
+    Explore my engineering approach <ArrowRight size={17} />
+  </a>
+</div>
+
 
           <div className="hero-socials">
             <a
@@ -510,32 +506,34 @@ function App() {
           </motion.div>
 
           <div className="about-content">
-            <div className="about-description">
-         
-<p className="about-lead">
-  I'm a Senior React Native Engineer with 5+ years of experience
-  building and evolving mobile applications across Android and iOS.
-</p>
+          <div className="about-description">
+  <p className="about-lead">
+    I'm a Senior Mobile Engineer with 5+ years of experience
+    building and evolving production-ready Android and iOS
+    applications using React Native.
+  </p>
 
-<p>
-  My experience spans digital banking, FinTech and GovTech, from
-  secure financial workflows to offline-first applications built
-  for challenging network conditions.
-</p>
+  <p>
+    My experience spans digital banking, FinTech and GovTech,
+    where I've worked on secure transactions, offline-first
+    applications, complex integrations and performance-critical
+    mobile experiences.
+  </p>
 
-<p>
-  I bring an ownership mindset to mobile engineering — taking
-  features from requirements through architecture, implementation,
-  performance optimization and production delivery.
-</p>
+  <p>
+    I take ownership beyond implementation — translating
+    requirements into technical solutions, shaping application
+    architecture, integrating APIs, improving reliability and
+    delivering features through production.
+  </p>
 
-<p>
-  Beyond feature development, I care about scalable architecture,
-  application reliability, maintainable code and building products
-  that solve real user problems.
-</p>
-
-            </div>
+  <p>
+    I'm also expanding into AI-native engineering, exploring
+    LLM-powered mobile experiences, agentic workflows and
+    intelligent automation while strengthening my foundations
+    in system design and scalable software architecture.
+  </p>
+</div>
 
             <div className="about-expertise">
               {expertise.map((item) => (
@@ -579,53 +577,82 @@ function App() {
               <span>real products.</span>
             </h2>
             <p>
-              Independent products where I explore product thinking,
-              mobile architecture and emerging technologies.
-            </p>
+  Selected mobile engineering work, independent builds and
+  product experiences shaped through thoughtful engineering.
+</p>
           </motion.div>
 
-          <div className="projects-list">
-            {projects.map((project) => (
-              <motion.article
-                className="project-item"
-                key={project.number}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="project-topline">
-                  <span>{project.category}</span>
-                  <span>{project.number}</span>
-                </div>
+     
+<div className="projects-list">
+  {projects.map((project) => (
+    <motion.article
+      className={`project-item ${project.number === '01' ? 'project-item--private' : ''}`}
+      key={project.number}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="project-topline">
+        <span>{project.category}</span>
+        <span>{project.number}</span>
+      </div>
 
-                <div className="project-content">
-                  <div className="project-title-row">
-                    <h3>{project.name}</h3>
-                    <span className="project-status">
-                      {project.status}
-                    </span>
-                  </div>
+      {project.number === '01' && (
+        <div className="private-project-preview">
+          <div className="preview-window">
+            <div className="preview-topbar">
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className="preview-content">
+              <div className="preview-block preview-block-large" />
+              <div className="preview-block preview-block-medium" />
+              <div className="preview-block preview-block-small" />
+              <div className="preview-cards">
+                <span />
+                <span />
+                <span />
+              </div>
+            </div>
+            <div className="preview-overlay">
+              <span className="preview-loader" />
+              <span>Something is taking shape</span>
+              <small>PRIVATE BUILD · COMING SOON</small>
+            </div>
+          </div>
+        </div>
+      )}
 
-                  <p className="project-description">
-                    {project.description}
-                  </p>
+      <div className="project-content">
+        <div className="project-title-row">
+          <h3>{project.name}</h3>
+          <span className="project-status">{project.status}</span>
+        </div>
 
-                  <ul className="project-highlights">
-                    {project.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
+        <p className="project-description">{project.description}</p>
 
-                  <div className="project-technologies">
-                    {project.technologies.map((technology) => (
-                      <span key={technology}>{technology}</span>
-                    ))}
-                  </div>
-                </div>
-              </motion.article>
+        {project.highlights.length > 0 && (
+          <ul className="project-highlights">
+            {project.highlights.map((highlight) => (
+              <li key={highlight}>{highlight}</li>
+            ))}
+          </ul>
+        )}
+
+        {project.technologies.length > 0 && (
+          <div className="project-technologies">
+            {project.technologies.map((technology) => (
+              <span key={technology}>{technology}</span>
             ))}
           </div>
+        )}
+      </div>
+    </motion.article>
+  ))}
+</div>
+
         </div>
       </section>
 
@@ -684,6 +711,83 @@ function App() {
           </div>
         </div>
       </section>
+
+
+<section className="future-section section-padding" id="future-engineering">
+  <div className="container">
+    <motion.div
+      className="future-heading"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+    >
+      <span className="eyebrow">05 / ENGINEERING BEYOND MOBILE</span>
+      <h2>
+        Building for the
+        <br />
+        <span>next era of software.</span>
+      </h2>
+      <p>
+        Mobile engineering is evolving. I am expanding beyond
+        traditional app development into AI-native products,
+        intelligent workflows and scalable software systems.
+      </p>
+    </motion.div>
+
+    <div className="future-grid">
+      {[
+        {
+          number: '01',
+          title: 'AI-Native Development',
+          description:
+            'Integrating LLM capabilities into mobile experiences and using AI-assisted workflows to accelerate engineering.',
+          tags: ['LLMs', 'AI Integration', 'AI Workflows'],
+        },
+        {
+          number: '02',
+          title: 'Agentic Systems & Automation',
+          description:
+            'Exploring intelligent agents, tool calling, workflow orchestration and automation for software engineering.',
+          tags: ['AI Agents', 'Tool Calling', 'Orchestration'],
+        },
+        {
+          number: '03',
+          title: 'System Design & Scalability',
+          description:
+            'Thinking beyond individual screens: designing reliable architectures, distributed systems and scalable applications.',
+          tags: ['System Design', 'Architecture', 'Scalability'],
+        },
+        {
+          number: '04',
+          title: 'Next-Generation Mobile',
+          description:
+            'Bringing together mobile platforms, real-time systems and intelligent experiences to create more capable applications.',
+          tags: ['React Native', 'Real-time Systems', 'Intelligent UX'],
+        },
+      ].map((item) => (
+        <motion.article
+          className="future-card"
+          key={item.number}
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="future-number">{item.number}</span>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+          <div className="future-tags">
+            {item.tags.map((tag) => (
+              <span key={tag}>{tag}</span>
+            ))}
+          </div>
+        </motion.article>
+      ))}
+    </div>
+  </div>
+</section>
+
 
 
       <section className="services-section section-padding" id="services">
@@ -812,10 +916,12 @@ function App() {
               <span>solving real problems.</span>
             </h2>
             <p>
-              A journey across mobile engineering, digital banking,
-              FinTech and GovTech — from product teams to independent
-              development.
-            </p>
+  5+ years of hands-on mobile engineering across digital
+  banking, FinTech, GovTech, blockchain and consumer
+  applications — building production products, owning
+  complex features and improving performance, reliability
+  and user experiences.
+</p>
           </motion.div>
 
           <div className="experience-list">

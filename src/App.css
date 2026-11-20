@@ -3427,3 +3427,235 @@ button:focus-visible {
   }
 }
 
+
+
+
+/* CONFIDENTIAL PRODUCT PREVIEW */
+
+.private-project-preview {
+  margin: 22px 0 26px;
+  overflow: hidden;
+  border-radius: 13px;
+  background: #eef0f7;
+}
+
+.preview-window {
+  min-height: 260px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #e8eaf3, #f7f7fa);
+}
+
+.preview-topbar {
+  display: flex;
+  gap: 7px;
+  padding: 15px 18px;
+  border-bottom: 1px solid rgba(30, 35, 60, 0.08);
+}
+
+.preview-topbar span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #aeb3c5;
+}
+
+.preview-content {
+  padding: 24px;
+  filter: blur(7px);
+  opacity: 0.65;
+}
+
+.preview-block {
+  height: 13px;
+  border-radius: 8px;
+  background: #9299b5;
+  margin-bottom: 13px;
+}
+
+.preview-block-large { width: 62%; height: 22px; }
+.preview-block-medium { width: 85%; }
+.preview-block-small { width: 43%; }
+
+.preview-cards {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.preview-cards span {
+  height: 75px;
+  flex: 1;
+  border-radius: 10px;
+  background: #aeb5d0;
+}
+
+.preview-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  background: rgba(245, 246, 251, 0.48);
+  backdrop-filter: blur(2px);
+  color: #292d3b;
+  font-weight: 650;
+}
+
+.preview-overlay small {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: #777d91;
+}
+
+.preview-loader {
+  width: 25px;
+  height: 25px;
+  border: 2px solid #c9cde0;
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: preview-spin 1s linear infinite;
+}
+
+@keyframes preview-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preview-loader { animation: none; }
+}
+
+
+
+/* FUTURE-READY ENGINEERING */
+
+.future-section {
+  background: #f4f5f9;
+}
+
+.future-heading {
+  max-width: 690px;
+  margin-bottom: 38px;
+}
+
+.future-heading h2 {
+  margin: 12px 0 18px;
+}
+
+.future-heading h2 span {
+  color: var(--color-accent);
+}
+
+.future-heading p {
+  max-width: 570px;
+  color: var(--color-secondary);
+  font-size: 15px;
+}
+
+.future-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.future-card {
+  padding: 28px;
+  min-height: 230px;
+  border: 1px solid #e5e7ef;
+  border-radius: 16px;
+  background: #fff;
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+
+.future-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 32px rgba(20, 30, 60, 0.07);
+}
+
+.future-number {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: var(--color-accent);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 1px;
+}
+
+.future-card h3 {
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.future-card p {
+  color: var(--color-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.future-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.future-tags span {
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .future-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .future-card {
+    min-height: auto;
+    padding: 23px;
+  }
+}
+
+
+/* SENIOR ENGINEER HERO IDENTITY */
+
+.hero-identity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.hero-identity span {
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 1.1px;
+  color: var(--color-secondary);
+}
+
+.hero-identity span + span::before {
+  content: "·";
+  margin-right: 10px;
+  color: var(--color-accent);
+}
+
+.hero h1 span {
+  color: var(--color-accent);
+}
+
+@media (max-width: 480px) {
+  .hero-identity {
+    gap: 7px;
+    margin-bottom: 19px;
+  }
+
+  .hero-identity span {
+    font-size: 8px;
+  }
+}
