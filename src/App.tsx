@@ -80,36 +80,37 @@ const expertise = [
 
 const experience = [
   {
-    type: 'FREELANCE ENGAGEMENT',
-    role: 'Senior Mobile Engineer',
-    company: 'Independent Client Engagement',
-    product: 'Cross-platform News Product',
+    type: 'INDEPENDENT PROJECT',
+    role: 'Senior React Native Engineer',
+    company: 'No Bias Media',
+    product: 'News Application',
     period: 'May 2026 – Present',
     location: 'Remote',
     description:
-      'Own mobile planning, architecture, implementation and integration for an independent news product.',
+      'Own mobile feature planning, architecture, implementation and integration for an independent news product.',
     highlights: [
       'Designing modular, feature-based architecture with reusable components and centralized state management.',
       'Building news feeds, category browsing, article discovery and content navigation workflows.',
       'Integrating REST APIs with Axios interceptors and centralized error handling.',
-      'Using Socket.IO for timely content updates and exploring AI article summarization.',
+      'Using Claude-assisted workflows for planning, debugging, refactoring and test creation.',
+      'Working with Socket.IO for timely updates and exploring AI article summarization.',
     ],
   },
   {
     type: 'PROFESSIONAL EXPERIENCE',
     role: 'Senior React Native Developer',
-    company: 'iBridge Tech Soft Pvt. Ltd. · Client: TCS',
-    product: 'Gulf International Bank — Branchless Digital Banking',
+    company: 'iBridge Tech Soft Pvt. Ltd. · Client: Tata Consultancy Services',
+    product: 'Gulf International Bank · Branchless Digital Banking · GCC Markets',
     period: 'Nov 2025 – May 2026',
     location: 'Chennai',
     description:
-      'Delivered end-to-end features for a secure branchless digital banking application.',
+      'Designed and delivered end-to-end digital banking features for Gulf International Bank (GIB).',
     highlights: [
-      'Owned feature delivery from technical planning through production release.',
-      'Implemented biometric authentication with Face ID and Touch ID, plus IVR customer workflows.',
-      'Strengthened security with JWT management, encrypted local storage and secure API integrations.',
-      'Improved application performance by 30–35% through targeted engineering optimizations.',
-      'Reduced production crash rates by 20–25% and partnered with QA teams across TCS and Infosys.',
+      'Implemented Face ID and Touch ID biometrics, IVR workflows, JWT management, encrypted local storage and secure APIs.',
+      'Improved application performance by 30–35% through bottleneck resolution and targeted optimization.',
+      'Reduced production crash rates by 20–25% through systematic debugging and production fixes.',
+      'Delivered hotfixes within release timelines with 0 regressions across release cycles.',
+      'Led a team of developers, coordinating with TCS and Infosys teams in Dubai, Pune and Chennai.',
     ],
   },
   {
@@ -122,11 +123,12 @@ const experience = [
     description:
       'Led mobile architecture and delivery for a field-use GovTech platform after vendor handover.',
     highlights: [
-      'Took end-to-end ownership following transition from an external team of 20+ engineers.',
-      'Led migration of a legacy Vue.js application into the primary React Native platform.',
-      'Reduced startup time by 40% and APK size from 67 MB to 45 MB.',
-      'Maintained 98%+ crash-free sessions and improved API response times by 60–80%.',
-      'Mentored developers and established modular architecture and code-review practices.',
+      'Took end-to-end ownership after handover from a 20+ engineer external vendor team.',
+      'Led architecture, feature delivery and releases while reducing production incidents by 60–70%.',
+      'Led migration of a separate legacy Vue.js application into the main React Native platform.',
+      'Reduced startup time by 40% and APK size from 67 MB to 45 MB for low-storage devices.',
+      'Sustained 98%+ crash-free sessions and accelerated API response times by 60–80% on low networks.',
+      'Used Firebase Analytics to drive 6+ UX improvements, conducted field visits and mentored developers.',
     ],
   },
   {
@@ -164,49 +166,67 @@ const experience = [
 const projects = [
   {
     number: '01',
-    name: 'Branchless Digital Banking',
-    category: 'SHIPPED · CONFIDENTIAL CLIENT',
-    client: 'iBridge Tech Soft · TCS engagement',
+    name: 'Gulf International Bank — Meem',
+    category: 'SHIPPED · BFSI · GCC MARKETS',
+    client: 'iBridge Tech Soft · Tata Consultancy Services',
     description:
-      'Secure mobile banking product built for branchless customer operations and assisted workflows.',
+      'Secure branchless digital banking platform for GCC markets, with biometric authentication and assisted banking workflows.',
     technologies: [
       'React Native',
       'TypeScript',
       'Biometrics',
       'JWT',
       'Encrypted Storage',
+      'SSL Pinning',
       'REST APIs',
     ],
     highlights: [
-      'Owned feature delivery from planning through production release.',
-      'Implemented Face ID, Touch ID and IVR-assisted customer workflows.',
-      'Secured local data and API communication with JWT and encrypted storage.',
-      'Delivered 30–35% performance gains and 20–25% fewer production crashes.',
+      'Delivered end-to-end digital banking features for GIB across Android and iOS.',
+      'Implemented Face ID, Touch ID, IVR flows, JWT, encrypted storage and secure APIs.',
+      'Improved performance by 30–35% and cut production crashes by 20–25%.',
+      'Delivered hotfixes with 0 regressions and led developers across TCS and Infosys.',
     ],
     status: 'Shipped',
+    links: [
+      {
+        label: 'Google Play',
+        url: 'https://play.google.com/store/apps/details?id=com.gib.meemksa&hl=en_IN',
+      },
+      {
+        label: 'App Store',
+        url: 'https://apps.apple.com/in/app/meem-early-access/id6764323360',
+      },
+    ],
   },
   {
     number: '02',
-    name: 'Government Scheme Discovery',
+    name: 'Haqdarshak Agent App',
     category: 'SHIPPED · GOVTECH',
     client: 'Haqdarshak Empowerment Solutions',
     description:
-      'Field-use mobile platform helping agents discover, explain and apply for government schemes.',
+      'Field-use mobile platform helping agents discover, explain and apply for government schemes for citizens and MSMEs.',
     technologies: [
       'React Native',
       'Vue Migration',
       'Offline-first',
-      'Firebase',
+      'Firebase Analytics',
       'REST APIs',
       'Mentoring',
     ],
     highlights: [
-      'Took ownership after handover from a 20+ engineer vendor team.',
-      'Migrated the legacy Vue.js app into the primary React Native platform.',
-      'Cut startup time 40% and APK size from 67 MB to 45 MB.',
-      'Held 98%+ crash-free sessions and improved API response times by 60–80%.',
+      'Took ownership after handover from a 20+ engineer external vendor team.',
+      'Reduced production incidents by 60–70% and led the legacy Vue.js migration.',
+      'Cut startup time 40% and APK size from 67 MB to 45 MB for low-storage devices.',
+      'Sustained 98%+ crash-free sessions and 60–80% faster API responses.',
+      'Drove 6+ UX improvements from Firebase Analytics and field visits.',
     ],
     status: 'Shipped',
+    links: [
+      {
+        label: 'Google Play',
+        url: 'https://play.google.com/store/apps/details?id=com.haqdarshak.hd&hl=en_IN',
+      },
+    ],
   },
   {
     number: '03',
@@ -232,9 +252,9 @@ const projects = [
   },
   {
     number: '04',
-    name: 'AI-Assisted News Application',
+    name: 'No Bias Media — News Application',
     category: 'INDEPENDENT · IN DEVELOPMENT',
-    client: 'Self-initiated product',
+    client: 'No Bias Media',
     description:
       'Cross-platform news product exploring real-time updates and AI-assisted reading.',
     technologies: [
@@ -242,6 +262,7 @@ const projects = [
       'TypeScript',
       'Axios',
       'Socket.IO',
+      'Claude-assisted Workflows',
       'LLM Exploration',
     ],
     highlights: [
@@ -257,65 +278,96 @@ const projects = [
 const technicalExpertise = [
   {
     number: '01',
-    title: 'Mobile Architecture & System Design',
+    title: 'React Native Internals & Architecture',
     description:
-      'Modular, maintainable app architecture with reliable data flows and production-ready structure.',
+      'Hands-on with the new architecture and clean, modular systems built to survive feature growth.',
     skills: [
-      'React Native Architecture',
+      'React Native Internals',
+      'JSI',
+      'Hermes',
+      'Codegen',
+      'Fabric',
+      'TurboModules',
+      'Clean Architecture',
       'Modular Architecture',
       'Feature-based Design',
-      'State Management',
-      'Offline-first Systems',
-      'Realm',
-      'Application Scalability',
+      'Offline-first',
     ],
   },
   {
     number: '02',
-    title: 'Modern Mobile Engineering',
+    title: 'State, Storage & Data',
     description:
-      'Android and iOS delivery with React Native and TypeScript, tuned for speed, security and stability.',
+      'Predictable state and resilient local data for apps that work through unstable networks.',
     skills: [
-      'React Native',
-      'TypeScript',
-      'JavaScript',
-      'Android & iOS',
-      'Native Integrations',
-      'Performance Engineering',
-      'Mobile Security',
-      'CI/CD',
+      'Redux Toolkit',
+      'Redux Saga',
+      'Context API',
+      'AsyncStorage',
+      'SecureStore',
+      'Realm',
+      'SQLite',
+      'REST APIs',
+      'GraphQL',
+      'Axios',
     ],
   },
   {
     number: '03',
-    title: 'Backend Integration & Reliability',
+    title: 'Performance, Security & Reliability',
     description:
-      'Secure API communication, resilient error handling and production reliability for mobile clients.',
+      'Startup, rendering, memory and security work backed by production monitoring.',
     skills: [
-      'REST APIs',
-      'Axios',
+      'Startup Optimization',
+      'Rendering Optimization',
+      'FlatList',
+      'Memory Profiling',
       'JWT',
-      'Socket.IO',
-      'Firebase',
-      'API Interceptors',
+      'OAuth 2.0',
+      'Biometrics',
+      'Keychain / Keystore',
+      'SSL Pinning',
       'Crashlytics',
-      'Debugging',
     ],
   },
   {
     number: '04',
-    title: 'AI-Assisted Engineering',
+    title: 'Delivery, Testing & AI Tooling',
     description:
-      'Practical AI workflows for faster delivery, plus hands-on exploration of LLM-powered mobile features.',
+      'CI/CD, testing and AI-assisted workflows that keep releases safe and teams fast.',
     skills: [
+      'GitHub Actions',
+      'Bitbucket Pipelines',
+      'CodePush',
+      'Jest',
+      'E2E Testing',
       'AI-assisted Development',
       'Claude',
       'GitHub Copilot',
-      'LLM Concepts',
-      'Prompt Engineering',
-      'Agentic AI Concepts',
-      'AI-powered UX',
+      'Gen AI / RAG',
+      'Agentic AI',
     ],
+  },
+]
+
+const credentials = [
+  {
+    label: 'EDUCATION',
+    title: 'B.E. Electronics & Telecommunication',
+    detail: 'RTMNU · 2016',
+    extra: 'Diploma, Electronics & Telecommunication · MSBTE · 2011',
+  },
+  {
+    label: 'CERTIFICATIONS',
+    title: 'CS50 Mobile App Development (React Native)',
+    detail: 'CS50 Introduction to Computer Science',
+    extra: 'Generative AI for Software Development',
+  },
+  {
+    label: 'CONTINUOUS LEARNING',
+    title: 'Generative AI · LLMs · RAG',
+    detail: 'Agentic AI and AI-powered mobile applications',
+    extra: 'AI-assisted software engineering',
   },
 ]
 
@@ -411,12 +463,13 @@ function App() {
 
           <div className="hero-location">
             <MapPin size={14} />
-            India · UTC+5:30 · Open to remote and hybrid teams
+            Pune, India · UTC+5:30 · Open to remote, hybrid and on-site roles
           </div>
 
           <div className="hero-identity">
-            <span>SENIOR MOBILE ENGINEER</span>
+            <span>SENIOR REACT NATIVE DEVELOPER</span>
             <span>5+ YEARS PRODUCTION EXPERIENCE</span>
+            <span>END-TO-END PRODUCT OWNERSHIP</span>
             <span>ANDROID · iOS · REACT NATIVE</span>
           </div>
 
@@ -427,9 +480,10 @@ function App() {
           </h1>
 
           <p className="hero-description">
-            5+ years shipping production Android and iOS apps across digital
-            banking, FinTech and GovTech. I own architecture, performance and
-            delivery — from first commit to production release.
+            5+ years shipping secure, high-performance Android and iOS apps
+            across BFSI, FinTech, GovTech, blockchain and e-commerce. I own
+            architecture, performance and delivery — from first commit to
+            production release.
           </p>
 
           <div className="hero-actions">
@@ -739,6 +793,24 @@ function App() {
                     <p className="project-description">{project.description}</p>
                   </div>
 
+                  {project.links && project.links.length > 0 && (
+                    <div className="project-links">
+                      <span className="project-details-label">VERIFY THE RELEASE</span>
+                      <div className="project-link-list">
+                        {project.links.map((link) => (
+                          <a
+                            key={link.url}
+                            href={link.url}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {link.label} <ArrowUpRight size={14} />
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="project-details">
                     <span className="project-details-label">
                       ENGINEERING CONTRIBUTIONS
@@ -855,6 +927,19 @@ function App() {
                 requirements into technical solutions, shaping architecture,
                 improving reliability and shipping through production.
               </p>
+
+              <div className="credentials-list">
+                {credentials.map((item) => (
+                  <div className="credential-item" key={item.label}>
+                    <span className="credential-label">{item.label}</span>
+                    <div>
+                      <strong>{item.title}</strong>
+                      <span>{item.detail}</span>
+                      <span>{item.extra}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div className="about-expertise">
@@ -987,9 +1072,9 @@ function App() {
             </h2>
 
             <p>
-              I'm open to Senior React Native and Mobile Engineer roles, and I
-              also take on focused product engagements. Tell me what you're
-              building — or what you need help shipping.
+              Open to senior React Native and mobile engineering roles in Pune
+              or remote. I also take on focused product engagements. Tell me
+              what you're building — or what you need help shipping.
             </p>
 
             <div className="contact-options">
@@ -1017,13 +1102,18 @@ function App() {
             </div>
 
             <div className="contact-bottom">
-              <a
-                href="mailto:anuragraut.developer@gmail.com"
-                className="contact-email-link"
-              >
-                anuragraut.developer@gmail.com
-                <ArrowUpRight size={18} />
-              </a>
+              <div className="contact-direct">
+                <a
+                  href="mailto:anuragraut.developer@gmail.com"
+                  className="contact-email-link"
+                >
+                  anuragraut.developer@gmail.com
+                  <ArrowUpRight size={18} />
+                </a>
+                <a href="tel:+917767874097" className="contact-phone-link">
+                  +91 77678 74097
+                </a>
+              </div>
 
               <div className="contact-socials">
                 <a
@@ -1061,8 +1151,8 @@ function App() {
               <a className="brand footer-brand" href="#home">
                 ANURAG<span>.</span>
               </a>
-              <p>Senior Mobile Engineer</p>
-              <span>React Native · Architecture · Performance · Delivery.</span>
+              <p>Senior React Native Developer | Mobile Engineer</p>
+              <span>End-to-End Product Ownership · Architecture · Performance.</span>
             </div>
 
             <div className="footer-navigation">

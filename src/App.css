@@ -823,6 +823,47 @@ button:focus-visible {
   letter-spacing: -0.04em;
 }
 
+.credentials-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-border);
+}
+
+.credential-item {
+  display: grid;
+  grid-template-columns: 105px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
+.credential-label {
+  padding-top: 2px;
+  color: var(--color-accent);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.1px;
+}
+
+.credential-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.credential-item strong {
+  color: var(--color-foreground);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.credential-item div span {
+  color: var(--color-muted);
+  font-size: 10px;
+  line-height: 1.5;
+}
+
 .about-expertise {
   border-top: 1px solid var(--color-border);
 }
@@ -1061,6 +1102,38 @@ button:focus-visible {
   font-size: 8px;
   font-weight: 750;
   letter-spacing: 1.4px;
+}
+
+.project-links {
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(130, 143, 255, 0.13);
+}
+
+.project-link-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-link-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border: 1px solid rgba(130, 143, 255, 0.3);
+  border-radius: 7px;
+  color: #c4cbff;
+  font-size: 10px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+.project-link-list a:hover {
+  border-color: rgba(160, 170, 255, 0.65);
+  background: rgba(103, 117, 255, 0.14);
+  color: #fff;
 }
 
 .project-highlights {
@@ -1835,6 +1908,13 @@ button:focus-visible {
   border-top: 1px solid #e1e4ee;
 }
 
+.contact-direct {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 22px;
+}
+
 .contact-email-link {
   display: inline-flex;
   align-items: center;
@@ -1843,6 +1923,17 @@ button:focus-visible {
   font-size: 13px;
   font-weight: 650;
   overflow-wrap: anywhere;
+}
+
+.contact-phone-link {
+  color: #343c68;
+  font-size: 13px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.contact-phone-link:hover {
+  color: #5969d9;
 }
 
 .contact-email-link svg {
@@ -2364,6 +2455,11 @@ body::before {
     grid-template-columns: 1fr;
   }
 
+  .credential-item {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+
   .experience-section {
     padding-block: 65px;
   }
@@ -2468,6 +2564,12 @@ body::before {
   .contact-bottom {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .contact-direct {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
   }
 }
 
