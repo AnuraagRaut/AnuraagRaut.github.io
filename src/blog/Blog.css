@@ -241,7 +241,7 @@
 }
 
 .blog-list-heading > span {
-  color: #9aa0af;
+  color: #5f6577;
   font-size: 11px;
   font-weight: 650;
 }
@@ -378,7 +378,7 @@
 .blog-card-meta {
   display: flex;
   gap: 14px;
-  color: #9aa0af;
+  color: #5f6577;
   font-size: 10px;
   font-weight: 650;
 }
@@ -558,7 +558,7 @@
 
 .blog-aside-card li::before {
   content: '0' counter(toc) ' ';
-  color: #a3a9ba;
+  color: #5f6577;
   font-weight: 800;
 }
 
@@ -802,9 +802,44 @@
 }
 
 .blog-footer p,
-.blog-footer span {
+.blog-footer-links span {
   color: var(--blog-muted);
   font-size: 11px;
+}
+
+.blog-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 18px;
+}
+
+.blog-footer-links a {
+  color: #4e5dcd;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.blog-footer-links a:hover {
+  text-decoration: underline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-page *,
+  .blog-page *::before,
+  .blog-page *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .blog-card:hover,
+  .blog-next-post:hover,
+  .blog-primary-button:hover,
+  .blog-secondary-button:hover {
+    transform: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -849,7 +884,7 @@
     gap: 12px;
   }
 
-  .blog-nav a:not(.blog-nav-cta) {
+  .blog-nav .blog-nav-portfolio {
     display: none;
   }
 

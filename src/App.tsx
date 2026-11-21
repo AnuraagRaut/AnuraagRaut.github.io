@@ -1,9 +1,15 @@
-import { motion, useReducedMotion } from 'motion/react'
+import { motion, MotionConfig, useReducedMotion } from 'motion/react'
 import './App.css'
 import { trackEvent } from './analytics'
 import { posts } from './blog/posts'
 import { useEffect, useRef, useState } from 'react'
-import { bookingUrls } from './siteConfig'
+import {
+  bookingUrls,
+  contactEmail,
+  contactPhone,
+  resumeUrl,
+  socialUrls,
+} from './siteConfig'
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -19,8 +25,6 @@ import {
   Wrench,
   X,
 } from 'lucide-react'
-
-const resumeUrl = '/Anurag-Raut-Resume.pdf'
 
 const navigation = [
   { label: 'Experience', href: '#experience' },
@@ -423,9 +427,14 @@ function App() {
   const [isFeaturePaused, setIsFeaturePaused] = useState(false)
   const [expandedProjects, setExpandedProjects] = useState<string[]>([])
   const trackedSections = useRef(new Set<string>())
+  const menuRef = useRef<HTMLElement>(null)
+  const menuToggleRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
+    let frame = 0
+
     const updateActiveSection = () => {
+      frame = 0
       const marker = window.scrollY + window.innerHeight * 0.32
       let current = ''
 
@@ -447,13 +456,18 @@ function App() {
       }
     }
 
+    const scheduleUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveSection)
+    }
+
     updateActiveSection()
-    window.addEventListener('scroll', updateActiveSection, { passive: true })
-    window.addEventListener('resize', updateActiveSection)
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', scheduleUpdate)
 
     return () => {
-      window.removeEventListener('scroll', updateActiveSection)
-      window.removeEventListener('resize', updateActiveSection)
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
+      if (frame) window.cancelAnimationFrame(frame)
     }
   }, [])
 
@@ -467,6 +481,67 @@ function App() {
     return () => window.clearInterval(timer)
   }, [isFeaturePaused, reduceMotion])
 
+  useEffect(() => {
+    if (!isMenuOpen) return
+
+    const menu = menuRef.current
+    const previousOverflow = document.body.style.overflow
+    const getFocusableItems = () =>
+      Array.from(
+        menu?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ??
+          [],
+      )
+
+    document.body.style.overflow = 'hidden'
+    getFocusableItems()[0]?.focus()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false)
+        window.setTimeout(() => menuToggleRef.current?.focus(), 0)
+        return
+      }
+
+      if (event.key !== 'Tab') return
+
+      const items = getFocusableItems()
+      if (!items.length) return
+
+      const firstItem = items[0]
+      const lastItem = items[items.length - 1]
+
+      if (event.shiftKey && document.activeElement === firstItem) {
+        event.preventDefault()
+        lastItem.focus()
+      } else if (!event.shiftKey && document.activeElement === lastItem) {
+        event.preventDefault()
+        firstItem.focus()
+      } else if (
+        !menu?.contains(document.activeElement) &&
+        !menuToggleRef.current?.contains(document.activeElement)
+      ) {
+        event.preventDefault()
+        firstItem.focus()
+      }
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target
+      if (!(target instanceof Node)) return
+      if (menu?.contains(target) || menuToggleRef.current?.contains(target)) return
+      setIsMenuOpen(false)
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('pointerdown', handlePointerDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('pointerdown', handlePointerDown)
+    }
+  }, [isMenuOpen])
+
   const toggleProject = (number: string) => {
     setExpandedProjects((current) =>
       current.includes(number)
@@ -476,8 +551,13 @@ function App() {
   }
 
   return (
-    <main>
-      <header className="navbar">
+    <MotionConfig reducedMotion="user">
+      <div className="site-shell">
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
+
+        <header className="navbar">
         <a
           className="brand"
           href="#home"
@@ -491,6 +571,9 @@ function App() {
             <a
               key={item.label}
               className={activeSection === item.href.slice(1) ? 'active' : ''}
+              aria-current={
+                activeSection === item.href.slice(1) ? 'location' : undefined
+              }
               href={item.href}
             >
               {item.label}
@@ -537,6 +620,7 @@ function App() {
           </a>
 
           <button
+            ref={menuToggleRef}
             className="mobile-menu"
             type="button"
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
@@ -549,6 +633,7 @@ function App() {
         </div>
 
         <nav
+          ref={menuRef}
           id="mobile-navigation"
           className={`mobile-nav ${isMenuOpen ? 'is-open' : ''}`}
           aria-label="Mobile navigation"
@@ -593,6 +678,9 @@ function App() {
             <a
               key={item.label}
               className={activeSection === item.href.slice(1) ? 'active' : ''}
+              aria-current={
+                activeSection === item.href.slice(1) ? 'location' : undefined
+              }
               href={item.href}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -616,7 +704,8 @@ function App() {
         </nav>
       </header>
 
-      <section className="hero container" id="home">
+        <main id="main-content" tabIndex={-1}>
+          <section className="hero container" id="home">
         <motion.div
           className="hero-content"
           initial={{ opacity: 0, y: 24 }}
@@ -670,7 +759,7 @@ function App() {
 
           <div className="hero-socials">
             <a
-              href="https://github.com/AnuraagRaut"
+              href={socialUrls.github}
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
@@ -681,7 +770,7 @@ function App() {
             </a>
 
             <a
-              href="https://www.linkedin.com/in/anuragraut-developer/"
+              href={socialUrls.linkedIn}
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
@@ -691,7 +780,7 @@ function App() {
               </svg>
             </a>
 
-            <a href="mailto:anuragraut.developer@gmail.com" aria-label="Email">
+            <a href={`mailto:${contactEmail}`} aria-label="Email">
               <Mail size={18} />
             </a>
           </div>
@@ -738,12 +827,14 @@ function App() {
 
                   <div className="phone-intro">
                     <small>BUILT FOR PRODUCTION</small>
-                    <h3>
+                    <p className="phone-intro-title">
                       Mobile
                       <br />
                       products<span>.</span>
-                    </h3>
-                    <p>Architecture. Performance. Delivery.</p>
+                    </p>
+                    <p className="phone-intro-subtitle">
+                      Architecture. Performance. Delivery.
+                    </p>
                   </div>
 
                   {heroFeatures.map((feature, index) => (
@@ -898,7 +989,7 @@ function App() {
                     <p className="experience-description">{item.description}</p>
                   )}
 
-                  <ul className="experience-highlights">
+                  <ul className="experience-highlights" role="list">
                     {item.highlights.map((highlight) => (
                       <li key={highlight}>{highlight}</li>
                     ))}
@@ -988,6 +1079,7 @@ function App() {
                     className={`project-detail-toggle ${expandedProjects.includes(project.number) ? 'is-open' : ''}`}
                     type="button"
                     aria-expanded={expandedProjects.includes(project.number)}
+                    aria-controls={`project-extra-${project.number}`}
                     onClick={() => {
                       toggleProject(project.number)
                       trackEvent('Project Detail Toggle', {
@@ -1006,6 +1098,7 @@ function App() {
                   </button>
 
                   <div
+                    id={`project-extra-${project.number}`}
                     className={`project-extra ${expandedProjects.includes(project.number) ? 'is-open' : ''}`}
                     aria-hidden={!expandedProjects.includes(project.number)}
                   >
@@ -1013,7 +1106,7 @@ function App() {
                       <div className="project-details">
                         <span className="project-details-label">WHAT I OWNED</span>
 
-                        <ul className="project-highlights">
+                        <ul className="project-highlights" role="list">
                           {project.highlights.map((highlight) => (
                             <li key={highlight}>{highlight}</li>
                           ))}
@@ -1135,7 +1228,9 @@ function App() {
                   </div>
                   <span className="note-read">{note.readTime}</span>
                 </div>
-                <span className="note-arrow">↗</span>
+                <span className="note-arrow" aria-hidden="true">
+                  ↗
+                </span>
               </motion.a>
             ))}
           </div>
@@ -1245,14 +1340,6 @@ function App() {
                 and performance are non-negotiable — mobile systems that need
                 to stay fast and stable as teams and user bases grow.
               </p>
-
-              {/* <div className="about-credentials">
-                <span>CREDENTIALS</span>
-                <p>
-                  B.E. Electronics &amp; Telecommunication · CS50 Mobile App
-                  Development · Generative AI for Software Development
-                </p>
-              </div> */}
             </div>
 
             <div className="about-expertise">
@@ -1386,15 +1473,15 @@ function App() {
             <div className="contact-bottom">
               <div className="contact-direct">
                 <a
-                  href="mailto:anuragraut.developer@gmail.com"
+                  href={`mailto:${contactEmail}`}
                   className="contact-email-link"
                   onClick={() => trackEvent('Email Click', { source: 'contact' })}
                 >
-                  anuragraut.developer@gmail.com
+                  {contactEmail}
                   <ArrowUpRight size={18} />
                 </a>
                 <a
-                  href="tel:+917767874097"
+                  href={`tel:${contactPhone}`}
                   className="contact-phone-link"
                   onClick={() => trackEvent('Phone Click', { source: 'contact' })}
                 >
@@ -1412,7 +1499,7 @@ function App() {
                 </a>
 
                 <a
-                  href="https://www.linkedin.com/in/anuragraut-developer/"
+                  href={socialUrls.linkedIn}
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackEvent('LinkedIn Click', { source: 'contact' })}
@@ -1421,7 +1508,7 @@ function App() {
                 </a>
 
                 <a
-                  href="https://github.com/AnuraagRaut"
+                  href={socialUrls.github}
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => trackEvent('GitHub Click', { source: 'contact' })}
@@ -1432,7 +1519,8 @@ function App() {
             </div>
           </motion.div>
         </div>
-      </section>
+        </section>
+      </main>
 
       <footer className="site-footer">
         <div className="container footer-content">
@@ -1458,18 +1546,18 @@ function App() {
 
             <div className="footer-connect">
               <span className="footer-label">LET'S CONNECT</span>
-              <a href="mailto:anuragraut.developer@gmail.com">
+              <a href={`mailto:${contactEmail}`}>
                 Email me <ArrowUpRight size={15} />
               </a>
               <a
-                href="https://www.linkedin.com/in/anuragraut-developer/"
+                href={socialUrls.linkedIn}
                 target="_blank"
                 rel="noreferrer"
               >
                 LinkedIn <ArrowUpRight size={15} />
               </a>
               <a
-                href="https://github.com/AnuraagRaut"
+                href={socialUrls.github}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -1491,8 +1579,8 @@ function App() {
           </div>
         </div>
       </footer>
-
-    </main>
+      </div>
+    </MotionConfig>
   )
 }
 

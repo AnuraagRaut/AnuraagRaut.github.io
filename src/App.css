@@ -13,7 +13,7 @@
   --color-foreground: #171923;
   --color-primary: #171923;
   --color-secondary: #687087;
-  --color-muted: #9298a6;
+  --color-muted: #5f6577;
   --color-border: #e5e7f0;
   --color-accent: #5363ee;
   --color-accent-dark: #4051dd;
@@ -475,7 +475,7 @@ button:focus-visible {
 
 .showcase-version {
   margin-left: auto;
-  color: #9a9eae;
+  color: #5f6577;
   font-size: 9px;
 }
 
@@ -548,20 +548,20 @@ button:focus-visible {
   letter-spacing: 1.5px;
 }
 
-.phone-intro h3 {
+.phone-intro-title {
   margin: 10px 0;
   font-size: 30px;
   line-height: 1.05;
   letter-spacing: -1.8px;
 }
 
-.phone-intro h3 span {
+.phone-intro-title span {
   color: #5665ed;
 }
 
-.phone-intro p {
+.phone-intro-subtitle {
   margin: 0;
-  color: #818596;
+  color: #5f6577;
   font-size: 9px;
 }
 
@@ -617,7 +617,7 @@ button:focus-visible {
 }
 
 .phone-feature span {
-  color: #9296a6;
+  color: #5f6577;
   font-size: 8px;
 }
 
@@ -668,7 +668,7 @@ button:focus-visible {
   justify-content: center;
   gap: 6px;
   margin-top: 17px;
-  color: #818596;
+  color: #5f6577;
   font-size: 7px;
   font-weight: 750;
   letter-spacing: 0.6px;
@@ -715,7 +715,7 @@ button:focus-visible {
 }
 
 .float-description {
-  color: #777c8d;
+  color: #5f6577;
   font-size: 10px;
 }
 
@@ -741,7 +741,7 @@ button:focus-visible {
 }
 
 .showcase-float-bottom span:last-child {
-  color: #777c8d;
+  color: #5f6577;
   font-size: 9px;
 }
 
@@ -902,26 +902,6 @@ button:focus-visible {
   color: #3f4760;
   font-size: 13px;
   line-height: 1.7;
-}
-
-.about-credentials {
-  margin-top: 6px;
-  padding-top: 16px;
-  border-top: 1px solid var(--color-border);
-}
-
-.about-credentials span {
-  color: var(--color-accent);
-  font-size: 8px;
-  font-weight: 800;
-  letter-spacing: 1.2px;
-}
-
-.about-credentials p {
-  margin-top: 7px !important;
-  color: var(--color-muted) !important;
-  font-size: 10px !important;
-  line-height: 1.6 !important;
 }
 
 .about-expertise {
@@ -1226,14 +1206,15 @@ button:focus-visible {
 }
 
 .project-extra {
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
   opacity: 0;
-  transition: max-height 300ms ease, opacity 250ms ease;
+  transition: grid-template-rows 300ms ease, opacity 250ms ease;
 }
 
 .project-extra.is-open {
-  max-height: 600px;
+  grid-template-rows: 1fr;
   opacity: 1;
 }
 
@@ -1243,7 +1224,9 @@ button:focus-visible {
 
 .project-extra-inner {
   display: grid;
+  min-height: 0;
   gap: 18px;
+  overflow: hidden;
   padding-top: 18px;
 }
 
@@ -1624,7 +1607,7 @@ button:focus-visible {
 }
 
 .service-number {
-  color: #a5abc0;
+  color: #5f6577;
   font-size: 11px;
   font-weight: 750;
   letter-spacing: 1.2px;
@@ -1848,7 +1831,7 @@ button:focus-visible {
 }
 
 .note-read {
-  color: #9aa0af;
+  color: #5f6577;
   font-size: 10px;
   font-weight: 650;
   white-space: nowrap;
@@ -2006,7 +1989,7 @@ button:focus-visible {
 }
 
 .experience-type {
-  color: #9ba7ff;
+  color: #4e5dcd;
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 1.3px;

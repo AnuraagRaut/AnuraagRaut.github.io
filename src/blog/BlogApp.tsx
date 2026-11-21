@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type MouseEvent } from 'react'
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -8,14 +8,84 @@ import {
   Mail,
 } from 'lucide-react'
 import { trackEvent } from '../analytics'
-import { bookingUrls, contactEmail } from '../siteConfig'
+import { bookingUrls, contactEmail, resumeUrl, siteUrl } from '../siteConfig'
 import { getNextPost, getPost, posts, type BlogPost } from './posts'
 import './Blog.css'
 
-const resumeUrl = '/Anurag-Raut-Resume.pdf'
+const blogUrl = `${siteUrl}/blog.html`
+const ogImageUrl = `${siteUrl}/og-image.png`
+const indexTitle = 'Field Notes | Anurag Raut'
+const indexDescription =
+  'Practical engineering notes from Anurag Raut on React Native performance, mobile reliability, app size and production delivery.'
+
+function postUrl(slug: string) {
+  return `/blog.html?post=${encodeURIComponent(slug)}`
+}
+
+function canonicalPostUrl(slug: string) {
+  return `${blogUrl}?post=${encodeURIComponent(slug)}`
+}
 
 function slugFromUrl() {
   return new URLSearchParams(window.location.search).get('post')
+}
+
+function handleInternalNavigation(
+  event: MouseEvent<HTMLAnchorElement>,
+  navigate: () => void,
+) {
+  if (
+    event.defaultPrevented ||
+    event.button !== 0 ||
+    event.metaKey ||
+    event.ctrlKey ||
+    event.shiftKey ||
+    event.altKey
+  ) {
+    return
+  }
+
+  event.preventDefault()
+  navigate()
+}
+
+function personSchema() {
+  return {
+    '@type': 'Person',
+    name: 'Anurag Raut',
+    url: siteUrl,
+    jobTitle: 'Senior React Native Developer',
+  }
+}
+
+function itemListSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Field Notes by Anurag Raut',
+    itemListElement: posts.map((post, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: canonicalPostUrl(post.slug),
+      name: post.title,
+    })),
+  }
+}
+
+function blogPostingSchema(post: BlogPost) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.summary,
+    mainEntityOfPage: canonicalPostUrl(post.slug),
+    url: canonicalPostUrl(post.slug),
+    datePublished: post.date,
+    author: personSchema(),
+    publisher: personSchema(),
+    keywords: post.tags.join(', '),
+    image: ogImageUrl,
+  }
 }
 
 type PostCardProps = {
@@ -26,10 +96,12 @@ type PostCardProps = {
 
 function PostCard({ post, onOpen, featured = false }: PostCardProps) {
   return (
-    <button
-      type="button"
+    <a
       className={featured ? 'blog-card blog-card-featured' : 'blog-card'}
-      onClick={() => onOpen(post.slug)}
+      href={postUrl(post.slug)}
+      onClick={(event) =>
+        handleInternalNavigation(event, () => onOpen(post.slug))
+      }
     >
       <div className="blog-card-top">
         <span className="blog-card-number">NOTE {post.number}</span>
@@ -55,7 +127,7 @@ function PostCard({ post, onOpen, featured = false }: PostCardProps) {
       <span className="blog-card-arrow" aria-hidden="true">
         <ArrowUpRight size={18} />
       </span>
-    </button>
+    </a>
   )
 }
 
@@ -64,29 +136,73 @@ function BlogApp() {
   const post = activeSlug ? getPost(activeSlug) : undefined
 
   useEffect(() => {
-    const handlePopState = () => setActiveSlug(slugFromUrl())
+    const handlePopState = () => {
+      setActiveSlug(slugFromUrl())
+      const hash = window.location.hash.slice(1)
+
+      window.requestAnimationFrame(() => {
+        if (hash) {
+          document.getElementById(hash)?.scrollIntoView()
+        } else {
+          window.scrollTo({ top: 0, behavior: 'auto' })
+        }
+      })
+    }
+
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
   useEffect(() => {
-    document.title = post
-      ? `${post.title} | Field Notes | Anurag Raut`
-      : 'Field Notes | Anurag Raut'
+    const title = post ? `${post.title} | Field Notes | Anurag Raut` : indexTitle
+    const description = post?.summary ?? indexDescription
+    const canonicalUrl = post ? canonicalPostUrl(post.slug) : blogUrl
+
+    document.title = title
+
+    const setMeta = (selector: string, content: string) => {
+      const element = document.head.querySelector<HTMLMetaElement>(selector)
+      if (element) element.setAttribute('content', content)
+    }
+
+    setMeta('meta[name="description"]', description)
+    setMeta('meta[property="og:title"]', title)
+    setMeta('meta[property="og:description"]', description)
+    setMeta('meta[property="og:url"]', canonicalUrl)
+    setMeta('meta[property="og:type"]', post ? 'article' : 'website')
+    setMeta('meta[property="article:published_time"]', post?.date ?? '')
+    setMeta('meta[name="twitter:title"]', title)
+    setMeta('meta[name="twitter:description"]', description)
+
+    const canonical = document.head.querySelector<HTMLLinkElement>(
+      'link[rel="canonical"]',
+    )
+    if (canonical) canonical.setAttribute('href', canonicalUrl)
+
+    let structuredData = document.getElementById('blog-jsonld')
+    if (!structuredData) {
+      structuredData = document.createElement('script')
+      structuredData.id = 'blog-jsonld'
+      structuredData.setAttribute('type', 'application/ld+json')
+      document.head.appendChild(structuredData)
+    }
+    structuredData.textContent = JSON.stringify(
+      post ? blogPostingSchema(post) : itemListSchema(),
+    )
   }, [post])
 
   const openPost = (slug: string) => {
-    const url = `${window.location.pathname}?post=${encodeURIComponent(slug)}`
+    const url = postUrl(slug)
     window.history.pushState({}, '', url)
     setActiveSlug(slug)
     trackEvent('Blog Post View', { post: slug })
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    window.scrollTo({ top: 0, behavior: 'auto' })
   }
 
   const openIndex = () => {
-    window.history.pushState({}, '', window.location.pathname)
+    window.history.replaceState({}, '', '/blog.html')
     setActiveSlug(null)
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    window.scrollTo({ top: 0, behavior: 'auto' })
   }
 
   const header = (
@@ -101,11 +217,14 @@ function BlogApp() {
           <button
             type="button"
             className={post ? '' : 'active'}
+            aria-current={post ? undefined : 'page'}
             onClick={openIndex}
           >
             All notes
           </button>
-          <a href="/">Portfolio</a>
+          <a className="blog-nav-portfolio" href="/">
+            Portfolio
+          </a>
           <a
             href={resumeUrl}
             download="Anurag-Raut-Resume.pdf"
@@ -131,25 +250,37 @@ function BlogApp() {
 
   if (activeSlug && !post) {
     content = (
-      <main className="blog-container blog-not-found">
+      <main
+        className="blog-container blog-not-found"
+        id="main-content"
+        tabIndex={-1}
+      >
         <span className="blog-eyebrow">NOTE NOT FOUND</span>
         <h1>That note isn’t here.</h1>
         <p>The link may be old, or the post may have been renamed.</p>
-        <button type="button" className="blog-primary-button" onClick={openIndex}>
+        <a
+          className="blog-primary-button"
+          href="/blog.html"
+          onClick={(event) => handleInternalNavigation(event, openIndex)}
+        >
           Back to all notes <ArrowLeft size={16} />
-        </button>
+        </a>
       </main>
     )
   } else if (post) {
     const nextPost = getNextPost(post.slug)
 
     content = (
-      <main className="blog-container">
+      <main className="blog-container" id="main-content" tabIndex={-1}>
         <article className="blog-article">
           <div className="blog-article-header">
-            <button type="button" className="blog-back-link" onClick={openIndex}>
+            <a
+              className="blog-back-link"
+              href="/blog.html"
+              onClick={(event) => handleInternalNavigation(event, openIndex)}
+            >
               <ArrowLeft size={16} /> All notes
-            </button>
+            </a>
 
             <span className="blog-eyebrow">
               FIELD NOTE {post.number} · {post.tags[0].toUpperCase()}
@@ -179,7 +310,7 @@ function BlogApp() {
             <aside className="blog-article-aside">
               <div className="blog-aside-card">
                 <span>IN THIS NOTE</span>
-                <ol>
+                <ol role="list">
                   {post.sections.map((section) => (
                     <li key={section.id}>
                       <a href={`#${section.id}`}>{section.heading}</a>
@@ -272,15 +403,17 @@ function BlogApp() {
                 </div>
               </section>
 
-              <button
-                type="button"
+              <a
                 className="blog-next-post"
-                onClick={() => openPost(nextPost.slug)}
+                href={postUrl(nextPost.slug)}
+                onClick={(event) =>
+                  handleInternalNavigation(event, () => openPost(nextPost.slug))
+                }
               >
                 <span>NEXT NOTE</span>
                 <strong>{nextPost.title}</strong>
                 <ArrowUpRight size={20} />
-              </button>
+              </a>
             </div>
           </div>
         </article>
@@ -290,87 +423,87 @@ function BlogApp() {
     const [featured, ...rest] = posts
 
     content = (
-      <>
-        <main>
-          <section className="blog-container blog-hero">
-            <div className="blog-hero-copy">
-              <span className="blog-eyebrow">FIELD NOTES BY ANURAG RAUT</span>
-              <h1>
-                Practical notes on building
-                <span> mobile software that holds up.</span>
-              </h1>
-              <p>
-                Short, focused writing on React Native, performance,
-                reliability and delivery — grounded in production work, not
-                theory theatre.
-              </p>
-              <div className="blog-hero-actions">
-                <a href="/" className="blog-primary-button">
-                  Back to portfolio <ArrowUpRight size={16} />
-                </a>
-                <a
-                  href={`mailto:${contactEmail}`}
-                  className="blog-secondary-button"
-                  onClick={() =>
-                    trackEvent('Email Click', { source: 'blog-hero' })
-                  }
-                >
-                  <Mail size={15} /> Get in touch
-                </a>
-              </div>
-            </div>
-
-            <div className="blog-hero-stats">
-              <div>
-                <strong>{posts.length}</strong>
-                <span>Published notes</span>
-              </div>
-              <div>
-                <strong>5+</strong>
-                <span>Years in production</span>
-              </div>
-              <div>
-                <strong>98%+</strong>
-                <span>Crash-free sessions</span>
-              </div>
-            </div>
-          </section>
-
-          <section className="blog-container blog-list-section">
-            <div className="blog-list-heading">
-              <div>
-                <span className="blog-eyebrow">THE LIBRARY</span>
-                <h2>Start here</h2>
-              </div>
-              <span>{posts.length} notes · updated Nov 2026</span>
-            </div>
-
-            <PostCard post={featured} onOpen={openPost} featured />
-
-            <div className="blog-grid">
-              {rest.map((item) => (
-                <PostCard post={item} onOpen={openPost} key={item.slug} />
-              ))}
-            </div>
-          </section>
-
-          <section className="blog-container blog-principle">
-            <span className="blog-eyebrow">HOW I WRITE</span>
-            <h2>Verified outcomes. Generalised lessons.</h2>
+      <main id="main-content" tabIndex={-1}>
+        <section className="blog-container blog-hero">
+          <div className="blog-hero-copy">
+            <span className="blog-eyebrow">FIELD NOTES BY ANURAG RAUT</span>
+            <h1>
+              Practical notes on building
+              <span> mobile software that holds up.</span>
+            </h1>
             <p>
-              Every note starts from a real production result I can stand
-              behind. I do not name clients, expose confidential architecture or
-              invent implementation details. The value is in the thinking, the
-              trade-offs and the habits that travel across teams.
+              Short, focused writing on React Native, performance, reliability
+              and delivery — grounded in production work, not theory theatre.
             </p>
-          </section>
-        </main>
-      </>
+            <div className="blog-hero-actions">
+              <a href="/" className="blog-primary-button">
+                Back to portfolio <ArrowUpRight size={16} />
+              </a>
+              <a
+                href={`mailto:${contactEmail}`}
+                className="blog-secondary-button"
+                onClick={() =>
+                  trackEvent('Email Click', { source: 'blog-hero' })
+                }
+              >
+                <Mail size={15} /> Get in touch
+              </a>
+            </div>
+          </div>
+
+          <div className="blog-hero-stats">
+            <div>
+              <strong>{posts.length}</strong>
+              <span>Published notes</span>
+            </div>
+            <div>
+              <strong>5+</strong>
+              <span>Years in production</span>
+            </div>
+            <div>
+              <strong>98%+</strong>
+              <span>Crash-free sessions</span>
+            </div>
+          </div>
+        </section>
+
+        <section className="blog-container blog-list-section">
+          <div className="blog-list-heading">
+            <div>
+              <span className="blog-eyebrow">THE LIBRARY</span>
+              <h2>Start here</h2>
+            </div>
+            <span>{posts.length} notes · updated Nov 2026</span>
+          </div>
+
+          <PostCard post={featured} onOpen={openPost} featured />
+
+          <div className="blog-grid">
+            {rest.map((item) => (
+              <PostCard post={item} onOpen={openPost} key={item.slug} />
+            ))}
+          </div>
+        </section>
+
+        <section className="blog-container blog-principle">
+          <span className="blog-eyebrow">HOW I WRITE</span>
+          <h2>Verified outcomes. Generalised lessons.</h2>
+          <p>
+            Every note starts from a real production result I can stand behind.
+            I do not name clients, expose confidential architecture or invent
+            implementation details. The value is in the thinking, the trade-offs
+            and the habits that travel across teams.
+          </p>
+        </section>
+      </main>
     )
   }
 
   return (
     <div className="blog-page">
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
       {header}
       {content}
       <footer className="blog-footer">
@@ -379,7 +512,16 @@ function BlogApp() {
             ANURAG<span>.</span>
           </a>
           <p>Senior React Native Developer · Mobile Engineer</p>
-          <span>© {new Date().getFullYear()} Anurag Raut. All rights reserved.</span>
+          <div className="blog-footer-links">
+            <a
+              href={resumeUrl}
+              download="Anurag-Raut-Resume.pdf"
+              onClick={() => trackEvent('Resume Download', { source: 'blog' })}
+            >
+              Résumé
+            </a>
+            <span>© {new Date().getFullYear()} Anurag Raut. All rights reserved.</span>
+          </div>
         </div>
       </footer>
     </div>
