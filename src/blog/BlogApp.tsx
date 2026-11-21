@@ -1,4 +1,4 @@
-import { useEffect, useState, type MouseEvent } from 'react'
+import { useEffect, useRef, useState, type MouseEvent } from 'react'
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -7,7 +7,7 @@ import {
   Download,
   Mail,
 } from 'lucide-react'
-import { trackEvent } from '../analytics'
+import { trackEvent, trackPageview } from '../analytics'
 import { bookingUrls, contactEmail, resumeUrl, siteUrl } from '../siteConfig'
 import { getNextPost, getPost, posts, type BlogPost } from './posts'
 import './Blog.css'
@@ -189,6 +189,22 @@ function BlogApp() {
     structuredData.textContent = JSON.stringify(
       post ? blogPostingSchema(post) : itemListSchema(),
     )
+  }, [post])
+
+  const trackedPathRef = useRef<string | null>(null)
+
+  useEffect(() => {
+    const path = post ? postUrl(post.slug) : '/blog.html'
+
+    if (trackedPathRef.current === null) {
+      trackedPathRef.current = path
+      return
+    }
+
+    if (trackedPathRef.current !== path) {
+      trackPageview(path)
+      trackedPathRef.current = path
+    }
   }, [post])
 
   const openPost = (slug: string) => {
@@ -520,6 +536,9 @@ function BlogApp() {
             >
               Résumé
             </a>
+            <a href="/booking.html">Book</a>
+            <a href="/rss.xml">RSS</a>
+            <a href="/privacy.html">Privacy</a>
             <span>© {new Date().getFullYear()} Anurag Raut. All rights reserved.</span>
           </div>
         </div>

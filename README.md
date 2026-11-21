@@ -19,10 +19,18 @@ npm run build
 npm run preview
 ```
 
-`npm run build` produces the deployable `dist/` directory. It includes both entry pages:
+`npm run build` produces the deployable `dist/` directory. It includes two Vite entry pages:
 
 - `index.html` — portfolio
 - `blog.html` — Field Notes index and articles
+
+It also copies these static pages from `public/`:
+
+- `booking.html` — free on-site booking request flow
+- `privacy.html` — privacy information
+- `404.html` — branded not-found page
+
+The build generates `sitemap.xml` and `rss.xml` from `src/blog/posts.ts`.
 
 ## Deployment
 
@@ -43,7 +51,11 @@ Posts are defined in `src/blog/posts.ts`. Adding a post object there automatical
 - the Field Notes index at `/blog.html`
 - the homepage Field Notes teaser cards
 - next-post navigation
-- structured data and sitemap entries (update `public/sitemap.xml` when publishing)
+- structured data
+- `sitemap.xml`
+- `rss.xml`
+
+No manual sitemap or feed edit is needed when publishing a new post.
 
 Individual posts use:
 
@@ -58,9 +70,24 @@ Shared links live in `src/siteConfig.ts`:
 - `contactEmail`
 - `contactPhone`
 - `socialUrls`
+- `booking`
 - `bookingUrls`
 
-Booking CTAs currently use email fallbacks. Replace the values in `bookingUrls` with Cal.com URLs when those event links are ready.
+Booking currently uses a free, no-account request page at `/booking.html`. It prefills an email in the visitor’s mail app; nothing is stored by the website.
+
+Optional free upgrade:
+
+1. Create a free TidyCal account at https://tidycal.com/register.
+2. Create three booking types: `quick-intro`, `mobile-project`, and `app-review`.
+3. Set `booking.tidycalBaseUrl` in `src/siteConfig.ts`, for example:
+
+```ts
+export const booking = {
+  tidycalBaseUrl: 'https://tidycal.com/your-handle',
+}
+```
+
+When that value is present, all booking CTAs use TidyCal automatically.
 
 ### Résumé
 
@@ -75,7 +102,8 @@ It is served at `/Anurag-Raut-Resume.pdf`. The same file is linked from the head
 ### SEO and social assets
 
 - `public/robots.txt`
-- `public/sitemap.xml`
+- generated `dist/sitemap.xml`
+- generated `dist/rss.xml`
 - `public/404.html`
 - `public/.nojekyll`
 - `public/og-image.png` — 1200 × 630 social preview image
@@ -84,7 +112,15 @@ Per-post title, description, canonical URL, Open Graph, Twitter, and JSON-LD met
 
 ### Analytics
 
-Plausible is loaded in both HTML entries with `data-domain="anuraagraut.github.io"`. Register the domain in Plausible before expecting data. Custom events are sent through `src/analytics.ts`.
+Analytics use GoatCounter’s free hosted service. Both HTML entries and `public/booking.html` load `https://gc.zgo.at/count.js` with:
+
+```text
+https://anuraagraut.goatcounter.com/count
+```
+
+Create the free site code `anuraagraut` at https://www.goatcounter.com/signup. If that code is unavailable, replace the `data-goatcounter` value in `index.html`, `blog.html`, and `public/booking.html`.
+
+Custom events and blog SPA pageviews are sent through `src/analytics.ts`.
 
 ## Production notes
 
