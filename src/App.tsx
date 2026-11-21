@@ -1,6 +1,7 @@
-import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import './App.css'
 import { trackEvent } from './analytics'
+import { posts } from './blog/posts'
 import { useEffect, useRef, useState } from 'react'
 import { bookingUrls } from './siteConfig'
 import {
@@ -25,7 +26,7 @@ const navigation = [
   { label: 'Experience', href: '#experience' },
   { label: 'Work', href: '#work' },
   { label: 'Approach', href: '#engineering' },
-  { label: 'Notes', href: '#notes' },
+  { label: 'Blog', href: '/blog.html' },
   { label: 'Skills', href: '#skills' },
   { label: 'About', href: '#about' },
   { label: 'Help', href: '#services' },
@@ -414,135 +415,6 @@ const helpOptions = [
   },
 ]
 
-type EngineeringNote = {
-  number: string
-  slug: string
-  title: string
-  summary: string
-  metric: string
-  readTime: string
-  tags: string[]
-  sections: { heading: string; paragraphs: string[] }[]
-  takeaway: string
-}
-
-const engineeringNotes: EngineeringNote[] = [
-  {
-    number: '01',
-    slug: 'faster-app-launch',
-    title: 'What a 40% faster app launch really takes',
-    summary:
-      'Startup speed is a product signal. This note looks at how to frame the problem before changing code, and how to make the gain survive future releases.',
-    metric: '40% faster startup',
-    readTime: '5 min read',
-    tags: ['Performance', 'React Native'],
-    sections: [
-      {
-        heading: 'Start with the user, not the profiler',
-        paragraphs: [
-          'Startup time is the first impression an app makes. A 40% improvement matters because it changes how the product feels from the first tap, not because a benchmark moved. Before touching code, I look at where time is actually going: cold start, initial render, navigation readiness and the work that happens before the first useful screen.',
-        ],
-      },
-      {
-        heading: 'Separate cold start from perceived start',
-        paragraphs: [
-          'Users do not experience CPU time. They experience waiting. A useful investigation separates process launch, JS initialization, native startup, first paint and time to interactive. That distinction prevents teams from optimizing the wrong layer.',
-        ],
-      },
-      {
-        heading: 'Fix the expensive paths first',
-        paragraphs: [
-          'My rule is simple: measure, change one thing, measure again. In React Native work that usually means looking at initialization work, rendering on the critical path, navigation setup and heavy libraries loaded too early. I only keep changes that show up in real builds and real device behaviour.',
-        ],
-      },
-      {
-        heading: 'Protect the gain',
-        paragraphs: [
-          'Performance regressions creep back in. The result only matters if it survives the next ten releases. That means treating the measured number as something the team watches, not a one-time cleanup task.',
-        ],
-      },
-    ],
-    takeaway:
-      'A faster launch is not a one-time optimization. It is a product decision backed by measurement, restraint and release discipline.',
-  },
-  {
-    number: '02',
-    slug: 'crash-free-sessions',
-    title: 'Engineering for 98%+ crash-free sessions',
-    summary:
-      'Reliability is not luck. This note connects crash-free sessions, fewer incidents and the release habits that make stability repeatable.',
-    metric: '98%+ crash-free',
-    readTime: '6 min read',
-    tags: ['Reliability', 'Production'],
-    sections: [
-      {
-        heading: 'Stability is a product metric',
-        paragraphs: [
-          'A crash is not just a technical event. It interrupts a task, breaks trust and creates support work. That is why I treat crash-free sessions as a product metric, not an engineering vanity number.',
-        ],
-      },
-      {
-        heading: 'Crash-free sessions make reliability visible',
-        paragraphs: [
-          'A number like 98%+ crash-free sessions gives a team a shared language. It turns reliability into something that can be discussed, improved and protected. The goal is not a perfect dashboard; the goal is fewer broken moments for real users.',
-        ],
-      },
-      {
-        heading: 'Fewer incidents come from tighter feedback loops',
-        paragraphs: [
-          'Reducing incidents by 60–70% is less about one heroic fix and more about shortening the loop between change, signal and learning. Monitoring, release discipline and regression awareness matter because they help teams see problems earlier and contain them faster.',
-        ],
-      },
-      {
-        heading: 'Reliability is a habit',
-        paragraphs: [
-          'Stable products are usually the result of small, repeated decisions: what gets measured before release, what is risky enough to stage, what gets watched after rollout and what the team learns when something breaks.',
-        ],
-      },
-    ],
-    takeaway:
-      'Crash-free sessions are not the output of luck. They are the result of ownership across the full release lifecycle.',
-  },
-  {
-    number: '03',
-    slug: 'smaller-react-native-app',
-    title: 'Taking a React Native app from 67 MB to 45 MB',
-    summary:
-      'App size is user experience. This note explains why a smaller shipped artifact matters and how to approach size work without destabilizing releases.',
-    metric: '67 MB → 45 MB',
-    readTime: '5 min read',
-    tags: ['App Size', 'Android'],
-    sections: [
-      {
-        heading: 'App size is user experience',
-        paragraphs: [
-          'A large app creates friction before the product even opens: longer downloads, more storage pressure and harder updates, especially on lower-end devices. Reducing an artifact from 67 MB to 45 MB is useful because it removes friction from the first interaction.',
-        ],
-      },
-      {
-        heading: 'Measure the shipped artifact',
-        paragraphs: [
-          'Size work starts with the real build, not assumptions. I look at what actually ships: assets, native additions, dependencies and build outputs. The point is not to remove everything; it is to understand what each part costs and what it gives back.',
-        ],
-      },
-      {
-        heading: 'Optimize with a release mindset',
-        paragraphs: [
-          'Any size change has to survive real releases. That means checking behaviour on target devices, watching for regressions and keeping the team able to maintain the result. A smaller app that is harder to ship is not a win.',
-        ],
-      },
-      {
-        heading: 'Smaller is easier to maintain',
-        paragraphs: [
-          'The long-term benefit is not only download size. A leaner app is often easier to reason about, easier to test and cheaper to keep stable as the product grows.',
-        ],
-      },
-    ],
-    takeaway:
-      'App size is not a vanity metric. It is part of delivery quality, especially when users and devices are constrained.',
-  },
-]
-
 function App() {
   const reduceMotion = useReducedMotion()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -550,7 +422,6 @@ function App() {
   const [activeFeature, setActiveFeature] = useState(0)
   const [isFeaturePaused, setIsFeaturePaused] = useState(false)
   const [expandedProjects, setExpandedProjects] = useState<string[]>([])
-  const [activeNote, setActiveNote] = useState<EngineeringNote | null>(null)
   const trackedSections = useRef(new Set<string>())
 
   useEffect(() => {
@@ -596,34 +467,12 @@ function App() {
     return () => window.clearInterval(timer)
   }, [isFeaturePaused, reduceMotion])
 
-  useEffect(() => {
-    if (!activeNote) return
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setActiveNote(null)
-    }
-
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    document.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      document.body.style.overflow = previousOverflow
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [activeNote])
-
   const toggleProject = (number: string) => {
     setExpandedProjects((current) =>
       current.includes(number)
         ? current.filter((item) => item !== number)
         : [...current, number],
     )
-  }
-
-  const openNote = (note: EngineeringNote) => {
-    setActiveNote(note)
-    trackEvent('Note Open', { note: note.slug })
   }
 
   return (
@@ -1256,16 +1105,21 @@ function App() {
           </motion.div>
 
           <div className="notes-grid">
-            {engineeringNotes.map((note, index) => (
-              <motion.button
+            {posts.map((note, index) => (
+              <motion.a
                 className="note-card"
                 key={note.slug}
-                type="button"
+                href={`/blog.html?post=${note.slug}`}
                 initial={{ opacity: 0, y: 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: index * 0.06 }}
-                onClick={() => openNote(note)}
+                onClick={() =>
+                  trackEvent('Blog Post View', {
+                    post: note.slug,
+                    source: 'portfolio',
+                  })
+                }
               >
                 <div className="note-card-top">
                   <span className="note-number">{note.number}</span>
@@ -1282,8 +1136,19 @@ function App() {
                   <span className="note-read">{note.readTime}</span>
                 </div>
                 <span className="note-arrow">↗</span>
-              </motion.button>
+              </motion.a>
             ))}
+          </div>
+
+          <div className="notes-cta-row">
+            <a
+              className="notes-all-link"
+              href="/blog.html"
+              onClick={() => trackEvent('Blog Index View', { source: 'portfolio' })}
+            >
+              Read the full notes <ArrowUpRight size={16} />
+            </a>
+            <span>Full articles, updated as I publish more.</span>
           </div>
         </div>
       </section>
@@ -1627,80 +1492,6 @@ function App() {
         </div>
       </footer>
 
-      <AnimatePresence>
-        {activeNote && (
-          <motion.div
-            className="note-modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: reduceMotion ? 0 : 0.2 }}
-            onClick={() => setActiveNote(null)}
-          >
-            <motion.article
-              className="note-modal"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby="note-modal-title"
-              initial={{ opacity: 0, y: 24, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 16, scale: 0.98 }}
-              transition={{ duration: reduceMotion ? 0 : 0.28 }}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <button
-                className="note-close"
-                type="button"
-                aria-label="Close note"
-                autoFocus
-                onClick={() => setActiveNote(null)}
-              >
-                <X size={20} />
-              </button>
-
-              <div className="note-modal-meta">
-                <span>{activeNote.number} / FIELD NOTE</span>
-                <span>{activeNote.readTime}</span>
-              </div>
-
-              <h2 id="note-modal-title">{activeNote.title}</h2>
-              <p className="note-modal-summary">{activeNote.summary}</p>
-              <span className="note-modal-metric">{activeNote.metric}</span>
-
-              <div className="note-modal-body">
-                {activeNote.sections.map((section) => (
-                  <section key={section.heading}>
-                    <h3>{section.heading}</h3>
-                    {section.paragraphs.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
-                  </section>
-                ))}
-              </div>
-
-              <div className="note-takeaway">
-                <span>TAKEAWAY</span>
-                <p>{activeNote.takeaway}</p>
-              </div>
-
-              <div className="note-modal-footer">
-                <a
-                  className="primary-button"
-                  href={bookingUrls.recruiter}
-                  onClick={() =>
-                    trackEvent('Recruiter Booking Click', { source: 'note' })
-                  }
-                >
-                  Discuss this with me <ArrowUpRight size={17} />
-                </a>
-                <button type="button" onClick={() => setActiveNote(null)}>
-                  Close note
-                </button>
-              </div>
-            </motion.article>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </main>
   )
 }

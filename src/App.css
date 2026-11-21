@@ -1870,167 +1870,37 @@ button:focus-visible {
   transform: translate(0, 0);
 }
 
-/* Field note reader */
-.note-modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-  overflow-y: auto;
-  background: rgba(12, 15, 30, 0.62);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-}
-
-.note-modal {
-  position: relative;
-  width: min(760px, 100%);
-  max-height: min(88vh, 900px);
-  padding: 42px;
-  overflow-y: auto;
-  border: 1px solid #e6e8f2;
-  border-radius: 20px;
-  background: #fff;
-  box-shadow: 0 30px 80px rgba(10, 14, 35, 0.28);
-}
-
-.note-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border: 1px solid var(--color-border);
-  border-radius: 50%;
-  background: #fff;
-  color: var(--color-secondary);
-  cursor: pointer;
-  transition: color 200ms ease, border-color 200ms ease, background 200ms ease;
-}
-
-.note-close:hover {
-  border-color: #cbd0fa;
-  background: #f2f4ff;
-  color: var(--color-accent);
-}
-
-.note-modal-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 20px;
-  margin-bottom: 18px;
-  padding-right: 48px;
-  color: var(--color-accent);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.4px;
-}
-
-.note-modal-meta span:last-child {
-  color: var(--color-muted);
-}
-
-.note-modal h2 {
-  margin: 0 0 14px;
-  color: #171a2b;
-  font-family: var(--font-heading);
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 750;
-  line-height: 1.18;
-  letter-spacing: -1.4px;
-}
-
-.note-modal-summary {
-  max-width: 620px;
-  margin: 0 0 18px;
-  color: var(--color-secondary);
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-.note-modal-metric {
-  display: inline-flex;
-  padding: 7px 12px;
-  border: 1px solid #dfe3ff;
-  border-radius: 30px;
-  background: #f1f3ff;
-  color: #4e5dcd;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.3px;
-}
-
-.note-modal-body {
-  display: grid;
-  gap: 26px;
-  margin-top: 30px;
-}
-
-.note-modal-body h3 {
-  margin: 0 0 9px;
-  color: #20243a;
-  font-family: var(--font-heading);
-  font-size: 17px;
-  font-weight: 750;
-  letter-spacing: -0.25px;
-}
-
-.note-modal-body p {
-  margin: 0;
-  color: #5f677b;
-  font-size: 13px;
-  line-height: 1.85;
-}
-
-.note-takeaway {
-  margin-top: 30px;
-  padding: 20px 22px;
-  border-left: 3px solid var(--color-accent);
-  border-radius: 0 12px 12px 0;
-  background: #f5f6ff;
-}
-
-.note-takeaway span {
-  color: var(--color-accent);
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 1.4px;
-}
-
-.note-takeaway p {
-  margin: 8px 0 0;
-  color: #353b55;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.7;
-}
-
-.note-modal-footer {
+.notes-cta-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 14px;
-  margin-top: 28px;
-  padding-top: 22px;
+  justify-content: space-between;
+  gap: 14px 24px;
+  margin-top: 22px;
+  padding-top: 20px;
   border-top: 1px solid var(--color-border);
 }
 
-.note-modal-footer > button {
-  padding: 11px 4px;
-  border: 0;
-  background: transparent;
-  color: var(--color-secondary);
+.notes-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-accent);
   font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
+  font-weight: 750;
 }
 
-.note-modal-footer > button:hover {
-  color: var(--color-accent);
+.notes-all-link svg {
+  transition: transform 200ms ease;
+}
+
+.notes-all-link:hover svg {
+  transform: translate(3px, -3px);
+}
+
+.notes-cta-row > span {
+  color: var(--color-muted);
+  font-size: 11px;
 }
 
 /* ---------------------------------------------------------
@@ -3204,39 +3074,6 @@ body::before {
   .notes-grid {
     grid-template-columns: 1fr;
     gap: 12px;
-  }
-
-  .note-modal-backdrop {
-    align-items: start;
-    padding: 14px;
-  }
-
-  .note-modal {
-    max-height: calc(100vh - 28px);
-    padding: 28px 22px;
-    border-radius: 16px;
-  }
-
-  .note-close {
-    top: 14px;
-    right: 14px;
-  }
-
-  .note-modal-meta {
-    padding-right: 42px;
-  }
-
-  .note-modal-footer {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .note-modal-footer .primary-button {
-    justify-content: center;
-  }
-
-  .note-modal-footer > button {
-    padding: 8px;
   }
 
   .services-heading {
