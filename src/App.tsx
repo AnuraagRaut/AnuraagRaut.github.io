@@ -1,86 +1,126 @@
-
-import { motion } from 'motion/react'
+import { motion, MotionConfig, useReducedMotion } from 'motion/react'
 import './App.css'
-import { useState } from 'react'
+import { trackEvent } from './analytics'
+import { posts } from './blog/posts'
+import { useEffect, useRef, useState } from 'react'
 import {
-  ArrowRight,
+  bookingUrls,
+  contactEmail,
+  contactPhone,
+  resumeUrl,
+  socialUrls,
+} from './siteConfig'
+import {
   ArrowUpRight,
+  CheckCircle2,
+  Download,
+  Gauge,
   Mail,
+  MapPin,
   Menu,
+  Rocket,
+  ShieldCheck,
+  Smartphone,
+  TrendingUp,
+  Wrench,
   X,
-  BrainCircuit,
-Gauge,
-PlugZap,
-Rocket,
-Smartphone,
-Wrench,
 } from 'lucide-react'
 
-
 const navigation = [
-  { label: 'About', href: '#about' },
-  { label: 'Engineering', href: '#future-engineering' },
-  { label: 'Services', href: '#services' },
-  { label: 'Projects', href: '#projects' },
   { label: 'Experience', href: '#experience' },
+  { label: 'Work', href: '#work' },
+  { label: 'Approach', href: '#engineering' },
+  { label: 'Blog', href: '/blog.html' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'About', href: '#about' },
+  { label: 'Help', href: '#services' },
   { label: 'Contact', href: '#contact' },
 ]
 
+const impactMetrics = [
+  {
+    icon: Gauge,
+    value: '30–35%',
+    label: 'Performance improvement',
+    detail: 'Digital banking client app',
+  },
+  {
+    icon: ShieldCheck,
+    value: '98%+',
+    label: 'Crash-free sessions',
+    detail: 'GovTech field application',
+  },
+  {
+    icon: TrendingUp,
+    value: '40%',
+    label: 'Faster app startup',
+    detail: 'Legacy app migration',
+  },
+  {
+    icon: CheckCircle2,
+    value: '67→45 MB',
+    label: 'Smaller APK',
+    detail: 'Mobile footprint reduction',
+  },
+]
 
+const heroFeatures = [
+  { number: '01', title: 'Architecture', detail: 'Modular · Scalable' },
+  { number: '02', title: 'Performance', detail: 'Fast · Reliable' },
+  { number: '03', title: 'Security', detail: 'Secure · Resilient' },
+  { number: '04', title: 'Delivery', detail: 'Shipped · Improved' },
+]
 
 const expertise = [
   {
     number: '01',
     title: 'Mobile Product Engineering',
     description:
-      'Building production-ready Android and iOS applications with React Native, TypeScript and a focus on dependable user experiences.',
+      'Production-ready Android and iOS applications with React Native, TypeScript and a strong focus on reliability.',
   },
   {
     number: '02',
-    title: 'Architecture & Engineering Ownership',
+    title: 'Architecture & Ownership',
     description:
-      'Taking features from technical planning to production through modular architecture, API integration, performance optimization and reliability improvements.',
+      'From planning to production: modular architecture, API integration, performance work and release ownership.',
   },
   {
     number: '03',
-    title: 'AI & Emerging Technologies',
+    title: 'AI-Assisted Delivery',
     description:
-      'Exploring LLM-powered mobile experiences, AI-assisted development, agentic workflows and intelligent product capabilities.',
+      'Practical use of AI workflows for planning, debugging, refactoring and test creation, plus LLM feature exploration.',
   },
 ]
 
 const experience = [
   {
-    type: 'FREELANCE ENGAGEMENT',
-    role: 'Senior Mobile Engineer',
-    company: 'Independent Client Engagement',
+    type: 'INDEPENDENT PROJECT',
+    role: 'Senior React Native Engineer',
+    company: 'No Bias Media',
+    product: 'News Application',
     period: 'May 2026 – Present',
     location: 'Remote',
     description:
-      'Independently developing a cross-platform React Native news application, taking ownership of mobile feature planning, architecture, implementation and integration.',
+      'Own mobile feature planning, architecture, implementation and integration for an independent news product.',
     highlights: [
       'Designing modular, feature-based architecture with reusable components and centralized state management.',
-      'Developing mobile workflows for news feeds, category-based browsing, article discovery and content navigation.',
-      'Integrating REST APIs using Axios, with centralized request handling, interceptors and error management.',
-      'Using Claude-assisted workflows for implementation planning, debugging, code explanation, refactoring and test creation.',
-      'Working with Socket.IO to support timely content updates.',
-      'Exploring AI-powered experiences, including article summarization and conversational article assistance.',
+      'Building news feeds, category browsing, article discovery and navigation workflows with centralized API handling.',
+      'Using Claude-assisted workflows for planning, debugging, refactoring and test creation.',
     ],
   },
   {
     type: 'PROFESSIONAL EXPERIENCE',
     role: 'Senior React Native Developer',
-    company: 'iBridge Tech Soft Pvt. Ltd. · Client: TCS',
-    product: 'Gulf International Bank — Branchless Digital Banking',
+    company: 'iBridge Tech Soft Pvt. Ltd. · Client: Tata Consultancy Services',
+    product: 'Gulf International Bank · Branchless Digital Banking · GCC Markets',
     period: 'Nov 2025 – May 2026',
     location: 'Chennai',
+    description:
+      'Designed and delivered end-to-end digital banking features for Gulf International Bank (GIB).',
     highlights: [
-      'Owned the development and delivery of end-to-end features for a branchless digital banking application.',
-      'Implemented biometric authentication using Face ID and Touch ID, alongside IVR customer workflows.',
-      'Strengthened mobile security through JWT token management, encrypted local storage and secure API integrations.',
-      'Improved application performance by 30–35% through targeted engineering optimizations.',
-      'Reduced production crash rates by 20–25%, contributing to a more reliable banking experience.',
-      'Collaborated with cross-functional engineering and QA teams across TCS and Infosys in Dubai, Pune and Chennai.',
+      'Implemented Face ID and Touch ID biometrics, IVR workflows, JWT, encrypted storage and secure APIs.',
+      'Improved performance by 30–35% and reduced crashes by 20–25% through targeted optimization and debugging.',
+      'Delivered hotfixes with 0 regressions while leading developers across TCS and Infosys.',
     ],
   },
   {
@@ -90,15 +130,13 @@ const experience = [
     product: 'Government Scheme Discovery & Application',
     period: 'Oct 2023 – Jun 2025',
     location: 'Pune',
+    description:
+      'Led mobile architecture and delivery for a field-use GovTech platform after vendor handover.',
     highlights: [
-      'Assumed end-to-end ownership of the mobile product following its transition from an external vendor team of 20+ engineers.',
-      'Drove mobile architecture decisions, feature delivery, technical improvements and production releases.',
-      'Led the migration of a legacy Vue.js application into the primary React Native platform.',
-      'Reduced application startup time by 40% and APK size from 67 MB to 45 MB.',
-      'Maintained 98%+ crash-free sessions, improving application stability for field users.',
-      'Improved API response times by 60–80%, supporting agents operating in low-network environments.',
-      'Mentored developers and established modular architecture and code-review practices.',
-      'Used Firebase Analytics and field feedback to identify usability issues and drive UX improvements.',
+      'Took end-to-end ownership after handover from a 20+ engineer external vendor team.',
+      'Reduced production incidents by 60–70% and led the legacy Vue.js migration into the main React Native platform.',
+      'Cut startup 40%, APK 67→45 MB, sustained 98%+ crash-free sessions and improved API response 60–80%.',
+      'Used Firebase Analytics and field visits to drive 6+ UX improvements; mentored developers.',
     ],
   },
   {
@@ -108,12 +146,12 @@ const experience = [
     product: 'Blockchain & FinTech · NFT Marketplace',
     period: 'Jan 2023 – May 2023',
     location: 'Indore',
+    description:
+      'Built cross-platform marketplace features for users across five countries.',
     highlights: [
-      'Developed React Native features for a platform serving users across five countries.',
-      'Built reusable UI components and modular architecture.',
-      'Implemented multilingual support using i18n.',
+      'Delivered React Native features with reusable components and modular architecture.',
+      'Implemented multilingual support with i18n.',
       'Integrated Firebase Crashlytics, Analytics and push notifications.',
-      'Optimized rendering, API integration and application stability.',
     ],
   },
   {
@@ -123,144 +161,403 @@ const experience = [
     product: 'Mobile Commerce & Consumer Applications',
     period: 'Nov 2020 – Nov 2022',
     location: 'Nagpur',
+    description:
+      'Delivered mobile and web features across client commerce applications.',
     highlights: [
-      'Delivered end-to-end features across React Native mobile apps and React.js web applications.',
-      'Integrated PCI-compliant payment gateway functionality across Android, iOS and web.',
-      'Built reusable components and optimized rendering, navigation and API interactions.',
-      'Improved application responsiveness and code consistency across client projects.',
+      'Built end-to-end features across React Native apps and React.js web applications.',
+      'Integrated PCI-compliant payment gateways across Android, iOS and web.',
+      'Improved rendering, navigation, API interactions and code consistency.',
     ],
   },
 ]
-
-
 
 const projects = [
   {
     number: '01',
-    name: 'Confidential Product',
-    category: 'PRIVATE BUILD',
+    name: 'Gulf International Bank — Meem',
+    category: 'SHIPPED · BFSI · GCC MARKETS',
+    client: 'iBridge Tech Soft · Tata Consultancy Services',
     description:
-      'An independent product initiative focused on shaping a purposeful mobile experience, exploring product direction, engineering architecture and implementation.',
+      'Secure branchless digital banking platform for GCC markets, with biometric authentication and assisted banking workflows.',
+    challenge:
+      'Branchless banking had to feel trustworthy and responsive on devices and networks outside the team’s control.',
     technologies: [
       'React Native',
       'TypeScript',
-      'Mobile Architecture',
-      'Product Engineering',
+      'Biometrics',
+      'JWT',
+      'Encrypted Storage',
+      'SSL Pinning',
+      'REST APIs',
     ],
     highlights: [
-      'Exploring product requirements and translating ideas into technical direction.',
-      'Structuring the application for maintainability and future feature growth.',
-      'Developing the product experience with a focus on usability and engineering quality.',
+      'Delivered end-to-end digital banking features across Android and iOS.',
+      'Implemented biometrics, IVR flows, JWT, encrypted storage and secure APIs.',
+      'Optimized performance and crashes through bottleneck analysis and production debugging.',
+      'Led developers across TCS and Infosys through release cycles with 0 regressions.',
     ],
-    status: 'In development',
+    outcome:
+      '30–35% performance improvement, 20–25% fewer production crashes and more reliable assisted banking workflows.',
+    status: 'Shipped',
   },
   {
     number: '02',
-    name: 'News Application',
-    category: 'INDEPENDENT MOBILE PRODUCT',
+    name: 'Haqdarshak Agent App',
+    category: 'SHIPPED · GOVTECH',
+    client: 'Haqdarshak Empowerment Solutions',
     description:
-      'An independently developed cross-platform news application, covering mobile product planning, feature architecture, implementation and backend integration.',
+      'Field-use mobile platform helping agents discover, explain and apply for government schemes for citizens and MSMEs.',
+    challenge:
+      'Field agents depended on the app daily, often on low-storage devices and low-network routes.',
+    technologies: [
+      'React Native',
+      'Vue Migration',
+      'Offline-first',
+      'Firebase Analytics',
+      'REST APIs',
+      'Mentoring',
+    ],
+    highlights: [
+      'Took ownership after handover from a 20+ engineer external vendor team.',
+      'Reduced production incidents by 60–70% and led the legacy Vue.js migration.',
+      'Optimized startup, APK size, rendering and API behaviour for real field conditions.',
+      'Drove 6+ UX improvements from Firebase Analytics and field visits.',
+    ],
+    outcome:
+      '40% faster startup, 67→45 MB APK, 98%+ crash-free sessions and 60–80% faster API responses.',
+    status: 'Shipped',
+  },
+  {
+    number: '03',
+    name: 'Blockchain & FinTech Marketplace',
+    category: 'SHIPPED · FINTECH',
+    client: 'No Borders Technologies',
+    description:
+      'Cross-platform NFT marketplace experience supporting users across five countries.',
+    challenge:
+      'A marketplace expanding across five countries needed one consistent mobile experience across languages and devices.',
+    technologies: [
+      'React Native',
+      'i18n',
+      'Firebase',
+      'Reusable UI',
+      'API Integration',
+    ],
+    highlights: [
+      'Delivered React Native features for a five-country user base.',
+      'Built reusable components and modular architecture.',
+      'Added multilingual support with i18n.',
+      'Integrated Crashlytics, Analytics and push notifications.',
+    ],
+    outcome:
+      'Delivered a reusable React Native foundation with multilingual support and Firebase-backed visibility.',
+    status: 'Shipped',
+  },
+  {
+    number: '04',
+    name: 'No Bias Media — News Application',
+    category: 'INDEPENDENT · IN DEVELOPMENT',
+    client: 'No Bias Media',
+    description:
+      'Cross-platform news product exploring real-time updates and AI-assisted reading.',
+    challenge:
+      'An independent news product needed a clean base for real-time content and AI-assisted reading experiments.',
     technologies: [
       'React Native',
       'TypeScript',
-      'REST APIs',
       'Axios',
       'Socket.IO',
-      'AI Integration Exploration',
+      'Claude-assisted Workflows',
+      'LLM Exploration',
     ],
     highlights: [
-      'Designing a modular, feature-based architecture with reusable components and centralized state management.',
-      'Building news feeds, category-based discovery, article browsing and content navigation workflows.',
-      'Integrating REST APIs through centralized Axios configuration, interceptors and error handling.',
-      'Working with Socket.IO for real-time content update capabilities.',
-      'Exploring AI-powered article summarization and conversational article assistance.',
-      'Using AI-assisted development workflows for planning, debugging, refactoring and test creation.',
+      'Designed modular, feature-based architecture with centralized state management.',
+      'Built news feeds, category browsing and article discovery workflows.',
+      'Created a centralized REST API layer with interceptors and error handling.',
     ],
+    outcome:
+      'Modular architecture and centralized API layer are in place; real-time updates and summarization are being explored.',
     status: 'In development',
   },
 ]
-
-
-
 
 const technicalExpertise = [
   {
     number: '01',
-    title: 'Mobile Architecture & System Design',
+    title: 'React Native Internals & Architecture',
     description:
-      'Designing modular mobile applications with maintainable architecture, reliable data flows and a growing focus on system design principles.',
+      'Hands-on with the new architecture and clean, modular systems built to survive feature growth.',
     skills: [
-      'React Native Architecture',
+      'React Native Internals',
+      'JSI',
+      'Hermes',
+      'Codegen',
+      'Fabric',
+      'TurboModules',
+      'Clean Architecture',
       'Modular Architecture',
       'Feature-based Design',
-      'State Management',
-      'Offline-first Systems',
-      'Realm',
-      'Application Scalability',
-      'System Design',
+      'Offline-first',
     ],
   },
   {
     number: '02',
-    title: 'AI Engineering & Exploration',
+    title: 'State, Storage & Data',
     description:
-      'Applying AI-assisted development workflows and exploring LLM-powered capabilities, intelligent mobile experiences and agentic concepts.',
+      'Predictable state and resilient local data for apps that work through unstable networks.',
     skills: [
-      'AI-assisted Development',
-      'Claude',
-      'GitHub Copilot',
-      'LLM Concepts',
-      'AI Workflows',
-      'Prompt Engineering',
-      'Agentic AI Concepts',
-      'AI-powered UX',
+      'Redux Toolkit',
+      'Redux Saga',
+      'Context API',
+      'AsyncStorage',
+      'SecureStore',
+      'Realm',
+      'SQLite',
+      'REST APIs',
+      'GraphQL',
+      'Axios',
     ],
   },
   {
     number: '03',
-    title: 'Modern Mobile Engineering',
+    title: 'Performance, Security & Reliability',
     description:
-      'Building production-ready Android and iOS applications with React Native, TypeScript and a focus on performance, security and maintainability.',
+      'Startup, rendering, memory and security work backed by production monitoring.',
     skills: [
-      'React Native',
-      'TypeScript',
-      'JavaScript',
-      'Android & iOS',
-      'Native Integrations',
-      'Performance Engineering',
-      'Mobile Security',
-      'CI/CD',
+      'Startup Optimization',
+      'Rendering Optimization',
+      'FlatList',
+      'Memory Profiling',
+      'JWT',
+      'OAuth 2.0',
+      'Biometrics',
+      'Keychain / Keystore',
+      'SSL Pinning',
+      'Crashlytics',
     ],
   },
   {
     number: '04',
-    title: 'Backend Integration & Reliability',
+    title: 'Delivery, Testing & AI Tooling',
     description:
-      'Integrating mobile applications with backend services while maintaining secure communication, robust error handling and production reliability.',
+      'CI/CD, testing and AI-assisted workflows that keep releases safe and teams fast.',
     skills: [
-      'REST APIs',
-      'Axios',
-      'JWT',
-      'Socket.IO',
-      'Firebase',
-      'API Interceptors',
-      'Crashlytics',
-      'Debugging',
-      'Production Reliability',
+      'GitHub Actions',
+      'Bitbucket Pipelines',
+      'CodePush',
+      'Jest',
+      'E2E Testing',
+      'AI-assisted Development',
+      'Claude',
+      'GitHub Copilot',
+      'Gen AI / RAG',
+      'Agentic AI',
     ],
   },
 ]
 
+const engineeringPrinciples = [
+  {
+    number: '01',
+    title: 'Performance is a product feature',
+    description:
+      'A slow app feels broken. I care about startup time, rendering, memory, network behaviour and low-end devices.',
+  },
+  {
+    number: '02',
+    title: 'Architecture should reduce future cost',
+    description:
+      'Good structure is not about complexity. It is about making the next feature easier and safer to ship.',
+  },
+  {
+    number: '03',
+    title: 'Reliability is engineered',
+    description:
+      'Crash-free sessions, secure APIs, monitoring and release discipline matter as much as the feature itself.',
+  },
+  {
+    number: '04',
+    title: 'AI assists; judgment decides',
+    description:
+      'AI-assisted workflows help me move faster, but architecture, trade-offs and production decisions stay human.',
+  },
+]
 
-
-
-
+const helpOptions = [
+  {
+    number: '01',
+    icon: Smartphone,
+    audience: 'FOR RECRUITERS & TEAMS',
+    title: 'Join a product team',
+    description:
+      'Senior React Native engineering for teams that need architecture, feature delivery, performance and release ownership.',
+    cta: 'Book a quick intro',
+    href: bookingUrls.recruiter,
+    eventName: 'Recruiter Booking Click',
+  },
+  {
+    number: '02',
+    icon: Rocket,
+    audience: 'FOR FOUNDERS & LOCAL BUSINESSES',
+    title: 'Build a mobile product',
+    description:
+      'Turn an idea into an Android or iOS app with practical architecture, clean integrations and production-ready foundations.',
+    cta: 'Discuss a mobile project',
+    href: bookingUrls.client,
+    eventName: 'Client Booking Click',
+  },
+  {
+    number: '03',
+    icon: Wrench,
+    audience: 'FOR TEAMS WITH A LIVE APP',
+    title: 'Fix and scale an existing app',
+    description:
+      'Stabilize crashes, improve startup and responsiveness, untangle structure and make the app easier to maintain as it grows.',
+    cta: 'Discuss your app',
+    href: bookingUrls.appReview,
+    eventName: 'App Review Booking Click',
+  },
+]
 
 function App() {
+  const reduceMotion = useReducedMotion()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
+  const [activeFeature, setActiveFeature] = useState(0)
+  const [isFeaturePaused, setIsFeaturePaused] = useState(false)
+  const [expandedProjects, setExpandedProjects] = useState<string[]>([])
+  const trackedSections = useRef(new Set<string>())
+  const menuRef = useRef<HTMLElement>(null)
+  const menuToggleRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    let frame = 0
+
+    const updateActiveSection = () => {
+      frame = 0
+      const marker = window.scrollY + window.innerHeight * 0.32
+      let current = ''
+
+      navigation.forEach((item) => {
+        const section = document.getElementById(item.href.slice(1))
+        if (!section) return
+
+        const top = section.getBoundingClientRect().top + window.scrollY
+        if (top <= marker) {
+          current = section.id
+        }
+      })
+
+      setActiveSection(current)
+
+      if (current && current !== 'home' && !trackedSections.current.has(current)) {
+        trackedSections.current.add(current)
+        trackEvent('Section View', { section: current })
+      }
+    }
+
+    const scheduleUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateActiveSection)
+    }
+
+    updateActiveSection()
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', scheduleUpdate)
+
+    return () => {
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
+      if (frame) window.cancelAnimationFrame(frame)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isFeaturePaused || reduceMotion) return
+
+    const timer = window.setInterval(() => {
+      setActiveFeature((current) => (current + 1) % heroFeatures.length)
+    }, 3600)
+
+    return () => window.clearInterval(timer)
+  }, [isFeaturePaused, reduceMotion])
+
+  useEffect(() => {
+    if (!isMenuOpen) return
+
+    const menu = menuRef.current
+    const previousOverflow = document.body.style.overflow
+    const getFocusableItems = () =>
+      Array.from(
+        menu?.querySelectorAll<HTMLElement>('a[href], button:not([disabled])') ??
+          [],
+      )
+
+    document.body.style.overflow = 'hidden'
+    getFocusableItems()[0]?.focus()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false)
+        window.setTimeout(() => menuToggleRef.current?.focus(), 0)
+        return
+      }
+
+      if (event.key !== 'Tab') return
+
+      const items = getFocusableItems()
+      if (!items.length) return
+
+      const firstItem = items[0]
+      const lastItem = items[items.length - 1]
+
+      if (event.shiftKey && document.activeElement === firstItem) {
+        event.preventDefault()
+        lastItem.focus()
+      } else if (!event.shiftKey && document.activeElement === lastItem) {
+        event.preventDefault()
+        firstItem.focus()
+      } else if (
+        !menu?.contains(document.activeElement) &&
+        !menuToggleRef.current?.contains(document.activeElement)
+      ) {
+        event.preventDefault()
+        firstItem.focus()
+      }
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target
+      if (!(target instanceof Node)) return
+      if (menu?.contains(target) || menuToggleRef.current?.contains(target)) return
+      setIsMenuOpen(false)
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('pointerdown', handlePointerDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('pointerdown', handlePointerDown)
+    }
+  }, [isMenuOpen])
+
+  const toggleProject = (number: string) => {
+    setExpandedProjects((current) =>
+      current.includes(number)
+        ? current.filter((item) => item !== number)
+        : [...current, number],
+    )
+  }
+
   return (
-    <main>
-       <header className="navbar">
+    <MotionConfig reducedMotion="user">
+      <div className="site-shell">
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
+
+        <header className="navbar">
         <a
           className="brand"
           href="#home"
@@ -271,38 +568,119 @@ function App() {
 
         <nav className="desktop-nav" aria-label="Main navigation">
           {navigation.map((item) => (
-            <a key={item.label} href={item.href}>
+            <a
+              key={item.label}
+              className={activeSection === item.href.slice(1) ? 'active' : ''}
+              aria-current={
+                activeSection === item.href.slice(1) ? 'location' : undefined
+              }
+              href={item.href}
+            >
               {item.label}
             </a>
           ))}
         </nav>
 
-        <a
-          className="nav-contact"
-          href="mailto:anuragraut.developer@gmail.com"
-        >
-          Let's talk <ArrowUpRight size={15} />
-        </a>
+        <div className="nav-actions">
+          <a
+            className="nav-resume"
+            href={resumeUrl}
+            download="Anurag-Raut-Resume.pdf"
+            onClick={() => trackEvent('Resume Download', { source: 'nav' })}
+          >
+            <Download size={15} />
+            Résumé
+          </a>
 
-        <button
-          className="mobile-menu"
-          type="button"
-          aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-navigation"
-          onClick={() => setIsMenuOpen((open) => !open)}
-        >
-          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
+          <a
+            className="nav-contact"
+            href={bookingUrls.recruiter}
+            onClick={() =>
+              trackEvent('Recruiter Booking Click', { source: 'nav' })
+            }
+          >
+            Let's talk <ArrowUpRight size={15} />
+          </a>
+        </div>
+
+        <div className="mobile-actions">
+          <a
+            className="mobile-resume"
+            href={resumeUrl}
+            download="Anurag-Raut-Resume.pdf"
+            aria-label="Download résumé"
+            title="Download résumé"
+            onClick={() => {
+              trackEvent('Resume Download', { source: 'mobile-header' })
+              setIsMenuOpen(false)
+            }}
+          >
+            <Download size={16} />
+            <span>Résumé</span>
+          </a>
+
+          <button
+            ref={menuToggleRef}
+            className="mobile-menu"
+            type="button"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-navigation"
+            onClick={() => setIsMenuOpen((open) => !open)}
+          >
+            {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
 
         <nav
+          ref={menuRef}
           id="mobile-navigation"
           className={`mobile-nav ${isMenuOpen ? 'is-open' : ''}`}
           aria-label="Mobile navigation"
         >
+          <div className="mobile-profile">
+            <span className="mobile-profile-label">ANURAG RAUT</span>
+            <strong>Senior React Native / Mobile Engineer</strong>
+            <span className="mobile-profile-location">
+              Pune, India · Open to senior roles
+            </span>
+            <div className="mobile-profile-metrics">
+              <span>5+ yrs</span>
+              <span>98%+ crash-free</span>
+              <span>40% startup</span>
+            </div>
+            <div className="mobile-profile-actions">
+              <a
+                href={resumeUrl}
+                download="Anurag-Raut-Resume.pdf"
+                onClick={() => {
+                  trackEvent('Resume Download', { source: 'mobile-profile' })
+                  setIsMenuOpen(false)
+                }}
+              >
+                Résumé
+              </a>
+              <a
+                href={bookingUrls.recruiter}
+                onClick={() => {
+                  trackEvent('Recruiter Booking Click', {
+                    source: 'mobile-profile',
+                  })
+                  setIsMenuOpen(false)
+                }}
+              >
+                Book intro
+              </a>
+            </div>
+          </div>
+
           {navigation.map((item) => (
             <a
               key={item.label}
+              className={activeSection === item.href.slice(1) ? 'active' : ''}
+              aria-current={
+                activeSection === item.href.slice(1) ? 'location' : undefined
+              }
               href={item.href}
               onClick={() => setIsMenuOpen(false)}
             >
@@ -310,12 +688,25 @@ function App() {
               <ArrowUpRight size={16} />
             </a>
           ))}
+
+          <a
+            className="mobile-resume-link"
+            href={resumeUrl}
+            download="Anurag-Raut-Resume.pdf"
+            onClick={() => {
+              trackEvent('Resume Download', { source: 'mobile-menu' })
+              setIsMenuOpen(false)
+            }}
+          >
+            Download résumé
+            <Download size={16} />
+          </a>
         </nav>
       </header>
 
-      <section className="hero container" id="home">
-      
-      <motion.div
+        <main id="main-content" tabIndex={-1}>
+          <section className="hero container" id="home">
+        <motion.div
           className="hero-content"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -323,42 +714,52 @@ function App() {
         >
           <div className="availability">
             <span className="availability-dot" />
-            OPEN TO ENGINEERING OPPORTUNITIES & PROJECTS
+            OPEN TO SENIOR REACT NATIVE & MOBILE ENGINEER ROLES
+          </div>
+
+          <div className="hero-location">
+            <MapPin size={14} />
+            Pune, India · UTC+5:30 · Open to remote, hybrid and on-site roles
           </div>
 
           <div className="hero-identity">
-  <span>SENIOR MOBILE ENGINEER</span>
-  <span>5+ YEARS EXPERIENCE</span>
-  <span>ANDROID · iOS · AI ENGINEERING</span>
-</div>
-   
-<h1>
-  Engineering mobile products
-  <br />
-  <span>for what’s next.</span>
-</h1>
+            <span>SENIOR REACT NATIVE DEVELOPER</span>
+            <span>5+ YEARS PRODUCTION EXPERIENCE</span>
+            <span>ARCHITECTURE · PERFORMANCE · DELIVERY</span>
+          </div>
 
-<p className="hero-description">
-  Senior Mobile Engineer with 5+ years of experience building
-  scalable Android and iOS applications. Focused on mobile
-  architecture, system design, performance engineering and
-  AI-powered development workflows.
-</p>
+          <h1>
+            Senior React Native
+            <br />
+            <span>engineer for reliable mobile products.</span>
+          </h1>
 
-<div className="hero-actions">
-  <a className="primary-button" href="#projects">
-    Explore my work <ArrowUpRight size={17} />
-  </a>
+          <p className="hero-description">
+            I build, ship and improve Android and iOS apps with React Native —
+            from architecture and performance to production release. Across banking,
+            FinTech and GovTech, I’ve owned delivery of secure mobile products
+            that stay fast and reliable as they grow.
+          </p>
 
-  <a className="text-button" href="#future-engineering">
-    Explore my engineering approach <ArrowRight size={17} />
-  </a>
-</div>
+          <div className="hero-actions">
+            <a className="primary-button" href="#work">
+              See selected work <ArrowUpRight size={17} />
+            </a>
 
+            <a
+              className="text-button"
+              href={resumeUrl}
+              download="Anurag-Raut-Resume.pdf"
+              onClick={() => trackEvent('Resume Download', { source: 'hero' })}
+            >
+              <Download size={16} />
+              Download résumé
+            </a>
+          </div>
 
           <div className="hero-socials">
             <a
-              href="https://github.com/AnuraagRaut"
+              href={socialUrls.github}
               target="_blank"
               rel="noreferrer"
               aria-label="GitHub"
@@ -369,7 +770,7 @@ function App() {
             </a>
 
             <a
-              href="https://www.linkedin.com/in/anuragraut-developer/"
+              href={socialUrls.linkedIn}
               target="_blank"
               rel="noreferrer"
               aria-label="LinkedIn"
@@ -379,313 +780,244 @@ function App() {
               </svg>
             </a>
 
-            <a href="mailto:anuragraut.developer@gmail.com" aria-label="Email">
+            <a href={`mailto:${contactEmail}`} aria-label="Email">
               <Mail size={18} />
             </a>
           </div>
         </motion.div>
 
         <motion.div
-  className="hero-visual"
-  initial={{ opacity: 0, scale: 0.94, y: 18 }}
-  animate={{ opacity: 1, scale: 1, y: 0 }}
-  transition={{ duration: 0.9, delay: 0.2 }}
->
-  <div className="hero-showcase">
-    <div className="showcase-glow" />
+          className="hero-visual"
+          initial={{ opacity: 0, scale: 0.94, y: 18 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+        >
+          <div
+            className="hero-showcase"
+            onMouseEnter={() => setIsFeaturePaused(true)}
+            onMouseLeave={() => setIsFeaturePaused(false)}
+            onFocusCapture={() => setIsFeaturePaused(true)}
+            onBlurCapture={() => setIsFeaturePaused(false)}
+          >
+            <div className="showcase-glow" />
 
-    <div className="showcase-heading">
-      <span className="showcase-dot" />
-      MOBILE ENGINEERING
-      <span className="showcase-version">01 / 04</span>
-    </div>
-
-    <motion.div
-      className="showcase-phone"
-      animate={{ y: [0, -9, 0] }}
-      transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-    >
-      <div className="phone-frame">
-        <div className="phone-island" />
-
-        <div className="phone-screen">
-          <div className="phone-topline">
-            <span>ENGINEERING / SYSTEMS</span>
-            <span className="phone-status-dot" />
-          </div>
-
-          <div className="phone-intro">
-            <small>BUILDING FOR SCALE</small>
-            <h3>
-              Mobile
-              <br />
-              experiences<span>.</span>
-            </h3>
-            <p>Reliable by design. Built to perform.</p>
-          </div>
-
-          <div className="phone-feature">
-            <div className="feature-icon">01</div>
-            <div>
-              <strong>Architecture</strong>
-              <span>Modular · Scalable</span>
+            <div className="showcase-heading">
+              <span className="showcase-dot" />
+              SENIOR MOBILE ENGINEER
+              <span className="showcase-version">
+                0{activeFeature + 1} / 0{heroFeatures.length}
+              </span>
             </div>
-            <ArrowUpRight size={17} />
-          </div>
 
-          <div className="phone-feature">
-            <div className="feature-icon">02</div>
-            <div>
-              <strong>Performance</strong>
-              <span>Optimized · Reliable</span>
+            <motion.div
+              className="showcase-phone"
+              animate={reduceMotion ? { y: 0 } : { y: [0, -9, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <div className="phone-frame">
+                <div className="phone-island" />
+
+                <div className="phone-screen">
+                  <div className="phone-topline">
+                    <span>
+                      MOBILE / {heroFeatures[activeFeature].title.toUpperCase()}
+                    </span>
+                    <span className="phone-status-dot" />
+                  </div>
+
+                  <div className="phone-intro">
+                    <small>BUILT FOR PRODUCTION</small>
+                    <p className="phone-intro-title">
+                      Mobile
+                      <br />
+                      products<span>.</span>
+                    </p>
+                    <p className="phone-intro-subtitle">
+                      Architecture. Performance. Delivery.
+                    </p>
+                  </div>
+
+                  {heroFeatures.map((feature, index) => (
+                    <button
+                      className={`phone-feature ${activeFeature === index ? 'is-active' : ''}`}
+                      key={feature.number}
+                      type="button"
+                      aria-pressed={activeFeature === index}
+                      aria-label={`Show ${feature.title}`}
+                      onClick={() => setActiveFeature(index)}
+                    >
+                      <span className="feature-icon">{feature.number}</span>
+                      <span className="feature-copy">
+                        <strong>{feature.title}</strong>
+                        <span>{feature.detail}</span>
+                      </span>
+                      <ArrowUpRight size={17} />
+                    </button>
+                  ))}
+
+                  <a
+                    className="phone-resume"
+                    href={resumeUrl}
+                    download="Anurag-Raut-Resume.pdf"
+                    onClick={() =>
+                      trackEvent('Resume Download', { source: 'hero-phone' })
+                    }
+                  >
+                    <Download size={14} />
+                    Download résumé
+                    <ArrowUpRight size={14} />
+                  </a>
+
+                  <div className="phone-bottom">
+                    <span>ANDROID</span>
+                    <span>•</span>
+                    <span>iOS</span>
+                    <span>•</span>
+                    <span>REACT NATIVE</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="showcase-float showcase-float-top"
+              animate={reduceMotion ? { y: 0 } : { y: [0, -6, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <span className="float-label">STARTUP IMPROVEMENT</span>
+              <strong>40%</strong>
+              <span className="float-description">Faster app launch</span>
+            </motion.div>
+
+            <motion.div
+              className="showcase-float showcase-float-bottom"
+              animate={reduceMotion ? { y: 0 } : { y: [0, 7, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <span className="float-indicator" />
+              <div>
+                <strong>98%+</strong>
+                <span>Crash-free sessions</span>
+              </div>
+            </motion.div>
+
+            <div className="showcase-footer">
+              <span>BUILDING</span>
+              <span>SHIPPING</span>
+              <span>IMPROVING</span>
             </div>
-            <ArrowUpRight size={17} />
           </div>
-
-          <div className="phone-feature">
-            <div className="feature-icon">03</div>
-            <div>
-              <strong>AI experiences</strong>
-              <span>Intelligent · Emerging</span>
-            </div>
-            <ArrowUpRight size={17} />
-          </div>
-
-          <div className="phone-bottom">
-            <span>ANDROID</span>
-            <span>•</span>
-            <span>iOS</span>
-            <span>•</span>
-            <span>REACT NATIVE</span>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-
-    <motion.div
-      className="showcase-float showcase-float-top"
-      animate={{ y: [0, -6, 0] }}
-      transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-    >
-      <span className="float-label">ENGINEERING IMPACT</span>
-      <strong>40%</strong>
-      <span className="float-description">Faster app startup</span>
-    </motion.div>
-
-    <motion.div
-      className="showcase-float showcase-float-bottom"
-      animate={{ y: [0, 7, 0] }}
-      transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-    >
-      <span className="float-indicator" />
-      <div>
-        <strong>98%+</strong>
-        <span>Crash-free sessions</span>
-      </div>
-    </motion.div>
-
-    <div className="showcase-footer">
-      <span>BUILDING</span>
-      <span>SHIPPING</span>
-      <span>IMPROVING</span>
-    </div>
-  </div>
-</motion.div>
+        </motion.div>
       </section>
 
-    
-   
-
-      <section className="impact-section section-padding" id="impact">
-  <div className="container">
-    <div className="impact-heading-row">
-      <div className="impact-intro">
-        <span className="eyebrow">ENGINEERING CAPABILITIES / 01—08</span>
-        <h2>
-          More than mobile screens.
-          <br />
-          <span>End-to-end product engineering.</span>
-        </h2>
-        <p>
-          I think beyond individual features — building mobile products
-          that are scalable, reliable, secure and ready for real users.
-        </p>
-      </div>
-
-      <span className="impact-scroll-hint">
-        EXPLORE CAPABILITIES <ArrowRight size={15} />
-      </span>
-    </div>
-
-    <div className="impact-track">
-      {[
-        {
-          number: '01',
-          icon: '◈',
-          title: 'Scalable Architecture',
-          description:
-            'Modular, maintainable application architecture designed to grow with product complexity.',
-          tags: 'System Design · Reusability',
-        },
-        {
-          number: '02',
-          icon: '↗',
-          title: 'Performance Engineering',
-          description:
-            'Fast startup, smooth interactions, optimized rendering and efficient resource usage.',
-          tags: 'Optimization · Responsiveness',
-        },
-        {
-          number: '03',
-          icon: '◎',
-          title: 'Engaging User Experiences',
-          description:
-            'Intuitive interfaces, thoughtful interactions and seamless user journeys that keep products easy to use.',
-          tags: 'UX · Interaction · Accessibility',
-        },
-        {
-          number: '04',
-          icon: '⬡',
-          title: 'Secure Mobile Systems',
-          description:
-            'Authentication, protected local data, secure API communication and dependable application workflows.',
-          tags: 'JWT · Biometrics · Security',
-        },
-        {
-          number: '05',
-          icon: '⌁',
-          title: 'Offline-first Reliability',
-          description:
-            'Mobile experiences that handle unstable networks, local persistence and dependable data synchronization.',
-          tags: 'Realm · Caching · Sync',
-        },
-        {
-          number: '06',
-          icon: '⌘',
-          title: 'Backend & Real-time Integration',
-          description:
-            'Connecting mobile applications with REST APIs, real-time services and intelligent backend workflows.',
-          tags: 'Axios · Socket.IO · APIs',
-        },
-        {
-          number: '07',
-          icon: '↑',
-          title: 'Production & Deployment',
-          description:
-            'Taking features through testing, release preparation, deployment and continuous improvement.',
-          tags: 'CI/CD · Android · iOS',
-        },
-        {
-          number: '08',
-          icon: '✳',
-          title: 'AI-powered Experiences',
-          description:
-            'Exploring LLM integration, intelligent assistants and AI-driven capabilities for modern products.',
-          tags: 'LLMs · AI Workflows · Agents',
-        },
-      ].map((item) => (
-        <article className="impact-capability-card" key={item.number}>
-          <div className="capability-card-top">
-            <span>{item.number} / 08</span>
-            <span className="capability-icon">{item.icon}</span>
+      <section className="proof-section" aria-label="Measured engineering impact">
+        <div className="container">
+          <div className="proof-heading">
+            <span>MEASURED IMPACT ACROSS RECENT ROLES</span>
+            <span>5+ YEARS · PRODUCTION MOBILE</span>
           </div>
 
-          <h3>{item.title}</h3>
-          <p>{item.description}</p>
+          <div className="proof-grid">
+            {impactMetrics.map((metric) => (
+              <div className="proof-item" key={metric.label}>
+                <span className="proof-icon">
+                  <metric.icon size={17} strokeWidth={1.9} />
+                </span>
+                <strong>{metric.value}</strong>
+                <span className="proof-label">{metric.label}</span>
+                <span className="proof-detail">{metric.detail}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <div className="capability-tags">{item.tags}</div>
-
-          <span className="capability-card-arrow">
-            <ArrowUpRight size={19} />
-          </span>
-        </article>
-      ))}
-    </div>
-
-    <div className="impact-track-footer">
-      <span>ENGINEERED FOR REAL-WORLD PRODUCTS</span>
-      <span>ANDROID <i /> iOS <i /> REACT NATIVE <i /> AI</span>
-    </div>
-  </div>
-</section>
-
-
-
-
-      <section className="about-section section-padding" id="about">
+      <section className="experience-section section-padding" id="experience">
         <div className="container">
           <motion.div
-            className="about-heading"
+            className="experience-heading"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">01 / ABOUT ME</span>
+            <span className="eyebrow">01 / EXPERIENCE</span>
             <h2>
-              Engineering with
+              Shipped work.
               <br />
-              <span>purpose and perspective.</span>
+              <span>Owned outcomes.</span>
             </h2>
+            <p>
+              5+ years across digital banking, FinTech, GovTech and consumer
+              apps. I take features from planning to production and stay
+              accountable for performance, stability and delivery.
+            </p>
           </motion.div>
 
-          <div className="about-content">
-          <div className="about-description">
-  <p className="about-lead">
-    I'm a Senior Mobile Engineer with 5+ years of experience
-    building and evolving production-ready Android and iOS
-    applications using React Native.
-  </p>
+          <div className="experience-list">
+            {experience.map((item, index) => (
+              <motion.article
+                className="experience-item"
+                key={`${item.company}-${item.period}`}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.6, delay: 0.04 }}
+              >
+                <div className="experience-meta">
+                  <span className="experience-type">{item.type}</span>
+                  <span className="experience-period">{item.period}</span>
+                </div>
 
-  <p>
-    My experience spans digital banking, FinTech and GovTech,
-    where I've worked on secure transactions, offline-first
-    applications, complex integrations and performance-critical
-    mobile experiences.
-  </p>
+                <div className="experience-details">
+                  <div className="experience-title-row">
+                    <div>
+                      <h3>{item.role}</h3>
+                      <p className="experience-company">{item.company}</p>
+                    </div>
 
-  <p>
-    I take ownership beyond implementation — translating
-    requirements into technical solutions, shaping application
-    architecture, integrating APIs, improving reliability and
-    delivering features through production.
-  </p>
-
-  <p>
-    I'm also expanding into AI-native engineering, exploring
-    LLM-powered mobile experiences, agentic workflows and
-    intelligent automation while strengthening my foundations
-    in system design and scalable software architecture.
-  </p>
-</div>
-
-            <div className="about-expertise">
-              {expertise.map((item) => (
-                <motion.article
-                  className="expertise-item"
-                  key={item.number}
-                  initial={{ opacity: 0, y: 18 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <span className="expertise-number">{item.number}</span>
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
+                    <span className="experience-location">
+                      {item.location}
+                    </span>
                   </div>
-                  <ArrowUpRight size={18} />
-                </motion.article>
-              ))}
-            </div>
+
+                  {item.product && (
+                    <p className="experience-product">{item.product}</p>
+                  )}
+
+                  {item.description && (
+                    <p className="experience-description">{item.description}</p>
+                  )}
+
+                  <ul className="experience-highlights" role="list">
+                    {item.highlights.map((highlight) => (
+                      <li key={highlight}>{highlight}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <span className="experience-index">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </motion.article>
+            ))}
+          </div>
+
+          <div className="experience-footer">
+            <a
+              href={resumeUrl}
+              download="Anurag-Raut-Resume.pdf"
+              className="text-button"
+            >
+              <Download size={16} />
+              Download full résumé
+            </a>
+            <span>References and detailed project context available on request.</span>
           </div>
         </div>
+      </section>
 
-     
-      <section
-        className="projects-section section-padding"
-        id="projects"
-      >
+      <section className="projects-section section-padding" id="work">
         <div className="container">
           <motion.div
             className="projects-heading"
@@ -694,116 +1026,113 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">03 / SELECTED PROJECTS</span>
+            <span className="eyebrow">02 / SELECTED WORK</span>
             <h2>
-              Ideas turned into
+              Products, not
               <br />
-              <span>real products.</span>
+              <span>just screens.</span>
             </h2>
             <p>
-  Selected mobile engineering work, independent builds and
-  product experiences shaped through thoughtful engineering.
-</p>
+              A closer look at the problems, ownership and measured outcomes
+              behind the work.
+            </p>
           </motion.div>
 
-     
-
           <div className="projects-list">
-  {projects.map((project) => (
-    <motion.article
-      className={`project-item ${project.number === '01' ? 'project-item--private' : ''}`}
-      key={project.number}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="project-topline">
-        <span>{project.category}</span>
-        <span>/{project.number}</span>
-      </div>
+            {projects.map((project) => (
+              <motion.article
+                className="project-item"
+                key={project.number}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: 0.6 }}
+              >
+                <div className="project-topline">
+                  <span>{project.category}</span>
+                  <span>/{project.number}</span>
+                </div>
 
-      {project.number === '01' && (
-        <div className="private-project-preview">
-          <div className="preview-window">
-            <div className="preview-topbar">
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className="preview-content">
-              <div className="preview-block preview-block-large" />
-              <div className="preview-block preview-block-medium" />
-              <div className="preview-block preview-block-small" />
-              <div className="preview-cards">
-                <span />
-                <span />
-                <span />
-              </div>
-            </div>
-            <div className="preview-overlay">
-              <span className="preview-loader" />
-              <span>Something is taking shape</span>
-              <small>PRIVATE BUILD · COMING SOON</small>
-            </div>
+                <div className="project-content">
+                  <div className="project-main">
+                    <div className="project-title-row">
+                      <h3>{project.name}</h3>
+                      <span className="project-status">{project.status}</span>
+                    </div>
+
+                    <p className="project-client">{project.client}</p>
+
+                    <p className="project-description">{project.description}</p>
+                  </div>
+
+                  <div className="project-case">
+                    <span className="project-details-label">THE PROBLEM</span>
+                    <p>{project.challenge}</p>
+                  </div>
+
+                  <div className="project-result">
+                    <span className="project-details-label">RESULT</span>
+                    <p>{project.outcome}</p>
+                  </div>
+
+                  <button
+                    className={`project-detail-toggle ${expandedProjects.includes(project.number) ? 'is-open' : ''}`}
+                    type="button"
+                    aria-expanded={expandedProjects.includes(project.number)}
+                    aria-controls={`project-extra-${project.number}`}
+                    onClick={() => {
+                      toggleProject(project.number)
+                      trackEvent('Project Detail Toggle', {
+                        project: project.number,
+                      })
+                    }}
+                  >
+                    <span>
+                      {expandedProjects.includes(project.number)
+                        ? 'Hide engineering detail'
+                        : 'View engineering detail'}
+                    </span>
+                    <span className="detail-toggle-icon">
+                      {expandedProjects.includes(project.number) ? '−' : '+'}
+                    </span>
+                  </button>
+
+                  <div
+                    id={`project-extra-${project.number}`}
+                    className={`project-extra ${expandedProjects.includes(project.number) ? 'is-open' : ''}`}
+                    aria-hidden={!expandedProjects.includes(project.number)}
+                  >
+                    <div className="project-extra-inner">
+                      <div className="project-details">
+                        <span className="project-details-label">WHAT I OWNED</span>
+
+                        <ul className="project-highlights" role="list">
+                          {project.highlights.map((highlight) => (
+                            <li key={highlight}>{highlight}</li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <div className="project-technologies">
+                        <span className="project-details-label">
+                          TECHNOLOGY & CAPABILITIES
+                        </span>
+                        <div className="project-tech-list">
+                          {project.technologies.map((technology) => (
+                            <span key={technology}>{technology}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
           </div>
-        </div>
-      )}
-
-      <div className="project-content">
-        <div className="project-main">
-          <div className="project-title-row">
-            <h3>{project.name}</h3>
-            <span className="project-status">{project.status}</span>
-          </div>
-
-          <p className="project-description">
-            {project.description}
-          </p>
-        </div>
-
-        {project.highlights.length > 0 && (
-          <div className="project-details">
-            <span className="project-details-label">
-              ENGINEERING CONTRIBUTIONS
-            </span>
-
-            <ul className="project-highlights">
-              {project.highlights.map((highlight) => (
-                <li key={highlight}>{highlight}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {project.technologies.length > 0 && (
-          <div className="project-technologies">
-            <span className="project-details-label">
-              TECHNOLOGY & CAPABILITIES
-            </span>
-            <div className="project-tech-list">
-              {project.technologies.map((technology) => (
-                <span key={technology}>{technology}</span>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </motion.article>
-  ))}
-</div>
-
-
         </div>
       </section>
 
-   
-      </section>
-
-      <section
-        className="expertise-section section-padding"
-        id="expertise"
-      >
+      <section className="expertise-section engineering-section section-padding" id="engineering">
         <div className="container">
           <motion.div
             className="expertise-heading"
@@ -812,15 +1141,132 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">04 / TECHNICAL EXPERTISE</span>
+            <span className="eyebrow">03 / HOW I ENGINEER</span>
             <h2>
-              Strong foundations.
+              Built with intent.
               <br />
-              <span>Thoughtful engineering.</span>
+              <span>Not just shipped.</span>
             </h2>
             <p>
-              The technologies, tools and engineering practices I use
-              to build dependable mobile products.
+              The principles behind the work — the decisions that keep mobile
+              products fast, stable and easier to change.
+            </p>
+          </motion.div>
+
+          <div className="expertise-grid">
+            {engineeringPrinciples.map((principle) => (
+              <motion.article
+                className="expertise-card"
+                key={principle.number}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="expertise-card-top">
+                  <span>{principle.number}</span>
+                  <span className="expertise-card-line" />
+                </div>
+
+                <h3>{principle.title}</h3>
+                <p>{principle.description}</p>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="notes-section section-padding" id="notes">
+        <div className="container">
+          <motion.div
+            className="notes-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="eyebrow">04 / FIELD NOTES</span>
+            <h2>
+              Thinking out loud,
+              <br />
+              <span>with receipts.</span>
+            </h2>
+            <p>
+              Short engineering notes on performance, reliability and shipping
+              mobile products that hold up in production.
+            </p>
+          </motion.div>
+
+          <div className="notes-grid">
+            {posts.map((note, index) => (
+              <motion.a
+                className="note-card"
+                key={note.slug}
+                href={`/blog.html?post=${note.slug}`}
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: index * 0.06 }}
+                onClick={() =>
+                  trackEvent('Blog Post View', {
+                    post: note.slug,
+                    source: 'portfolio',
+                  })
+                }
+              >
+                <div className="note-card-top">
+                  <span className="note-number">{note.number}</span>
+                  <span className="note-metric">{note.metric}</span>
+                </div>
+                <h3>{note.title}</h3>
+                <p>{note.summary}</p>
+                <div className="note-card-footer">
+                  <div className="note-tags">
+                    {note.tags.map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
+                  <span className="note-read">{note.readTime}</span>
+                </div>
+                <span className="note-arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </motion.a>
+            ))}
+          </div>
+
+          <div className="notes-cta-row">
+            <a
+              className="notes-all-link"
+              href="/blog.html"
+              onClick={() => trackEvent('Blog Index View', { source: 'portfolio' })}
+            >
+              Read the full notes <ArrowUpRight size={16} />
+            </a>
+            <span>Full articles, updated as I publish more.</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="expertise-section section-padding" id="skills">
+        <div className="container">
+          <motion.div
+            className="expertise-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="eyebrow">05 / TECHNICAL EXPERTISE</span>
+            <h2>
+              Deep in mobile.
+              <br />
+              <span>Broad enough to own the product.</span>
+            </h2>
+            <p>
+              The tools and engineering practices I use to build dependable
+              mobile products — from architecture and performance to secure
+              integrations and AI-assisted delivery.
             </p>
           </motion.div>
 
@@ -853,83 +1299,71 @@ function App() {
         </div>
       </section>
 
+      <section className="about-section section-padding" id="about">
+        <div className="container">
+          <motion.div
+            className="about-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="eyebrow">06 / ABOUT ME</span>
+            <h2>
+              Engineer who
+              <br />
+              <span>owns the outcome.</span>
+            </h2>
+          </motion.div>
 
-<section className="future-section section-padding" id="future-engineering">
-  <div className="container">
-    <motion.div
-      className="future-heading"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-    >
-      <span className="eyebrow">05 / ENGINEERING BEYOND MOBILE</span>
-      <h2>
-        Building for the
-        <br />
-        <span>next era of software.</span>
-      </h2>
-      <p>
-        Mobile engineering is evolving. I am expanding beyond
-        traditional app development into AI-native products,
-        intelligent workflows and scalable software systems.
-      </p>
-    </motion.div>
+          <div className="about-content">
+            <div className="about-description">
+              <p className="about-lead">
+                I'm a Senior React Native Engineer with 5+ years building and
+                evolving production Android and iOS applications.
+              </p>
 
-    <div className="future-grid">
-      {[
-        {
-          number: '01',
-          title: 'AI-Native Development',
-          description:
-            'Integrating LLM capabilities into mobile experiences and using AI-assisted workflows to accelerate engineering.',
-          tags: ['LLMs', 'AI Integration', 'AI Workflows'],
-        },
-        {
-          number: '02',
-          title: 'Agentic Systems & Automation',
-          description:
-            'Exploring intelligent agents, tool calling, workflow orchestration and automation for software engineering.',
-          tags: ['AI Agents', 'Tool Calling', 'Orchestration'],
-        },
-        {
-          number: '03',
-          title: 'System Design & Scalability',
-          description:
-            'Thinking beyond individual screens: designing reliable architectures, distributed systems and scalable applications.',
-          tags: ['System Design', 'Architecture', 'Scalability'],
-        },
-        {
-          number: '04',
-          title: 'Next-Generation Mobile',
-          description:
-            'Bringing together mobile platforms, real-time systems and intelligent experiences to create more capable applications.',
-          tags: ['React Native', 'Real-time Systems', 'Intelligent UX'],
-        },
-      ].map((item) => (
-        <motion.article
-          className="future-card"
-          key={item.number}
-          initial={{ opacity: 0, y: 22 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5 }}
-        >
-          <span className="future-number">{item.number}</span>
-          <h3>{item.title}</h3>
-          <p>{item.description}</p>
-          <div className="future-tags">
-            {item.tags.map((tag) => (
-              <span key={tag}>{tag}</span>
-            ))}
+              <p>
+                My experience spans banking, FinTech, GovTech, blockchain and
+                e-commerce — secure transactions, offline-first apps, complex
+                integrations and performance-critical mobile workflows.
+              </p>
+
+              <p>
+                I take ownership beyond implementation: translating
+                requirements into technical solutions, shaping architecture,
+                improving reliability and shipping through production.
+              </p>
+
+              <p className="about-direction">
+                I'm especially interested in products where scale, reliability
+                and performance are non-negotiable — mobile systems that need
+                to stay fast and stable as teams and user bases grow.
+              </p>
+            </div>
+
+            <div className="about-expertise">
+              {expertise.map((item) => (
+                <motion.article
+                  className="expertise-item"
+                  key={item.number}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <span className="expertise-number">{item.number}</span>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                  <ArrowUpRight size={18} />
+                </motion.article>
+              ))}
+            </div>
           </div>
-        </motion.article>
-      ))}
-    </div>
-  </div>
-</section>
-
-
+        </div>
+      </section>
 
       <section className="services-section section-padding" id="services">
         <div className="container">
@@ -940,195 +1374,50 @@ function App() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="eyebrow">HOW I CAN HELP</span>
+            <span className="eyebrow">07 / HOW I CAN HELP</span>
             <h2>
-              From an idea to a
-              <span> production-ready product.</span>
+              Clear ways
+              <span> I can add value.</span>
             </h2>
             <p>
-              I help founders, businesses and teams turn ideas into reliable
-              mobile experiences — from the first build to scaling an existing
-              application.
+              Whether you’re hiring for a product team or building something
+              locally, here is where I fit best.
             </p>
           </motion.div>
 
           <div className="services-grid">
-            {[
-              {
-                number: '01',
-                icon: Smartphone,
-                title: 'Mobile App Development',
-                description:
-                  'Custom Android and iOS applications built with React Native, TypeScript and scalable architecture.',
-              },
-              {
-                number: '02',
-                icon: Rocket,
-                title: 'MVP & Product Development',
-                description:
-                  'Turn your product idea into a working mobile experience, with practical architecture and room to grow.',
-              },
-              {
-                number: '03',
-                icon: Gauge,
-                title: 'Performance & Optimization',
-                description:
-                  'Improve app speed, stability, startup time, responsiveness and overall user experience.',
-              },
-              {
-                number: '04',
-                icon: PlugZap,
-                title: 'API & Backend Integration',
-                description:
-                  'Connect mobile apps with REST APIs, authentication, payments, real-time services and third-party platforms.',
-              },
-              {
-                number: '05',
-                icon: BrainCircuit,
-                title: 'AI-powered Mobile Experiences',
-                description:
-                  'Integrate AI capabilities such as intelligent assistants, content summarization and conversational features.',
-              },
-              {
-                number: '06',
-                icon: Wrench,
-                title: 'Maintenance & Engineering Support',
-                description:
-                  'Modernize existing React Native apps, resolve technical issues and improve long-term maintainability.',
-              },
-            ].map((service, index) => (
-              <motion.article
+            {helpOptions.map((service, index) => (
+              <motion.a
                 className="service-card"
                 key={service.number}
+                href={service.href}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: index * 0.08 }}
+                transition={{ duration: 0.45, delay: index * 0.06 }}
+                onClick={() =>
+                  trackEvent(service.eventName, { source: 'help-card' })
+                }
               >
                 <div className="service-card-top">
-                <span className="service-icon">
-  <service.icon size={23} strokeWidth={1.8} />
-</span>
+                  <span className="service-icon">
+                    <service.icon size={23} strokeWidth={1.8} />
+                  </span>
                   <span className="service-number">{service.number}</span>
                 </div>
+                <span className="service-audience">{service.audience}</span>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
-                <span className="service-arrow">↗</span>
-              </motion.article>
-            ))}
-          </div>
-
-          {/* <motion.div
-            className="services-cta"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div>
-              <span className="eyebrow">HAVE A PROJECT IN MIND?</span>
-              <h3>Let's build something meaningful.</h3>
-              <p>
-                Tell me what you're working on. Let's explore how I can help.
-              </p>
-            </div>
-            <a href="#contact" className="services-cta-button">
-              Work With Me <span>↗</span>
-            </a>
-          </motion.div> */}
-        </div>
-      </section>
-
-
-      <section
-        className="experience-section section-padding"
-        id="experience"
-      >
-        <div className="container">
-          <motion.div
-            className="experience-heading"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="eyebrow">02 / EXPERIENCE</span>
-            <h2>
-              Building products,
-              <br />
-              <span>solving real problems.</span>
-            </h2>
-            <p>
-  5+ years of hands-on mobile engineering across digital
-  banking, FinTech, GovTech, blockchain and consumer
-  applications — building production products, owning
-  complex features and improving performance, reliability
-  and user experiences.
-</p>
-          </motion.div>
-
-          <div className="experience-list">
-            {experience.map((item, index) => (
-              <motion.article
-                className="experience-item"
-                key={`${item.company}-${item.period}`}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: 0.6, delay: 0.08 }}
-              >
-                <div className="experience-meta">
-                  <span className="experience-type">{item.type}</span>
-                  <span className="experience-period">{item.period}</span>
-                </div>
-
-                <div className="experience-details">
-                  <div className="experience-title-row">
-                    <div>
-                      <h3>{item.role}</h3>
-                      <p className="experience-company">
-                        {item.company}
-                      </p>
-                    </div>
-
-                    <span className="experience-location">
-                      {item.location}
-                    </span>
-                  </div>
-
-                  {item.product && (
-                    <p className="experience-product">
-                      {item.product}
-                    </p>
-                  )}
-
-                  {item.description && (
-                    <p className="experience-description">
-                      {item.description}
-                    </p>
-                  )}
-
-                  <ul className="experience-highlights">
-                    {item.highlights.map((highlight) => (
-                      <li key={highlight}>{highlight}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <span className="experience-index">
-                  {String(index + 1).padStart(2, '0')}
+                <span className="service-cta">
+                  {service.cta} <ArrowUpRight size={15} />
                 </span>
-              </motion.article>
+              </motion.a>
             ))}
           </div>
         </div>
       </section>
 
-   
-      <section
-        className="contact-section section-padding"
-        id="contact"
-      >
+      <section className="contact-section section-padding" id="contact">
         <div className="container">
           <motion.div
             className="contact-content"
@@ -1137,66 +1426,92 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">LET'S CONNECT</span>
+            <span className="eyebrow">08 / LET'S TALK</span>
 
             <h2>
-              Have an idea?
+              Looking for a senior
               <br />
-              <span>Let's make it happen.</span>
+              <span>mobile engineer?</span>
             </h2>
 
             <p>
-              Whether you're building a product, looking for an experienced
-              mobile engineer, or exploring a new opportunity, I'd love to
-              hear what you're working on.
+              Open to senior React Native and mobile engineering roles in Pune
+              or remote. I also take on focused product engagements. Tell me
+              what you're building — or what you need help shipping.
             </p>
 
             <div className="contact-options">
               <a
-                href="mailto:anuragraut.developer@gmail.com?subject=Mobile%20App%20Project%20Enquiry"
+                href={bookingUrls.recruiter}
                 className="contact-option"
+                onClick={() =>
+                  trackEvent('Recruiter Booking Click', { source: 'contact' })
+                }
               >
-                <span className="contact-option-label">FOR CLIENTS & FOUNDERS</span>
-                <strong>Let's build your product</strong>
+                <span className="contact-option-label">FOR RECRUITERS & TEAMS</span>
+                <strong>Book a quick intro</strong>
                 <span className="contact-option-action">
-                  Discuss a project <ArrowUpRight size={17} />
+                  Talk about the role <ArrowUpRight size={17} />
                 </span>
               </a>
 
               <a
-                href="mailto:anuragraut.developer@gmail.com?subject=Career%20Opportunity"
+                href={bookingUrls.client}
                 className="contact-option"
+                onClick={() =>
+                  trackEvent('Client Booking Click', { source: 'contact' })
+                }
               >
-                <span className="contact-option-label">FOR RECRUITERS & TEAMS</span>
-                <strong>Let's work together</strong>
+                <span className="contact-option-label">FOR FOUNDERS & CLIENTS</span>
+                <strong>Discuss a mobile project</strong>
                 <span className="contact-option-action">
-                  Explore opportunities <ArrowUpRight size={17} />
+                  Talk about your product <ArrowUpRight size={17} />
                 </span>
               </a>
             </div>
 
             <div className="contact-bottom">
-              <a
-                href="mailto:anuragraut.developer@gmail.com"
-                className="contact-email-link"
-              >
-                anuragraut.developer@gmail.com
-                <ArrowUpRight size={18} />
-              </a>
+              <div className="contact-direct">
+                <a
+                  href={`mailto:${contactEmail}`}
+                  className="contact-email-link"
+                  onClick={() => trackEvent('Email Click', { source: 'contact' })}
+                >
+                  {contactEmail}
+                  <ArrowUpRight size={18} />
+                </a>
+                <a
+                  href={`tel:${contactPhone}`}
+                  className="contact-phone-link"
+                  onClick={() => trackEvent('Phone Click', { source: 'contact' })}
+                >
+                  +91 77678 74097
+                </a>
+              </div>
 
               <div className="contact-socials">
                 <a
-                  href="https://www.linkedin.com/in/anuragraut-developer/"
+                  href={resumeUrl}
+                  download="Anurag-Raut-Resume.pdf"
+                  onClick={() => trackEvent('Resume Download', { source: 'contact' })}
+                >
+                  Résumé <Download size={14} />
+                </a>
+
+                <a
+                  href={socialUrls.linkedIn}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => trackEvent('LinkedIn Click', { source: 'contact' })}
                 >
                   LinkedIn <ArrowUpRight size={14} />
                 </a>
 
                 <a
-                  href="https://github.com/AnuraagRaut"
+                  href={socialUrls.github}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => trackEvent('GitHub Click', { source: 'contact' })}
                 >
                   GitHub <ArrowUpRight size={14} />
                 </a>
@@ -1204,56 +1519,68 @@ function App() {
             </div>
           </motion.div>
         </div>
-      </section>
+        </section>
+      </main>
 
-     
-   
-<footer className="site-footer">
-  <div className="container footer-content">
-    <div className="footer-main">
-      <div className="footer-identity">
-        <a className="brand footer-brand" href="#home">
-          ANURAG<span>.</span>
-        </a>
-        <p>Senior Mobile Engineer</p>
-        <span>Engineering thoughtful products for Android, iOS & beyond.</span>
-      </div>
+      <footer className="site-footer">
+        <div className="container footer-content">
+          <div className="footer-main">
+            <div className="footer-identity">
+              <a className="brand footer-brand" href="#home">
+                ANURAG<span>.</span>
+              </a>
+              <p>Senior React Native Developer | Mobile Engineer</p>
+              <span>End-to-End Product Ownership · Architecture · Performance.</span>
+            </div>
 
-      <div className="footer-navigation">
-        <span className="footer-label">EXPLORE</span>
-        <div className="footer-links">
-          <a href="#about">About</a>
-          <a href="#expertise">Engineering</a>
-          <a href="#services">Services</a>
-          <a href="#projects">Projects</a>
-          <a href="#experience">Experience</a>
-          <a href="#contact">Contact</a>
+            <div className="footer-navigation">
+              <span className="footer-label">EXPLORE</span>
+              <div className="footer-links">
+                {navigation.map((item) => (
+                  <a key={item.label} href={item.href}>
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="footer-connect">
+              <span className="footer-label">LET'S CONNECT</span>
+              <a href={`mailto:${contactEmail}`}>
+                Email me <ArrowUpRight size={15} />
+              </a>
+              <a
+                href={socialUrls.linkedIn}
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn <ArrowUpRight size={15} />
+              </a>
+              <a
+                href={socialUrls.github}
+                target="_blank"
+                rel="noreferrer"
+              >
+                GitHub <ArrowUpRight size={15} />
+              </a>
+              <a
+                href={resumeUrl}
+                download="Anurag-Raut-Resume.pdf"
+                onClick={() => trackEvent('Resume Download', { source: 'footer' })}
+              >
+                Résumé <Download size={15} />
+              </a>
+            </div>
+          </div>
+
+          <div className="footer-bottom">
+            <span>© {new Date().getFullYear()} Anurag Raut. All rights reserved.</span>
+            <a href="#home">Back to top ↑</a>
+          </div>
         </div>
+      </footer>
       </div>
-
-      <div className="footer-connect">
-        <span className="footer-label">LET'S CONNECT</span>
-        <a href="mailto:anuragraut.developer@gmail.com">
-          Email me <ArrowUpRight size={15} />
-        </a>
-        <a href="https://www.linkedin.com/in/anuragraut-developer/" target="_blank" rel="noreferrer">
-          LinkedIn <ArrowUpRight size={15} />
-        </a>
-        <a href="https://github.com/AnuraagRaut" target="_blank" rel="noreferrer">
-          GitHub <ArrowUpRight size={15} />
-        </a>
-      </div>
-    </div>
-
-    <div className="footer-bottom">
-      <span>© {new Date().getFullYear()} Anurag Raut. All rights reserved.</span>
-      <a href="#home">Back to top ↑</a>
-    </div>
-  </div>
-</footer>
-
-
-    </main>
+    </MotionConfig>
   )
 }
 
