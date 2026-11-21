@@ -2431,6 +2431,13 @@ button:focus-visible {
   color: #fff;
 }
 
+.footer-legal {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
 /* ---------------------------------------------------------
    Reading progress
    --------------------------------------------------------- */

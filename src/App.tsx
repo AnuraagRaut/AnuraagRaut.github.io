@@ -1575,7 +1575,12 @@ function App() {
 
           <div className="footer-bottom">
             <span>© {new Date().getFullYear()} Anurag Raut. All rights reserved.</span>
-            <a href="#home">Back to top ↑</a>
+            <div className="footer-legal">
+              <a href="/booking.html">Book</a>
+              <a href="/rss.xml">RSS</a>
+              <a href="/privacy.html">Privacy</a>
+              <a href="#home">Back to top ↑</a>
+            </div>
           </div>
         </div>
       </footer>

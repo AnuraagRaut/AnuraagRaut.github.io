@@ -8,8 +8,38 @@ export const socialUrls = {
   github: 'https://github.com/AnuraagRaut',
 }
 
+/**
+ * Free booking setup.
+ *
+ * By default every booking CTA opens the on-site request page at
+ * /booking.html, which needs no third-party account and no paid plan.
+ *
+ * Optional upgrade: create a free TidyCal account
+ * (https://tidycal.com/register), then set tidycalBaseUrl to your booking
+ * page, for example: https://tidycal.com/your-handle
+ */
+export const booking = {
+  tidycalBaseUrl: '',
+}
+
+const bookingSlugs = {
+  recruiter: 'quick-intro',
+  client: 'mobile-project',
+  appReview: 'app-review',
+} as const
+
+function bookingUrl(type: keyof typeof bookingSlugs) {
+  const base = booking.tidycalBaseUrl.trim().replace(/\/$/, '')
+
+  if (base) {
+    return `${base}/${bookingSlugs[type]}`
+  }
+
+  return `/booking.html?type=${type}`
+}
+
 export const bookingUrls = {
-  recruiter: `mailto:${contactEmail}?subject=${encodeURIComponent('Book a quick intro')}`,
-  client: `mailto:${contactEmail}?subject=${encodeURIComponent('Discuss a mobile project')}`,
-  appReview: `mailto:${contactEmail}?subject=${encodeURIComponent('Discuss an existing mobile app')}`,
+  recruiter: bookingUrl('recruiter'),
+  client: bookingUrl('client'),
+  appReview: bookingUrl('appReview'),
 }
