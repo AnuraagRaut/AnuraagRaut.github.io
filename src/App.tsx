@@ -1,6 +1,8 @@
-import { motion, useReducedMotion } from 'motion/react'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import './App.css'
-import { useEffect, useState } from 'react'
+import { trackEvent } from './analytics'
+import { useEffect, useRef, useState } from 'react'
+import { bookingUrls } from './siteConfig'
 import {
   ArrowUpRight,
   CheckCircle2,
@@ -23,6 +25,7 @@ const navigation = [
   { label: 'Experience', href: '#experience' },
   { label: 'Work', href: '#work' },
   { label: 'Approach', href: '#engineering' },
+  { label: 'Notes', href: '#notes' },
   { label: 'Skills', href: '#skills' },
   { label: 'About', href: '#about' },
   { label: 'Help', href: '#services' },
@@ -60,7 +63,7 @@ const heroFeatures = [
   { number: '01', title: 'Architecture', detail: 'Modular · Scalable' },
   { number: '02', title: 'Performance', detail: 'Fast · Reliable' },
   { number: '03', title: 'Security', detail: 'Secure · Resilient' },
-  { number: '04', title: 'Delivery', detail: 'Owned · Shipped' },
+  { number: '04', title: 'Delivery', detail: 'Shipped · Improved' },
 ]
 
 const expertise = [
@@ -383,6 +386,9 @@ const helpOptions = [
     title: 'Join a product team',
     description:
       'Senior React Native engineering for teams that need architecture, feature delivery, performance and release ownership.',
+    cta: 'Book a quick intro',
+    href: bookingUrls.recruiter,
+    eventName: 'Recruiter Booking Click',
   },
   {
     number: '02',
@@ -391,6 +397,9 @@ const helpOptions = [
     title: 'Build a mobile product',
     description:
       'Turn an idea into an Android or iOS app with practical architecture, clean integrations and production-ready foundations.',
+    cta: 'Discuss a mobile project',
+    href: bookingUrls.client,
+    eventName: 'Client Booking Click',
   },
   {
     number: '03',
@@ -399,6 +408,138 @@ const helpOptions = [
     title: 'Fix and scale an existing app',
     description:
       'Stabilize crashes, improve startup and responsiveness, untangle structure and make the app easier to maintain as it grows.',
+    cta: 'Discuss your app',
+    href: bookingUrls.appReview,
+    eventName: 'App Review Booking Click',
+  },
+]
+
+type EngineeringNote = {
+  number: string
+  slug: string
+  title: string
+  summary: string
+  metric: string
+  readTime: string
+  tags: string[]
+  sections: { heading: string; paragraphs: string[] }[]
+  takeaway: string
+}
+
+const engineeringNotes: EngineeringNote[] = [
+  {
+    number: '01',
+    slug: 'faster-app-launch',
+    title: 'What a 40% faster app launch really takes',
+    summary:
+      'Startup speed is a product signal. This note looks at how to frame the problem before changing code, and how to make the gain survive future releases.',
+    metric: '40% faster startup',
+    readTime: '5 min read',
+    tags: ['Performance', 'React Native'],
+    sections: [
+      {
+        heading: 'Start with the user, not the profiler',
+        paragraphs: [
+          'Startup time is the first impression an app makes. A 40% improvement matters because it changes how the product feels from the first tap, not because a benchmark moved. Before touching code, I look at where time is actually going: cold start, initial render, navigation readiness and the work that happens before the first useful screen.',
+        ],
+      },
+      {
+        heading: 'Separate cold start from perceived start',
+        paragraphs: [
+          'Users do not experience CPU time. They experience waiting. A useful investigation separates process launch, JS initialization, native startup, first paint and time to interactive. That distinction prevents teams from optimizing the wrong layer.',
+        ],
+      },
+      {
+        heading: 'Fix the expensive paths first',
+        paragraphs: [
+          'My rule is simple: measure, change one thing, measure again. In React Native work that usually means looking at initialization work, rendering on the critical path, navigation setup and heavy libraries loaded too early. I only keep changes that show up in real builds and real device behaviour.',
+        ],
+      },
+      {
+        heading: 'Protect the gain',
+        paragraphs: [
+          'Performance regressions creep back in. The result only matters if it survives the next ten releases. That means treating the measured number as something the team watches, not a one-time cleanup task.',
+        ],
+      },
+    ],
+    takeaway:
+      'A faster launch is not a one-time optimization. It is a product decision backed by measurement, restraint and release discipline.',
+  },
+  {
+    number: '02',
+    slug: 'crash-free-sessions',
+    title: 'Engineering for 98%+ crash-free sessions',
+    summary:
+      'Reliability is not luck. This note connects crash-free sessions, fewer incidents and the release habits that make stability repeatable.',
+    metric: '98%+ crash-free',
+    readTime: '6 min read',
+    tags: ['Reliability', 'Production'],
+    sections: [
+      {
+        heading: 'Stability is a product metric',
+        paragraphs: [
+          'A crash is not just a technical event. It interrupts a task, breaks trust and creates support work. That is why I treat crash-free sessions as a product metric, not an engineering vanity number.',
+        ],
+      },
+      {
+        heading: 'Crash-free sessions make reliability visible',
+        paragraphs: [
+          'A number like 98%+ crash-free sessions gives a team a shared language. It turns reliability into something that can be discussed, improved and protected. The goal is not a perfect dashboard; the goal is fewer broken moments for real users.',
+        ],
+      },
+      {
+        heading: 'Fewer incidents come from tighter feedback loops',
+        paragraphs: [
+          'Reducing incidents by 60–70% is less about one heroic fix and more about shortening the loop between change, signal and learning. Monitoring, release discipline and regression awareness matter because they help teams see problems earlier and contain them faster.',
+        ],
+      },
+      {
+        heading: 'Reliability is a habit',
+        paragraphs: [
+          'Stable products are usually the result of small, repeated decisions: what gets measured before release, what is risky enough to stage, what gets watched after rollout and what the team learns when something breaks.',
+        ],
+      },
+    ],
+    takeaway:
+      'Crash-free sessions are not the output of luck. They are the result of ownership across the full release lifecycle.',
+  },
+  {
+    number: '03',
+    slug: 'smaller-react-native-app',
+    title: 'Taking a React Native app from 67 MB to 45 MB',
+    summary:
+      'App size is user experience. This note explains why a smaller shipped artifact matters and how to approach size work without destabilizing releases.',
+    metric: '67 MB → 45 MB',
+    readTime: '5 min read',
+    tags: ['App Size', 'Android'],
+    sections: [
+      {
+        heading: 'App size is user experience',
+        paragraphs: [
+          'A large app creates friction before the product even opens: longer downloads, more storage pressure and harder updates, especially on lower-end devices. Reducing an artifact from 67 MB to 45 MB is useful because it removes friction from the first interaction.',
+        ],
+      },
+      {
+        heading: 'Measure the shipped artifact',
+        paragraphs: [
+          'Size work starts with the real build, not assumptions. I look at what actually ships: assets, native additions, dependencies and build outputs. The point is not to remove everything; it is to understand what each part costs and what it gives back.',
+        ],
+      },
+      {
+        heading: 'Optimize with a release mindset',
+        paragraphs: [
+          'Any size change has to survive real releases. That means checking behaviour on target devices, watching for regressions and keeping the team able to maintain the result. A smaller app that is harder to ship is not a win.',
+        ],
+      },
+      {
+        heading: 'Smaller is easier to maintain',
+        paragraphs: [
+          'The long-term benefit is not only download size. A leaner app is often easier to reason about, easier to test and cheaper to keep stable as the product grows.',
+        ],
+      },
+    ],
+    takeaway:
+      'App size is not a vanity metric. It is part of delivery quality, especially when users and devices are constrained.',
   },
 ]
 
@@ -409,6 +550,8 @@ function App() {
   const [activeFeature, setActiveFeature] = useState(0)
   const [isFeaturePaused, setIsFeaturePaused] = useState(false)
   const [expandedProjects, setExpandedProjects] = useState<string[]>([])
+  const [activeNote, setActiveNote] = useState<EngineeringNote | null>(null)
+  const trackedSections = useRef(new Set<string>())
 
   useEffect(() => {
     const updateActiveSection = () => {
@@ -426,6 +569,11 @@ function App() {
       })
 
       setActiveSection(current)
+
+      if (current && current !== 'home' && !trackedSections.current.has(current)) {
+        trackedSections.current.add(current)
+        trackEvent('Section View', { section: current })
+      }
     }
 
     updateActiveSection()
@@ -448,12 +596,34 @@ function App() {
     return () => window.clearInterval(timer)
   }, [isFeaturePaused, reduceMotion])
 
+  useEffect(() => {
+    if (!activeNote) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setActiveNote(null)
+    }
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [activeNote])
+
   const toggleProject = (number: string) => {
     setExpandedProjects((current) =>
       current.includes(number)
         ? current.filter((item) => item !== number)
         : [...current, number],
     )
+  }
+
+  const openNote = (note: EngineeringNote) => {
+    setActiveNote(note)
+    trackEvent('Note Open', { note: note.slug })
   }
 
   return (
@@ -484,6 +654,7 @@ function App() {
             className="nav-resume"
             href={resumeUrl}
             download="Anurag-Raut-Resume.pdf"
+            onClick={() => trackEvent('Resume Download', { source: 'nav' })}
           >
             <Download size={15} />
             Résumé
@@ -491,7 +662,10 @@ function App() {
 
           <a
             className="nav-contact"
-            href="mailto:anuragraut.developer@gmail.com?subject=Senior%20Mobile%20Engineer%20Opportunity"
+            href={bookingUrls.recruiter}
+            onClick={() =>
+              trackEvent('Recruiter Booking Click', { source: 'nav' })
+            }
           >
             Let's talk <ArrowUpRight size={15} />
           </a>
@@ -504,7 +678,10 @@ function App() {
             download="Anurag-Raut-Resume.pdf"
             aria-label="Download résumé"
             title="Download résumé"
-            onClick={() => setIsMenuOpen(false)}
+            onClick={() => {
+              trackEvent('Resume Download', { source: 'mobile-header' })
+              setIsMenuOpen(false)
+            }}
           >
             <Download size={16} />
             <span>Résumé</span>
@@ -527,6 +704,42 @@ function App() {
           className={`mobile-nav ${isMenuOpen ? 'is-open' : ''}`}
           aria-label="Mobile navigation"
         >
+          <div className="mobile-profile">
+            <span className="mobile-profile-label">ANURAG RAUT</span>
+            <strong>Senior React Native / Mobile Engineer</strong>
+            <span className="mobile-profile-location">
+              Pune, India · Open to senior roles
+            </span>
+            <div className="mobile-profile-metrics">
+              <span>5+ yrs</span>
+              <span>98%+ crash-free</span>
+              <span>40% startup</span>
+            </div>
+            <div className="mobile-profile-actions">
+              <a
+                href={resumeUrl}
+                download="Anurag-Raut-Resume.pdf"
+                onClick={() => {
+                  trackEvent('Resume Download', { source: 'mobile-profile' })
+                  setIsMenuOpen(false)
+                }}
+              >
+                Résumé
+              </a>
+              <a
+                href={bookingUrls.recruiter}
+                onClick={() => {
+                  trackEvent('Recruiter Booking Click', {
+                    source: 'mobile-profile',
+                  })
+                  setIsMenuOpen(false)
+                }}
+              >
+                Book intro
+              </a>
+            </div>
+          </div>
+
           {navigation.map((item) => (
             <a
               key={item.label}
@@ -543,7 +756,10 @@ function App() {
             className="mobile-resume-link"
             href={resumeUrl}
             download="Anurag-Raut-Resume.pdf"
-            onClick={() => setIsMenuOpen(false)}
+            onClick={() => {
+              trackEvent('Resume Download', { source: 'mobile-menu' })
+              setIsMenuOpen(false)
+            }}
           >
             Download résumé
             <Download size={16} />
@@ -581,8 +797,8 @@ function App() {
           </h1>
 
           <p className="hero-description">
-            I build and improve Android and iOS apps with React Native — from
-            architecture and performance to production release. Across banking,
+            I build, ship and improve Android and iOS apps with React Native —
+            from architecture and performance to production release. Across banking,
             FinTech and GovTech, I’ve owned delivery of secure mobile products
             that stay fast and reliable as they grow.
           </p>
@@ -596,6 +812,7 @@ function App() {
               className="text-button"
               href={resumeUrl}
               download="Anurag-Raut-Resume.pdf"
+              onClick={() => trackEvent('Resume Download', { source: 'hero' })}
             >
               <Download size={16} />
               Download résumé
@@ -702,6 +919,9 @@ function App() {
                     className="phone-resume"
                     href={resumeUrl}
                     download="Anurag-Raut-Resume.pdf"
+                    onClick={() =>
+                      trackEvent('Resume Download', { source: 'hero-phone' })
+                    }
                   >
                     <Download size={14} />
                     Download résumé
@@ -919,7 +1139,12 @@ function App() {
                     className={`project-detail-toggle ${expandedProjects.includes(project.number) ? 'is-open' : ''}`}
                     type="button"
                     aria-expanded={expandedProjects.includes(project.number)}
-                    onClick={() => toggleProject(project.number)}
+                    onClick={() => {
+                      toggleProject(project.number)
+                      trackEvent('Project Detail Toggle', {
+                        project: project.number,
+                      })
+                    }}
                   >
                     <span>
                       {expandedProjects.includes(project.number)
@@ -1009,6 +1234,60 @@ function App() {
         </div>
       </section>
 
+      <section className="notes-section section-padding" id="notes">
+        <div className="container">
+          <motion.div
+            className="notes-heading"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7 }}
+          >
+            <span className="eyebrow">04 / FIELD NOTES</span>
+            <h2>
+              Thinking out loud,
+              <br />
+              <span>with receipts.</span>
+            </h2>
+            <p>
+              Short engineering notes on performance, reliability and shipping
+              mobile products that hold up in production.
+            </p>
+          </motion.div>
+
+          <div className="notes-grid">
+            {engineeringNotes.map((note, index) => (
+              <motion.button
+                className="note-card"
+                key={note.slug}
+                type="button"
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: index * 0.06 }}
+                onClick={() => openNote(note)}
+              >
+                <div className="note-card-top">
+                  <span className="note-number">{note.number}</span>
+                  <span className="note-metric">{note.metric}</span>
+                </div>
+                <h3>{note.title}</h3>
+                <p>{note.summary}</p>
+                <div className="note-card-footer">
+                  <div className="note-tags">
+                    {note.tags.map((tag) => (
+                      <span key={tag}>{tag}</span>
+                    ))}
+                  </div>
+                  <span className="note-read">{note.readTime}</span>
+                </div>
+                <span className="note-arrow">↗</span>
+              </motion.button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="expertise-section section-padding" id="skills">
         <div className="container">
           <motion.div
@@ -1018,7 +1297,7 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">04 / TECHNICAL EXPERTISE</span>
+            <span className="eyebrow">05 / TECHNICAL EXPERTISE</span>
             <h2>
               Deep in mobile.
               <br />
@@ -1069,7 +1348,7 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">05 / ABOUT ME</span>
+            <span className="eyebrow">06 / ABOUT ME</span>
             <h2>
               Engineer who
               <br />
@@ -1143,7 +1422,7 @@ function App() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <span className="eyebrow">06 / HOW I CAN HELP</span>
+            <span className="eyebrow">07 / HOW I CAN HELP</span>
             <h2>
               Clear ways
               <span> I can add value.</span>
@@ -1156,13 +1435,17 @@ function App() {
 
           <div className="services-grid">
             {helpOptions.map((service, index) => (
-              <motion.article
+              <motion.a
                 className="service-card"
                 key={service.number}
+                href={service.href}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: index * 0.06 }}
+                onClick={() =>
+                  trackEvent(service.eventName, { source: 'help-card' })
+                }
               >
                 <div className="service-card-top">
                   <span className="service-icon">
@@ -1173,8 +1456,10 @@ function App() {
                 <span className="service-audience">{service.audience}</span>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
-                <span className="service-arrow">↗</span>
-              </motion.article>
+                <span className="service-cta">
+                  {service.cta} <ArrowUpRight size={15} />
+                </span>
+              </motion.a>
             ))}
           </div>
         </div>
@@ -1189,7 +1474,7 @@ function App() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.7 }}
           >
-            <span className="eyebrow">07 / LET'S TALK</span>
+            <span className="eyebrow">08 / LET'S TALK</span>
 
             <h2>
               Looking for a senior
@@ -1205,24 +1490,30 @@ function App() {
 
             <div className="contact-options">
               <a
-                href="mailto:anuragraut.developer@gmail.com?subject=Senior%20Mobile%20Engineer%20Opportunity"
+                href={bookingUrls.recruiter}
                 className="contact-option"
+                onClick={() =>
+                  trackEvent('Recruiter Booking Click', { source: 'contact' })
+                }
               >
                 <span className="contact-option-label">FOR RECRUITERS & TEAMS</span>
-                <strong>Let's talk about the role</strong>
+                <strong>Book a quick intro</strong>
                 <span className="contact-option-action">
-                  Explore opportunities <ArrowUpRight size={17} />
+                  Talk about the role <ArrowUpRight size={17} />
                 </span>
               </a>
 
               <a
-                href="mailto:anuragraut.developer@gmail.com?subject=Mobile%20App%20Project%20Enquiry"
+                href={bookingUrls.client}
                 className="contact-option"
+                onClick={() =>
+                  trackEvent('Client Booking Click', { source: 'contact' })
+                }
               >
                 <span className="contact-option-label">FOR FOUNDERS & CLIENTS</span>
-                <strong>Let's build your product</strong>
+                <strong>Discuss a mobile project</strong>
                 <span className="contact-option-action">
-                  Discuss a project <ArrowUpRight size={17} />
+                  Talk about your product <ArrowUpRight size={17} />
                 </span>
               </a>
             </div>
@@ -1232,11 +1523,16 @@ function App() {
                 <a
                   href="mailto:anuragraut.developer@gmail.com"
                   className="contact-email-link"
+                  onClick={() => trackEvent('Email Click', { source: 'contact' })}
                 >
                   anuragraut.developer@gmail.com
                   <ArrowUpRight size={18} />
                 </a>
-                <a href="tel:+917767874097" className="contact-phone-link">
+                <a
+                  href="tel:+917767874097"
+                  className="contact-phone-link"
+                  onClick={() => trackEvent('Phone Click', { source: 'contact' })}
+                >
                   +91 77678 74097
                 </a>
               </div>
@@ -1245,6 +1541,7 @@ function App() {
                 <a
                   href={resumeUrl}
                   download="Anurag-Raut-Resume.pdf"
+                  onClick={() => trackEvent('Resume Download', { source: 'contact' })}
                 >
                   Résumé <Download size={14} />
                 </a>
@@ -1253,6 +1550,7 @@ function App() {
                   href="https://www.linkedin.com/in/anuragraut-developer/"
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => trackEvent('LinkedIn Click', { source: 'contact' })}
                 >
                   LinkedIn <ArrowUpRight size={14} />
                 </a>
@@ -1261,6 +1559,7 @@ function App() {
                   href="https://github.com/AnuraagRaut"
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => trackEvent('GitHub Click', { source: 'contact' })}
                 >
                   GitHub <ArrowUpRight size={14} />
                 </a>
@@ -1311,7 +1610,11 @@ function App() {
               >
                 GitHub <ArrowUpRight size={15} />
               </a>
-              <a href={resumeUrl} download="Anurag-Raut-Resume.pdf">
+              <a
+                href={resumeUrl}
+                download="Anurag-Raut-Resume.pdf"
+                onClick={() => trackEvent('Resume Download', { source: 'footer' })}
+              >
                 Résumé <Download size={15} />
               </a>
             </div>
@@ -1323,6 +1626,81 @@ function App() {
           </div>
         </div>
       </footer>
+
+      <AnimatePresence>
+        {activeNote && (
+          <motion.div
+            className="note-modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduceMotion ? 0 : 0.2 }}
+            onClick={() => setActiveNote(null)}
+          >
+            <motion.article
+              className="note-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="note-modal-title"
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 16, scale: 0.98 }}
+              transition={{ duration: reduceMotion ? 0 : 0.28 }}
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                className="note-close"
+                type="button"
+                aria-label="Close note"
+                autoFocus
+                onClick={() => setActiveNote(null)}
+              >
+                <X size={20} />
+              </button>
+
+              <div className="note-modal-meta">
+                <span>{activeNote.number} / FIELD NOTE</span>
+                <span>{activeNote.readTime}</span>
+              </div>
+
+              <h2 id="note-modal-title">{activeNote.title}</h2>
+              <p className="note-modal-summary">{activeNote.summary}</p>
+              <span className="note-modal-metric">{activeNote.metric}</span>
+
+              <div className="note-modal-body">
+                {activeNote.sections.map((section) => (
+                  <section key={section.heading}>
+                    <h3>{section.heading}</h3>
+                    {section.paragraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </section>
+                ))}
+              </div>
+
+              <div className="note-takeaway">
+                <span>TAKEAWAY</span>
+                <p>{activeNote.takeaway}</p>
+              </div>
+
+              <div className="note-modal-footer">
+                <a
+                  className="primary-button"
+                  href={bookingUrls.recruiter}
+                  onClick={() =>
+                    trackEvent('Recruiter Booking Click', { source: 'note' })
+                  }
+                >
+                  Discuss this with me <ArrowUpRight size={17} />
+                </a>
+                <button type="button" onClick={() => setActiveNote(null)}>
+                  Close note
+                </button>
+              </div>
+            </motion.article>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   )
 }
