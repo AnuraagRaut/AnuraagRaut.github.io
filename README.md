@@ -107,6 +107,7 @@ It is served at `/Anurag-Raut-Resume.pdf`. The same file is linked from the head
 - `public/404.html`
 - `public/.nojekyll`
 - `public/og-image.png` — 1200 × 630 social preview image
+- `public/llms.txt` — concise site description for AI/search crawlers
 
 Per-post title, description, canonical URL, Open Graph, Twitter, and JSON-LD metadata are updated in `src/blog/BlogApp.tsx`.
 
@@ -129,3 +130,14 @@ Custom events and blog SPA pageviews are sent through `src/analytics.ts`.
 - Do not add app-store links to the website; they belong only in the résumé PDF.
 - Keep big-scale ambition subtle and mature.
 - Avoid particles, cursor trails, scroll-jacking, autoplay video, heavy parallax, and theme toggles.
+
+## Promotion assets
+
+Free, ready-to-use visibility material lives in `docs/promotion/`:
+
+- LinkedIn headline, About section, launch posts and recommendation request
+- GitHub profile README
+- Three cross-post drafts with canonical links back to Field Notes
+- A short checklist for Google Search Console, Bing Webmaster Tools and weekly posting
+
+Do not publish testimonials unless someone has genuinely provided them.
