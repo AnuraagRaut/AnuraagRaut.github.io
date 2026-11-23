@@ -42,25 +42,25 @@ const impactMetrics = [
     icon: Gauge,
     value: '30–35%',
     label: 'Performance improvement',
-    detail: 'Digital banking client app',
+    // detail: 'Digital banking client app',
   },
   {
     icon: ShieldCheck,
     value: '98%+',
     label: 'Crash-free sessions',
-    detail: 'GovTech field application',
+    // detail: 'GovTech field application',
   },
   {
     icon: TrendingUp,
     value: '40%',
     label: 'Faster app startup',
-    detail: 'Legacy app migration',
+    // detail: 'Legacy app migration',
   },
   {
     icon: CheckCircle2,
     value: '67→45 MB',
     label: 'Smaller APK',
-    detail: 'Mobile footprint reduction',
+    // detail: 'Mobile footprint reduction',
   },
 ]
 
@@ -96,7 +96,7 @@ const experience = [
   {
     type: 'INDEPENDENT PROJECT',
     role: 'Senior React Native Engineer',
-    company: 'No Bias Media',
+    company: 'Freelance Project',
     product: 'News Application',
     period: 'May 2026 – Present',
     location: 'Remote',
@@ -174,13 +174,13 @@ const experience = [
 const projects = [
   {
     number: '01',
-    name: 'Gulf International Bank — Meem',
-    category: 'SHIPPED · BFSI · GCC MARKETS',
-    client: 'iBridge Tech Soft · Tata Consultancy Services',
+    name: 'Secure mobile banking features',
+    category: 'OWNERSHIP · SECURITY · FINANCIAL SERVICES',
+    context: 'Senior React Native Developer · end-to-end feature delivery',
     description:
-      'Secure branchless digital banking platform for GCC markets, with biometric authentication and assisted banking workflows.',
+      'Designed and shipped secure digital banking workflows across Android and iOS, including biometric access, assisted flows and release-critical fixes.',
     challenge:
-      'Branchless banking had to feel trustworthy and responsive on devices and networks outside the team’s control.',
+      'Financial workflows had to feel trustworthy and responsive on devices and networks outside the team’s control.',
     technologies: [
       'React Native',
       'TypeScript',
@@ -191,24 +191,24 @@ const projects = [
       'REST APIs',
     ],
     highlights: [
-      'Delivered end-to-end digital banking features across Android and iOS.',
+      'Delivered end-to-end mobile features across Android and iOS.',
       'Implemented biometrics, IVR flows, JWT, encrypted storage and secure APIs.',
       'Optimized performance and crashes through bottleneck analysis and production debugging.',
-      'Led developers across TCS and Infosys through release cycles with 0 regressions.',
+      'Coordinated developers across client and partner teams through release cycles with 0 regressions.',
     ],
     outcome:
-      '30–35% performance improvement, 20–25% fewer production crashes and more reliable assisted banking workflows.',
+      '30–35% performance improvement, 20–25% fewer production crashes and more reliable assisted workflows.',
     status: 'Shipped',
   },
   {
     number: '02',
-    name: 'Haqdarshak Agent App',
-    category: 'SHIPPED · GOVTECH',
-    client: 'Haqdarshak Empowerment Solutions',
+    name: 'Stabilizing a field-use platform',
+    category: 'OWNERSHIP · RELIABILITY · FIELD OPERATIONS',
+    context: 'Mobile App Lead · architecture and delivery ownership',
     description:
-      'Field-use mobile platform helping agents discover, explain and apply for government schemes for citizens and MSMEs.',
+      'Took over a production field platform after vendor handover, stabilized it and led its migration onto one React Native codebase.',
     challenge:
-      'Field agents depended on the app daily, often on low-storage devices and low-network routes.',
+      'Field teams depended on the app daily, often on low-storage devices and low-network routes, so every incident interrupted real work.',
     technologies: [
       'React Native',
       'Vue Migration',
@@ -229,13 +229,13 @@ const projects = [
   },
   {
     number: '03',
-    name: 'Blockchain & FinTech Marketplace',
-    category: 'SHIPPED · FINTECH',
-    client: 'No Borders Technologies',
+    name: 'Cross-platform marketplace delivery',
+    category: 'DELIVERY · FINTECH · MULTI-MARKET',
+    context: 'React Native Developer · cross-platform features',
     description:
-      'Cross-platform NFT marketplace experience supporting users across five countries.',
+      'Built reusable marketplace features for users across several countries, with multilingual support and production visibility.',
     challenge:
-      'A marketplace expanding across five countries needed one consistent mobile experience across languages and devices.',
+      'One mobile experience had to work across languages, devices and markets without fragmenting the codebase.',
     technologies: [
       'React Native',
       'i18n',
@@ -244,7 +244,7 @@ const projects = [
       'API Integration',
     ],
     highlights: [
-      'Delivered React Native features for a five-country user base.',
+      'Delivered React Native features for a multi-country user base.',
       'Built reusable components and modular architecture.',
       'Added multilingual support with i18n.',
       'Integrated Crashlytics, Analytics and push notifications.',
@@ -255,13 +255,13 @@ const projects = [
   },
   {
     number: '04',
-    name: 'No Bias Media — News Application',
-    category: 'INDEPENDENT · IN DEVELOPMENT',
-    client: 'No Bias Media',
+    name: 'AI-assisted product foundations',
+    category: 'INDEPENDENT · ARCHITECTURE · AI TOOLING',
+    context: 'Independent project · architecture and implementation',
     description:
-      'Cross-platform news product exploring real-time updates and AI-assisted reading.',
+      'Defined a modular foundation for a content product and used AI-assisted workflows to speed up planning, debugging and test creation.',
     challenge:
-      'An independent news product needed a clean base for real-time content and AI-assisted reading experiments.',
+      'An early-stage product needed a clean base that could absorb real-time content and AI-assisted reading experiments.',
     technologies: [
       'React Native',
       'TypeScript',
@@ -272,7 +272,7 @@ const projects = [
     ],
     highlights: [
       'Designed modular, feature-based architecture with centralized state management.',
-      'Built news feeds, category browsing and article discovery workflows.',
+      'Built content feeds, category browsing and discovery workflows.',
       'Created a centralized REST API layer with interceptors and error handling.',
     ],
     outcome:
@@ -387,10 +387,16 @@ const helpOptions = [
   {
     number: '01',
     icon: Smartphone,
-    audience: 'FOR RECRUITERS & TEAMS',
-    title: 'Join a product team',
+    audience: 'FOR HIRING TEAMS',
+    title: 'Senior React Native ownership',
     description:
-      'Senior React Native engineering for teams that need architecture, feature delivery, performance and release ownership.',
+      'I join a product team and take responsibility for the mobile app — not just the tickets assigned to me.',
+    fit: 'Best when you need a senior engineer who can own decisions and ship without hand-holding.',
+    deliverables: [
+      'Ship features across Android and iOS',
+      'Improve startup, crashes and app size',
+      'Own release quality and technical trade-offs',
+    ],
     cta: 'Book a quick intro',
     href: bookingUrls.recruiter,
     eventName: 'Recruiter Booking Click',
@@ -399,9 +405,15 @@ const helpOptions = [
     number: '02',
     icon: Rocket,
     audience: 'FOR FOUNDERS & LOCAL BUSINESSES',
-    title: 'Build a mobile product',
+    title: 'Build your mobile product',
     description:
-      'Turn an idea into an Android or iOS app with practical architecture, clean integrations and production-ready foundations.',
+      'I turn an idea or rough prototype into a production-ready app with practical architecture and clean integrations.',
+    fit: 'Best when you want one partner from first scope to first release.',
+    deliverables: [
+      'Scope the first release with you',
+      'Build a modular React Native foundation',
+      'Integrate APIs, auth, payments and analytics',
+    ],
     cta: 'Discuss a mobile project',
     href: bookingUrls.client,
     eventName: 'Client Booking Click',
@@ -410,9 +422,15 @@ const helpOptions = [
     number: '03',
     icon: Wrench,
     audience: 'FOR TEAMS WITH A LIVE APP',
-    title: 'Fix and scale an existing app',
+    title: 'Rescue and scale an existing app',
     description:
-      'Stabilize crashes, improve startup and responsiveness, untangle structure and make the app easier to maintain as it grows.',
+      'I find what is slowing the app down, stabilize the risky parts and make the codebase easier to change.',
+    fit: 'Best when the app works, but is slow, unstable or hard to ship.',
+    deliverables: [
+      'Audit performance, crashes and release risks',
+      'Fix the highest-impact problems first',
+      'Leave the team with a maintainable path',
+    ],
     cta: 'Discuss your app',
     href: bookingUrls.appReview,
     eventName: 'App Review Booking Click',
@@ -843,7 +861,7 @@ function App() {
                       key={feature.number}
                       type="button"
                       aria-pressed={activeFeature === index}
-                      aria-label={`Show ${feature.title}`}
+                      aria-label={`${feature.number} ${feature.title}: ${feature.detail}`}
                       onClick={() => setActiveFeature(index)}
                     >
                       <span className="feature-icon">{feature.number}</span>
@@ -925,7 +943,7 @@ function App() {
                 </span>
                 <strong>{metric.value}</strong>
                 <span className="proof-label">{metric.label}</span>
-                <span className="proof-detail">{metric.detail}</span>
+                {/* <span className="proof-detail">{metric.detail}</span> */}
               </div>
             ))}
           </div>
@@ -1028,14 +1046,21 @@ function App() {
           >
             <span className="eyebrow">02 / SELECTED WORK</span>
             <h2>
-              Products, not
+              What I’ve done,
               <br />
-              <span>just screens.</span>
+              <span>not where.</span>
             </h2>
             <p>
-              A closer look at the problems, ownership and measured outcomes
-              behind the work.
+              Four problems I owned across my career. Company and product names
+              stay in Career — this is the engineering and the outcomes.
             </p>
+            <a
+              className="projects-context-link"
+              href="#experience"
+              onClick={() => trackEvent('Career Context Link Click')}
+            >
+              See the roles behind this work <ArrowUpRight size={14} />
+            </a>
           </motion.div>
 
           <div className="projects-list">
@@ -1060,7 +1085,7 @@ function App() {
                       <span className="project-status">{project.status}</span>
                     </div>
 
-                    <p className="project-client">{project.client}</p>
+                    <p className="project-context">{project.context}</p>
 
                     <p className="project-description">{project.description}</p>
                   </div>
@@ -1376,12 +1401,12 @@ function App() {
           >
             <span className="eyebrow">07 / HOW I CAN HELP</span>
             <h2>
-              Clear ways
-              <span> I can add value.</span>
+               Ways
+              <span> I can help.</span>
             </h2>
             <p>
-              Whether you’re hiring for a product team or building something
-              locally, here is where I fit best.
+              Pick the situation closest to yours. Each one says what I take on
+              and what you get — then we talk.
             </p>
           </motion.div>
 
@@ -1408,6 +1433,15 @@ function App() {
                 <span className="service-audience">{service.audience}</span>
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
+                <div className="service-fit">
+                  <span>BEST FOR</span>
+                  <p>{service.fit}</p>
+                </div>
+                <ul className="service-deliverables" role="list">
+                  {service.deliverables.map((deliverable) => (
+                    <li key={deliverable}>{deliverable}</li>
+                  ))}
+                </ul>
                 <span className="service-cta">
                   {service.cta} <ArrowUpRight size={15} />
                 </span>
