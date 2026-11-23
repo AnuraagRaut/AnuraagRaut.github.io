@@ -2,7 +2,12 @@ import { motion, MotionConfig, useReducedMotion } from 'motion/react'
 import './App.css'
 import { trackEvent } from './analytics'
 import { posts } from './blog/posts'
-import { useEffect, useRef, useState } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from 'react'
 import {
   bookingUrls,
   contactEmail,
@@ -255,13 +260,13 @@ const projects = [
   },
   {
     number: '04',
-    name: 'AI-assisted product foundations',
-    category: 'INDEPENDENT · ARCHITECTURE · AI TOOLING',
-    context: 'Independent project · architecture and implementation',
+    name: 'Owning an independent product end to end',
+    category: 'INDEPENDENT · END-TO-END OWNERSHIP · AI TOOLING',
+    context: 'Independent project · full ownership from architecture to integration',
     description:
-      'Defined a modular foundation for a content product and used AI-assisted workflows to speed up planning, debugging and test creation.',
+      'Owned the complete application — architecture, features, integrations and the AI-assisted workflows used to build and refine it.',
     challenge:
-      'An early-stage product needed a clean base that could absorb real-time content and AI-assisted reading experiments.',
+      'An early-stage product needed one owner across the entire build, not just isolated pieces of it.',
     technologies: [
       'React Native',
       'TypeScript',
@@ -271,12 +276,13 @@ const projects = [
       'LLM Exploration',
     ],
     highlights: [
-      'Designed modular, feature-based architecture with centralized state management.',
-      'Built content feeds, category browsing and discovery workflows.',
-      'Created a centralized REST API layer with interceptors and error handling.',
+      'Owned the application from the first structure through implementation and integration.',
+      'Designed the modular, feature-based architecture and centralized state management.',
+      'Built the content feeds, category browsing, discovery flows and centralized API layer.',
+      'Used AI-assisted workflows for planning, debugging, refactoring and test creation.',
     ],
     outcome:
-      'Modular architecture and centralized API layer are in place; real-time updates and summarization are being explored.',
+      'The application is built end to end; real-time updates and AI-assisted reading are still being explored.',
     status: 'In development',
   },
 ]
@@ -436,6 +442,177 @@ const helpOptions = [
     eventName: 'App Review Booking Click',
   },
 ]
+
+function TeaserScratch() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const scratchingRef = useRef(false)
+  const strokesRef = useRef(0)
+  const [revealed, setRevealed] = useState(false)
+  const [progress, setProgress] = useState(0)
+
+  const reveal = (method: string) => {
+    if (revealed) return
+    setRevealed(true)
+    trackEvent('Product Teaser Revealed', { method })
+  }
+
+  const measureProgress = (
+    canvas: HTMLCanvasElement,
+    context: CanvasRenderingContext2D,
+  ) => {
+    const step = Math.max(4, Math.round((window.devicePixelRatio || 1) * 10))
+    const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data
+    let cleared = 0
+    let total = 0
+
+    for (let y = 0; y < canvas.height; y += step) {
+      for (let x = 0; x < canvas.width; x += step) {
+        total += 1
+        if (pixels[(y * canvas.width + x) * 4 + 3] < 120) cleared += 1
+      }
+    }
+
+    return total ? Math.round((cleared / total) * 100) : 0
+  }
+
+  useEffect(() => {
+    if (revealed) return
+
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const paintCover = () => {
+      const rect = canvas.getBoundingClientRect()
+      const ratio = window.devicePixelRatio || 1
+      canvas.width = Math.max(1, Math.round(rect.width * ratio))
+      canvas.height = Math.max(1, Math.round(rect.height * ratio))
+
+      const context = canvas.getContext('2d')
+      if (!context) return
+
+      context.setTransform(ratio, 0, 0, ratio, 0, 0)
+      context.globalCompositeOperation = 'source-over'
+
+      const gradient = context.createLinearGradient(0, 0, rect.width, rect.height)
+      gradient.addColorStop(0, '#242842')
+      gradient.addColorStop(1, '#171a2c')
+      context.fillStyle = gradient
+      context.fillRect(0, 0, rect.width, rect.height)
+
+      context.fillStyle = 'rgba(190, 198, 255, 0.92)'
+      context.font = '700 10px "DM Sans", sans-serif'
+      context.textAlign = 'center'
+      context.fillText('SCRATCH TO REVEAL', rect.width / 2, rect.height / 2 + 4)
+
+      strokesRef.current = 0
+      setProgress(0)
+    }
+
+    paintCover()
+    const observer =
+      typeof ResizeObserver !== 'undefined'
+        ? new ResizeObserver(paintCover)
+        : null
+    observer?.observe(canvas)
+
+    return () => observer?.disconnect()
+  }, [revealed])
+
+  const eraseAt = (event: ReactPointerEvent<HTMLCanvasElement>) => {
+    if (revealed) return
+
+    const canvas = canvasRef.current
+    const context = canvas?.getContext('2d')
+    if (!canvas || !context) return
+
+    const rect = canvas.getBoundingClientRect()
+    context.globalCompositeOperation = 'destination-out'
+    context.beginPath()
+    context.arc(
+      event.clientX - rect.left,
+      event.clientY - rect.top,
+      26,
+      0,
+      Math.PI * 2,
+    )
+    context.fill()
+
+    strokesRef.current += 1
+    if (strokesRef.current % 4 !== 0) return
+
+    const nextProgress = measureProgress(canvas, context)
+    setProgress(nextProgress)
+    if (nextProgress >= 58) reveal('scratch')
+  }
+
+  const stopScratching = () => {
+    scratchingRef.current = false
+  }
+
+  return (
+    <div className="teaser-block">
+      <div className={`teaser-scratch-area ${revealed ? 'is-revealed' : ''}`}>
+        <div className="teaser-message" aria-live="polite" aria-hidden={!revealed}>
+          <span className="teaser-message-kicker">PRIVATE BUILD · PUBLIC STANDARD</span>
+          <strong>The next build is in motion.</strong>
+          <p>
+            Built with the same ownership, performance and production discipline
+            I bring to every team. Details when it’s ready.
+          </p>
+          <span className="teaser-message-signals">
+            <span>Problem-first</span>
+            <span>Owned end to end</span>
+            <span>Shipped with intent</span>
+          </span>
+        </div>
+
+        {!revealed && (
+          <canvas
+            ref={canvasRef}
+            className="teaser-canvas"
+            aria-hidden="true"
+            onPointerDown={(event) => {
+              event.currentTarget.setPointerCapture(event.pointerId)
+              scratchingRef.current = true
+              eraseAt(event)
+            }}
+            onPointerMove={(event) => {
+              if (scratchingRef.current) eraseAt(event)
+            }}
+            onPointerUp={stopScratching}
+            onPointerCancel={stopScratching}
+          />
+        )}
+      </div>
+
+      {!revealed ? (
+        <>
+          <div className="teaser-progress-row" aria-hidden="true">
+            <div className="teaser-progress">
+              <span style={{ width: `${progress}%` }} />
+            </div>
+            <span className="teaser-progress-label">
+              {progress >= 40
+                ? 'Almost there'
+                : progress > 0
+                  ? 'Keep scratching'
+                  : 'Scratch to reveal'}
+            </span>
+          </div>
+          <button
+            className="teaser-reveal-button"
+            type="button"
+            onClick={() => reveal('button')}
+          >
+            Reveal teaser
+          </button>
+        </>
+      ) : (
+        <span className="teaser-revealed-note">Private for now.</span>
+      )}
+    </div>
+  )
+}
 
 function App() {
   const reduceMotion = useReducedMotion()
@@ -607,7 +784,7 @@ function App() {
             onClick={() => trackEvent('Resume Download', { source: 'nav' })}
           >
             <Download size={15} />
-            Résumé
+            Resume
           </a>
 
           <a
@@ -626,15 +803,15 @@ function App() {
             className="mobile-resume"
             href={resumeUrl}
             download="Anurag-Raut-Resume.pdf"
-            aria-label="Download résumé"
-            title="Download résumé"
+            aria-label="Download resume"
+            title="Download resume"
             onClick={() => {
               trackEvent('Resume Download', { source: 'mobile-header' })
               setIsMenuOpen(false)
             }}
           >
             <Download size={16} />
-            <span>Résumé</span>
+            <span>Resume</span>
           </a>
 
           <button
@@ -676,7 +853,7 @@ function App() {
                   setIsMenuOpen(false)
                 }}
               >
-                Résumé
+                Resume
               </a>
               <a
                 href={bookingUrls.recruiter}
@@ -716,7 +893,7 @@ function App() {
               setIsMenuOpen(false)
             }}
           >
-            Download résumé
+            Download resume
             <Download size={16} />
           </a>
         </nav>
@@ -771,7 +948,7 @@ function App() {
               onClick={() => trackEvent('Resume Download', { source: 'hero' })}
             >
               <Download size={16} />
-              Download résumé
+              Download resume
             </a>
           </div>
 
@@ -882,7 +1059,7 @@ function App() {
                     }
                   >
                     <Download size={14} />
-                    Download résumé
+                    Download resume
                     <ArrowUpRight size={14} />
                   </a>
 
@@ -1028,7 +1205,7 @@ function App() {
               className="text-button"
             >
               <Download size={16} />
-              Download full résumé
+              Download full resume
             </a>
             <span>References and detailed project context available on request.</span>
           </div>
@@ -1153,6 +1330,38 @@ function App() {
                 </div>
               </motion.article>
             ))}
+
+            <motion.article
+              className="project-item teaser-item"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="project-topline">
+                <span>INDEPENDENT · COMING SOON</span>
+                <span>/05</span>
+              </div>
+
+              <div className="project-content">
+                <div className="project-main">
+                  <div className="project-title-row">
+                    <h3>Something I’m building.</h3>
+                    <span className="project-status">In progress</span>
+                  </div>
+
+                  <p className="project-context">
+                    Own product · details under wraps
+                  </p>
+
+                  <p className="project-description">
+                    An independent build I’m shaping quietly — just a signal that something is on its way.
+                  </p>
+                </div>
+
+                <TeaserScratch />
+              </div>
+            </motion.article>
           </div>
         </div>
       </section>
@@ -1529,7 +1738,7 @@ function App() {
                   download="Anurag-Raut-Resume.pdf"
                   onClick={() => trackEvent('Resume Download', { source: 'contact' })}
                 >
-                  Résumé <Download size={14} />
+                  Resume <Download size={14} />
                 </a>
 
                 <a
@@ -1602,7 +1811,7 @@ function App() {
                 download="Anurag-Raut-Resume.pdf"
                 onClick={() => trackEvent('Resume Download', { source: 'footer' })}
               >
-                Résumé <Download size={15} />
+                Resume <Download size={15} />
               </a>
             </div>
           </div>

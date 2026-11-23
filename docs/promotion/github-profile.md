@@ -19,7 +19,7 @@ If that repository does not exist, create a public repository with exactly your 
 
 5+ years shipping production Android and iOS apps across banking, FinTech and GovTech.
 
-[Portfolio](https://anuraagraut.github.io/) · [Field Notes](https://anuraagraut.github.io/blog.html) · [Résumé](https://anuraagraut.github.io/Anurag-Raut-Resume.pdf) · [Book a conversation](https://anuraagraut.github.io/booking.html)
+[Portfolio](https://anuraagraut.github.io/) · [Field Notes](https://anuraagraut.github.io/blog.html) · [Resume](https://anuraagraut.github.io/Anurag-Raut-Resume.pdf) · [Book a conversation](https://anuraagraut.github.io/booking.html)
 
 </div>
 

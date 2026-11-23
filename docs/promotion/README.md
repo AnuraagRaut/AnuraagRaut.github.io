@@ -45,7 +45,7 @@ senior mobile engineer remote
 
 ## Publishing rules
 
-- Keep every claim tied to verified résumé facts.
+- Keep every claim tied to verified resume facts.
 - Do not name clients or describe confidential architecture.
 - Do not invent testimonials.
 - Use the canonical URL in cross-posts so the original Field Notes page keeps search credit.

@@ -89,9 +89,9 @@ export const booking = {
 
 When that value is present, all booking CTAs use TidyCal automatically.
 
-### Résumé
+### Resume
 
-The downloadable résumé is:
+The downloadable resume is:
 
 ```text
 public/Anurag-Raut-Resume.pdf
@@ -125,9 +125,9 @@ Custom events and blog SPA pageviews are sent through `src/analytics.ts`.
 
 ## Production notes
 
-- Keep all claims tied to verified résumé facts.
+- Keep all claims tied to verified resume facts.
 - Do not add client names, confidential architecture, or invented implementation details.
-- Do not add app-store links to the website; they belong only in the résumé PDF.
+- Do not add app-store links to the website; they belong only in the resume PDF.
 - Keep big-scale ambition subtle and mature.
 - Avoid particles, cursor trails, scroll-jacking, autoplay video, heavy parallax, and theme toggles.
 

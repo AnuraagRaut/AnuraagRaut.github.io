@@ -246,7 +246,7 @@ function BlogApp() {
             download="Anurag-Raut-Resume.pdf"
             onClick={() => trackEvent('Resume Download', { source: 'blog' })}
           >
-            Résumé <Download size={13} />
+            Resume <Download size={13} />
           </a>
           <a
             className="blog-nav-cta"
@@ -534,7 +534,7 @@ function BlogApp() {
               download="Anurag-Raut-Resume.pdf"
               onClick={() => trackEvent('Resume Download', { source: 'blog' })}
             >
-              Résumé
+              Resume
             </a>
             <a href="/booking.html">Book</a>
             <a href="/rss.xml">RSS</a>

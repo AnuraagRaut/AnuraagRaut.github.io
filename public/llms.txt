@@ -9,7 +9,7 @@ Anurag Raut is a senior mobile engineer focused on React Native architecture, pe
 - Portfolio: https://anuraagraut.github.io/
 - Field Notes: https://anuraagraut.github.io/blog.html
 - Book a conversation: https://anuraagraut.github.io/booking.html
-- Résumé PDF: https://anuraagraut.github.io/Anurag-Raut-Resume.pdf
+- Resume PDF: https://anuraagraut.github.io/Anurag-Raut-Resume.pdf
 - RSS feed: https://anuraagraut.github.io/rss.xml
 - Sitemap: https://anuraagraut.github.io/sitemap.xml
 
@@ -31,4 +31,4 @@ Anurag Raut is a senior mobile engineer focused on React Native architecture, pe
 
 ## Content principles
 
-All claims are tied to verified résumé facts. Client names, confidential architecture and invented implementation details are not published.
+All claims are tied to verified resume facts. Client names, confidential architecture and invented implementation details are not published.

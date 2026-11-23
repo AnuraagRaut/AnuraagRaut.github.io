@@ -1316,6 +1316,155 @@ button:focus-visible {
   background: rgba(103, 117, 255, 0.19);
 }
 
+.teaser-item {
+  border-color: rgba(145, 155, 255, 0.3);
+  background:
+    radial-gradient(ellipse at 88% 0%, rgba(93, 108, 255, 0.2), transparent 48%),
+    #151829;
+}
+
+.teaser-item .project-status {
+  border-color: rgba(174, 183, 255, 0.28);
+  background: rgba(174, 183, 255, 0.12);
+  color: #dbe0ff;
+}
+
+.teaser-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 18px;
+}
+
+.teaser-scratch-area {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-height: 112px;
+  overflow: hidden;
+  border: 1px solid rgba(130, 143, 255, 0.24);
+  border-radius: 12px;
+  background: rgba(103, 117, 255, 0.09);
+  place-items: center;
+}
+
+.teaser-message {
+  display: grid;
+  gap: 7px;
+  max-width: 420px;
+  padding: 6px 14px;
+  text-align: center;
+}
+
+.teaser-message-kicker {
+  color: #aab2ff;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.teaser-message strong {
+  color: #f5f6ff;
+  font-family: var(--font-heading);
+  font-size: 21px;
+  letter-spacing: -0.6px;
+}
+
+.teaser-message p {
+  margin: 0;
+  color: #b9c0d8;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.teaser-message-signals {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 3px;
+}
+
+.teaser-message-signals span {
+  padding: 4px 8px;
+  border: 1px solid rgba(130, 143, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(103, 117, 255, 0.1);
+  color: #c8cfff;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.teaser-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.teaser-progress-row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.teaser-progress {
+  flex: 1;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(130, 143, 255, 0.18);
+}
+
+.teaser-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #6675ed, #aeb7ff);
+  transition: width 120ms linear;
+}
+
+.teaser-progress-label {
+  color: #9aa4c8;
+  font-size: 9px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.teaser-reveal-button,
+.teaser-revealed-note {
+  margin-top: 12px;
+}
+
+.teaser-reveal-button {
+  padding: 7px 11px;
+  border: 1px solid rgba(130, 143, 255, 0.28);
+  border-radius: 8px;
+  background: rgba(103, 117, 255, 0.08);
+  color: #c8cfff;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+.teaser-reveal-button:hover {
+  border-color: rgba(160, 170, 255, 0.55);
+  background: rgba(103, 117, 255, 0.17);
+  color: #fff;
+}
+
+.teaser-revealed-note {
+  color: #9aa4c8;
+  font-size: 10px;
+  letter-spacing: 0.3px;
+}
+
 /* ---------------------------------------------------------
    Technical expertise
    --------------------------------------------------------- */

@@ -27,7 +27,7 @@ Right now I’m open to senior React Native roles in Pune or remote, and focused
 
 Portfolio: https://anuraagraut.github.io/
 Field Notes: https://anuraagraut.github.io/blog.html
-Résumé: https://anuraagraut.github.io/Anurag-Raut-Resume.pdf
+Resume: https://anuraagraut.github.io/Anurag-Raut-Resume.pdf
 ```
 
 ## Featured section
@@ -36,7 +36,7 @@ Add these links in this order:
 
 1. **Portfolio** — `https://anuraagraut.github.io/`
 2. **Field Notes** — `https://anuraagraut.github.io/blog.html`
-3. **Résumé** — `https://anuraagraut.github.io/Anurag-Raut-Resume.pdf`
+3. **Resume** — `https://anuraagraut.github.io/Anurag-Raut-Resume.pdf`
 4. **Book a conversation** — `https://anuraagraut.github.io/booking.html`
 
 ## Launch post 1 — portfolio
@@ -44,7 +44,7 @@ Add these links in this order:
 ```text
 I’ve rebuilt my portfolio around the work I actually do.
 
-Not a résumé pasted onto a page, but a clear view of:
+Not a resume pasted onto a page, but a clear view of:
 
 • production outcomes
 • senior mobile ownership
