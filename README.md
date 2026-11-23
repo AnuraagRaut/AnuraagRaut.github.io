@@ -99,6 +99,8 @@ public/Anurag-Raut-Resume.pdf
 
 It is served at `/Anurag-Raut-Resume.pdf`. The same file is linked from the header, mobile menu, hero phone panel, footer, contact section, and both pages' navigation.
 
+When replacing the PDF, bump the cache-busting version in `resumeUrl` (`src/siteConfig.ts`) and in the static HTML links (`index.html`, `public/booking.html`, `public/404.html`, `public/privacy.html`). Browsers cache the PDF for 10 minutes, so without a new version query returning visitors may still see the previous file.
+
 ### SEO and social assets
 
 - `public/robots.txt`

@@ -1,7 +1,7 @@
 export const siteUrl = 'https://anuraagraut.github.io'
 export const contactEmail = 'anuragraut.developer@gmail.com'
 export const contactPhone = '+917767874097'
-export const resumeUrl = '/Anurag-Raut-Resume.pdf'
+export const resumeUrl = '/Anurag-Raut-Resume.pdf?v=2'
 
 export const socialUrls = {
   linkedIn: 'https://www.linkedin.com/in/anuragraut-developer/',
